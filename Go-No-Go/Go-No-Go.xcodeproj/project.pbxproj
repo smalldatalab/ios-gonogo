@@ -14,6 +14,7 @@
 		B86582A81C3EF00700C15BB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86582A71C3EF00700C15BB8 /* Assets.xcassets */; };
 		B86582AB1C3EF00700C15BB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */; };
 		B86582B61C3EF00700C15BB8 /* Go_No_GoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582B51C3EF00700C15BB8 /* Go_No_GoTests.m */; };
+		B86582C21C3EF11000C15BB8 /* GOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582C11C3EF11000C15BB8 /* GOViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		B86582B11C3EF00700C15BB8 /* Go-No-GoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go-No-GoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86582B51C3EF00700C15BB8 /* Go_No_GoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Go_No_GoTests.m; sourceTree = "<group>"; };
 		B86582B71C3EF00700C15BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B86582C01C3EF11000C15BB8 /* GOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GOViewController.h; sourceTree = "<group>"; };
+		B86582C11C3EF11000C15BB8 /* GOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GOViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B859A49E1C3F04AE004C7FFA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B86582A11C3EF00700C15BB8 /* ViewController.h */,
+				B86582A21C3EF00700C15BB8 /* ViewController.m */,
+				B86582C01C3EF11000C15BB8 /* GOViewController.h */,
+				B86582C11C3EF11000C15BB8 /* GOViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		B865828F1C3EF00700C15BB8 = {
 			isa = PBXGroup;
 			children = (
@@ -83,8 +97,7 @@
 			children = (
 				B865829E1C3EF00700C15BB8 /* AppDelegate.h */,
 				B865829F1C3EF00700C15BB8 /* AppDelegate.m */,
-				B86582A11C3EF00700C15BB8 /* ViewController.h */,
-				B86582A21C3EF00700C15BB8 /* ViewController.m */,
+				B859A49E1C3F04AE004C7FFA /* View Controllers */,
 				B86582A41C3EF00700C15BB8 /* Main.storyboard */,
 				B86582A71C3EF00700C15BB8 /* Assets.xcassets */,
 				B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */,
@@ -213,6 +226,7 @@
 			files = (
 				B86582A31C3EF00700C15BB8 /* ViewController.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
+				B86582C21C3EF11000C15BB8 /* GOViewController.m in Sources */,
 				B865829D1C3EF00700C15BB8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +416,7 @@
 				B86582BC1C3EF00700C15BB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B86582BD1C3EF00700C15BB8 /* Build configuration list for PBXNativeTarget "Go-No-GoTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +425,7 @@
 				B86582BF1C3EF00700C15BB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
