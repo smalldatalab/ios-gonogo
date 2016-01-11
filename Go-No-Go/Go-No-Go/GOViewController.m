@@ -25,6 +25,10 @@ float BUTTON_HEIGHT = 60.f;
 
 @implementation GOViewController
 
+//------------------------------------------------------------------------------------------
+#pragma mark - View lifecycle -
+//------------------------------------------------------------------------------------------
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -38,7 +42,7 @@ float BUTTON_HEIGHT = 60.f;
     // Game Explanation
     self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 200, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) / 2)];
     [self.explanationLabel setCenter:self.view.center];
-    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \nOnce you start, you will be presented with a rectangle. When the rectangle turns green, press as soon as possible. When it turns blue, do not respond at all. The test will take 1 min."];
+    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. The test will take approximately 1 min."];
     [self.explanationLabel setNumberOfLines:0];
     [self.explanationLabel setFont:[UIFont systemFontOfSize:24.f]];
     [self.explanationLabel setTextAlignment:NSTextAlignmentCenter];
@@ -68,6 +72,10 @@ float BUTTON_HEIGHT = 60.f;
     [super didReceiveMemoryWarning];
 }
 
+//------------------------------------------------------------------------------------------
+#pragma mark - Test Lifecycle -
+//------------------------------------------------------------------------------------------
+
 - (void)startTest {
     
     // Hide button and label
@@ -76,61 +84,62 @@ float BUTTON_HEIGHT = 60.f;
         [self.explanationLabel setHidden:YES];
     }];
     
+    // Go through rectangles
+    [self oneLap];
+}
+
+- (void)oneLap {
+    
     // Show plus sign for 800ms
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus-sign"]];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.center = self.view.center;
+    UIImageView *imgView = [self plusSign];
     [self.view addSubview:imgView];
     
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [imgView removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [imgView removeFromSuperview];
+        
+        // Blank screen for 500ms
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            // Blank screen for 500ms
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // Go Cue
+            UIView *boxView = [self rectangleView];
+            [self.view addSubview:boxView];
+            
+            // Show color after 100,200,300,400 or 500ms
+            double delay = (arc4random() % 5 + 1) / 10.0;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                // Go Cue
-                UIView *boxView           = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
-                boxView.center            = self.view.center;
-                boxView.layer.borderColor = [UIColor blackColor].CGColor;
-                boxView.layer.borderWidth = 1.f;
-                [self.view addSubview:boxView];
+                // Change to either blue or green
+                int choice = arc4random() % 2;
+                if (choice == 0) {
+                    [boxView setBackgroundColor:[UIColor greenColor]];
+                    self.shouldTap = YES;
+                    self.startDate = [NSDate date];
+                } else {
+                    [boxView setBackgroundColor:[UIColor blueColor]];
+                    self.shouldTap = NO;
+                }
                 
-                // Show color after 100,200,300,400 or 500ms
-                double delay = (arc4random() % 5 + 1) / 10.0;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-                    // Change to either blue or green
-                    int choice = arc4random() % 2;
-                    if (choice == 0) {
-                        [boxView setBackgroundColor:[UIColor greenColor]];
-                        self.shouldTap = YES;
-                        self.startDate = [NSDate date];
-                    } else {
-                        [boxView setBackgroundColor:[UIColor blueColor]];
-                        self.shouldTap = NO;
-                    }
-           
-                    // Hide after 1000ms
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [boxView removeFromSuperview];
-                        
-                        // Wait 700ms to start again
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            
-                            // Show button and label
-                            [UIView animateWithDuration:0.1 animations:^{
-                                [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
-                                [self.explanationLabel setHidden:NO];
-                                self.shouldTap = NO;
-                            }];
-                            
-                        });
-                    });
+                // Hide after 1000ms
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [boxView removeFromSuperview];
                     
+                    // Wait 700ms to start again
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        // Show button and label
+                        [UIView animateWithDuration:0.1 animations:^{
+                            [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
+                            [self.explanationLabel setHidden:NO];
+                            self.shouldTap = NO;
+                        }];
+                        
+                    });
                 });
                 
             });
+            
         });
+    });
 }
 
 - (void)tappedScreen {
@@ -149,6 +158,27 @@ float BUTTON_HEIGHT = 60.f;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.feedbackLabel setHidden:YES];
     });
+}
+
+//------------------------------------------------------------------------------------------
+#pragma mark - Lazy Instantiation of views -
+//------------------------------------------------------------------------------------------
+
+- (UIView*)rectangleView
+{
+    UIView *boxView           = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
+    boxView.center            = self.view.center;
+    boxView.layer.borderColor = [UIColor blackColor].CGColor;
+    boxView.layer.borderWidth = 4.f;
+    return boxView;
+}
+
+- (UIImageView*)plusSign
+{
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus-sign"]];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.center = self.view.center;
+    return imgView;
 }
 
 @end
