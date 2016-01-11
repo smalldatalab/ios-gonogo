@@ -13,9 +13,13 @@ float BUTTON_HEIGHT = 60.f;
 @interface GOViewController ()
 
 @property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
+@property (strong, nonatomic) NSDate *startDate;
 
 @property (strong, nonatomic) UIButton *startButton;
 @property (strong, nonatomic) UILabel *explanationLabel;
+@property (strong, nonatomic) UILabel *feedbackLabel;
+
+@property (assign, nonatomic) BOOL shouldTap;
 
 @end
 
@@ -47,6 +51,17 @@ float BUTTON_HEIGHT = 60.f;
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.startButton addTarget:self action:@selector(startTest) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.startButton];
+    
+    // Feedback label
+    self.feedbackLabel = [[UILabel alloc] initWithFrame:self.startButton.frame];
+    [self.feedbackLabel setNumberOfLines:1];
+    [self.feedbackLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.feedbackLabel setHidden:YES];
+    [self.view addSubview:self.feedbackLabel];
+    
+    // Tap gesture
+    self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedScreen)];
+    [self.view addGestureRecognizer:self.gestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,15 +97,17 @@ float BUTTON_HEIGHT = 60.f;
                 
                 // Show color after 100,200,300,400 or 500ms
                 double delay = (arc4random() % 5 + 1) / 10.0;
-                NSLog(@"%f", delay);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
                     // Change to either blue or green
                     int choice = arc4random() % 2;
                     if (choice == 0) {
                         [boxView setBackgroundColor:[UIColor greenColor]];
+                        self.shouldTap = YES;
+                        self.startDate = [NSDate date];
                     } else {
                         [boxView setBackgroundColor:[UIColor blueColor]];
+                        self.shouldTap = NO;
                     }
            
                     // Hide after 1000ms
@@ -104,6 +121,7 @@ float BUTTON_HEIGHT = 60.f;
                             [UIView animateWithDuration:0.1 animations:^{
                                 [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
                                 [self.explanationLabel setHidden:NO];
+                                self.shouldTap = NO;
                             }];
                             
                         });
@@ -113,7 +131,24 @@ float BUTTON_HEIGHT = 60.f;
                 
             });
         });
+}
+
+- (void)tappedScreen {
     
+    // Set feedback label
+    if (self.shouldTap) {
+        [self.feedbackLabel setText:[NSString stringWithFormat:@"Correct! %0.0f ms", [[NSDate date] timeIntervalSinceDate:self.startDate]*1000.0]];
+        [self.feedbackLabel setTextColor:[UIColor colorWithRed:41.0/255 green:128.0/255 blue:185.0/255 alpha:1.0]];
+    } else {
+        [self.feedbackLabel setText:@"Incorrect"];
+        [self.feedbackLabel setTextColor:[UIColor colorWithRed:231.0/255 green:76.0/255 blue:60.0/255 alpha:1.0]];
+    }
+    
+    // Show it briefly
+    [self.feedbackLabel setHidden:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.feedbackLabel setHidden:YES];
+    });
 }
 
 @end
