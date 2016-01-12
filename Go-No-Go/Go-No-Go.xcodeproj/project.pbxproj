@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B82980911C45ADDB00C5113A /* GOConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B82980901C45ADDB00C5113A /* GOConstants.m */; };
 		B865829D1C3EF00700C15BB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B865829C1C3EF00700C15BB8 /* main.m */; };
 		B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B865829F1C3EF00700C15BB8 /* AppDelegate.m */; };
 		B86582A31C3EF00700C15BB8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582A21C3EF00700C15BB8 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B829808F1C45ADDB00C5113A /* GOConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GOConstants.h; sourceTree = "<group>"; };
+		B82980901C45ADDB00C5113A /* GOConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GOConstants.m; sourceTree = "<group>"; };
 		B86582981C3EF00700C15BB8 /* Go-No-Go.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go-No-Go.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B865829C1C3EF00700C15BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B865829E1C3EF00700C15BB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B82980921C45ADE000C5113A /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				B829808F1C45ADDB00C5113A /* GOConstants.h */,
+				B82980901C45ADDB00C5113A /* GOConstants.m */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
 		B859A49E1C3F04AE004C7FFA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +110,7 @@
 				B865829E1C3EF00700C15BB8 /* AppDelegate.h */,
 				B865829F1C3EF00700C15BB8 /* AppDelegate.m */,
 				B859A49E1C3F04AE004C7FFA /* View Controllers */,
+				B82980921C45ADE000C5113A /* Additions */,
 				B86582A41C3EF00700C15BB8 /* Main.storyboard */,
 				B86582A71C3EF00700C15BB8 /* Assets.xcassets */,
 				B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */,
@@ -227,6 +240,7 @@
 				B86582A31C3EF00700C15BB8 /* ViewController.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
 				B86582C21C3EF11000C15BB8 /* GOViewController.m in Sources */,
+				B82980911C45ADDB00C5113A /* GOConstants.m in Sources */,
 				B865829D1C3EF00700C15BB8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
