@@ -13,9 +13,7 @@ float BUTTON_HEIGHT = 60.f;
 
 @interface GOViewController ()
 
-@property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
-@property (strong, nonatomic) NSDate *startDate;
-
+// UI elements
 @property (strong, nonatomic) UIButton *startButton;
 @property (strong, nonatomic) UILabel *explanationLabel;
 @property (strong, nonatomic) UILabel *feedbackLabel;
@@ -23,6 +21,10 @@ float BUTTON_HEIGHT = 60.f;
 // Flags
 @property (assign, nonatomic) BOOL shouldTap;
 @property (assign, nonatomic) BOOL testInProgress;
+
+// Track user reactions during tests
+@property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
+@property (strong, nonatomic) NSDate *startDate;
 
 @end
 
@@ -138,7 +140,10 @@ float BUTTON_HEIGHT = 60.f;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_BLANK_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
                     // Go Cue
-                    UIView *boxView = [self rectangleView];
+                    UIView *boxView           = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
+                    boxView.center            = self.view.center;
+                    boxView.layer.borderColor = [UIColor blackColor].CGColor;
+                    boxView.layer.borderWidth = 4.f;
                     [self.view addSubview:boxView];
                     
                     // Show color after 100,200,300,400 or 500ms
@@ -202,26 +207,5 @@ float BUTTON_HEIGHT = 60.f;
         [self.feedbackLabel setHidden:YES];
     });
 }
-
-//------------------------------------------------------------------------------------------
-#pragma mark - Lazy Instantiation of views -
-//------------------------------------------------------------------------------------------
-
-- (UIView*)rectangleView
-{
-    UIView *boxView           = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
-    boxView.center            = self.view.center;
-    boxView.layer.borderColor = [UIColor blackColor].CGColor;
-    boxView.layer.borderWidth = 4.f;
-    return boxView;
-}
-
-//- (UIImageView*)plusSign
-//{
-//    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus-sign"]];
-//    imgView.contentMode = UIViewContentModeScaleAspectFit;
-//    imgView.center = self.view.center;
-//    return imgView;
-//}
 
 @end
