@@ -41,7 +41,14 @@ float BUTTON_HEIGHT = 60.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissView)];
+    [item setTintColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]];
+    [self.navigationItem setRightBarButtonItem:item];
+}
+
+- (void)dismissView
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,10 +58,12 @@ float BUTTON_HEIGHT = 60.f;
     // Game Explanation
     self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 200, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) / 2)];
     [self.explanationLabel setCenter:self.view.center];
-    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. The test will take approximately 1 min."];
+    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. The test will take approximately 1 min."];
     [self.explanationLabel setNumberOfLines:0];
     [self.explanationLabel setFont:[UIFont systemFontOfSize:24.f]];
     [self.explanationLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.explanationLabel setAdjustsFontSizeToFitWidth:YES];
+    [self.explanationLabel setMinimumScaleFactor:0.7];
     [self.view addSubview:self.explanationLabel];
 
     // Start Button
