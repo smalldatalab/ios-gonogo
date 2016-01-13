@@ -94,7 +94,7 @@ float BUTTON_HEIGHT = 60.f;
     }
     
     // Wait duration of test before showing controls again
-    NSTimeInterval totalLength = laps * (2 * DURATION_BLANK_SCREEN + DURATION_FIXATION_CROSS + DURATION_TARGET_ON_SCREEN + 0.5);
+    NSTimeInterval totalLength = laps * (DURATION_WAIT_LAP + DURATION_BLANK_SCREEN + DURATION_FIXATION_CROSS + DURATION_TARGET_ON_SCREEN + 1);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(totalLength * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         // Show button and label
@@ -116,7 +116,6 @@ float BUTTON_HEIGHT = 60.f;
     });
     
     __block double variableDelay; // Store the random delay for the cued target to be displayed
-    
     // Enter queue
     dispatch_async(goQueue, ^{
         
@@ -124,52 +123,53 @@ float BUTTON_HEIGHT = 60.f;
         dispatch_suspend(goQueue);
         
         __block UIImageView *imgView;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_WAIT_LAP * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // Show plus sign for 800ms
             imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus-sign"]];
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             imgView.center = self.view.center;
             [self.view addSubview:imgView];
-        });
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_FIXATION_CROSS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [imgView removeFromSuperview];
-            
-            // Blank screen for 500ms
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_BLANK_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_FIXATION_CROSS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [imgView removeFromSuperview];
                 
-                // Go Cue
-                UIView *boxView = [self rectangleView];
-                [self.view addSubview:boxView];
-                
-                // Show color after 100,200,300,400 or 500ms
-                variableDelay = (arc4random() % 5 + 1) / 10.0;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                // Blank screen for 500ms
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_BLANK_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                    // Change to either blue or green
-                    int choice = arc4random() % 2;
-                    if (choice == 0) {
-                        [boxView setBackgroundColor:[UIColor greenColor]];
-                        self.shouldTap = YES;
-                        self.startDate = [NSDate date];
-                    } else {
-                        [boxView setBackgroundColor:[UIColor blueColor]];
-                        self.shouldTap = NO;
-                    }
-                    self.testInProgress = YES;
+                    // Go Cue
+                    UIView *boxView = [self rectangleView];
+                    [self.view addSubview:boxView];
                     
-                    // Hide after 1000ms
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_TARGET_ON_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [boxView removeFromSuperview];
-                        [self.feedbackLabel setHidden:YES];
-                        self.testInProgress = NO;
+                    // Show color after 100,200,300,400 or 500ms
+                    variableDelay = (arc4random() % 5 + 1) / 10.0;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        // Change to either blue or green
+                        int choice = arc4random() % 2;
+                        if (choice == 0) {
+                            [boxView setBackgroundColor:[UIColor greenColor]];
+                            self.shouldTap = YES;
+                            self.startDate = [NSDate date];
+                        } else {
+                            [boxView setBackgroundColor:[UIColor blueColor]];
+                            self.shouldTap = NO;
+                        }
+                        self.testInProgress = YES;
+                        
+                        // Hide after 1000ms
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_TARGET_ON_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [boxView removeFromSuperview];
+                            [self.feedbackLabel setHidden:YES];
+                            self.testInProgress = NO;
+                        });
                     });
                 });
             });
+            
         });
         
         // Resume queue
-        const NSTimeInterval totalWait = DURATION_FIXATION_CROSS + 2 * DURATION_BLANK_SCREEN + variableDelay + DURATION_TARGET_ON_SCREEN + 0.1;
+        const NSTimeInterval totalWait = DURATION_WAIT_LAP + DURATION_FIXATION_CROSS + DURATION_BLANK_SCREEN + variableDelay + DURATION_TARGET_ON_SCREEN + 0.5;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(totalWait * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             dispatch_resume(goQueue);

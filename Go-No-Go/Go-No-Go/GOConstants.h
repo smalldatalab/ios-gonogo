@@ -13,5 +13,6 @@
 extern NSTimeInterval const DURATION_FIXATION_CROSS;
 extern NSTimeInterval const DURATION_BLANK_SCREEN;
 extern NSTimeInterval const DURATION_TARGET_ON_SCREEN;
+extern NSTimeInterval const DURATION_WAIT_LAP;
 
 @end

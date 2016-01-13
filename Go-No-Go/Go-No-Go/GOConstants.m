@@ -15,5 +15,6 @@
 NSTimeInterval const DURATION_FIXATION_CROSS   = 800 / MSEC_PER_SEC;
 NSTimeInterval const DURATION_BLANK_SCREEN     = 500 / MSEC_PER_SEC;
 NSTimeInterval const DURATION_TARGET_ON_SCREEN = 1000 / MSEC_PER_SEC;
+NSTimeInterval const DURATION_WAIT_LAP         = 800 / MSEC_PER_SEC;
 
 @end
