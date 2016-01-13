@@ -88,13 +88,13 @@ float BUTTON_HEIGHT = 60.f;
     }];
     
     // Go through tests
-    int laps = 4;
+    int laps = 5;
     for (int i=0; i<laps; i++) {
         [self oneLap];
     }
     
-    // Wait duration of test before showing controls again
-    NSTimeInterval totalLength = laps * (DURATION_WAIT_LAP + DURATION_BLANK_SCREEN + DURATION_FIXATION_CROSS + DURATION_TARGET_ON_SCREEN + 1);
+    // Wait total duration of test before showing controls again
+    NSTimeInterval totalLength = laps * (DURATION_WAIT_LAP + DURATION_BLANK_SCREEN + DURATION_FIXATION_CROSS + DURATION_TARGET_ON_SCREEN + 0.8);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(totalLength * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         // Show button and label
@@ -122,14 +122,15 @@ float BUTTON_HEIGHT = 60.f;
         // Suspend queue
         dispatch_suspend(goQueue);
         
+        // Show plus sign for 800ms
         __block UIImageView *imgView;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_WAIT_LAP * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // Show plus sign for 800ms
             imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus-sign"]];
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             imgView.center = self.view.center;
             [self.view addSubview:imgView];
         
+            // Remove plus sign
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_FIXATION_CROSS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [imgView removeFromSuperview];
                 
@@ -165,7 +166,6 @@ float BUTTON_HEIGHT = 60.f;
                     });
                 });
             });
-            
         });
         
         // Resume queue
@@ -183,6 +183,9 @@ float BUTTON_HEIGHT = 60.f;
     if (!self.testInProgress) {
         return;
     }
+    
+    // Prevent from re-tapping
+    self.testInProgress = NO;
     
     // Set feedback label
     if (self.shouldTap) {
