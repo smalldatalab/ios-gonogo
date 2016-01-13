@@ -26,6 +26,10 @@ float BUTTON_HEIGHT = 60.f;
 @property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
 @property (strong, nonatomic) NSDate *startDate;
 
+// Track results
+@property (strong, nonatomic) NSMutableArray *correctAnswerArray;
+@property (strong, nonatomic) NSMutableArray *responseTimeArray;
+
 @end
 
 @implementation GOViewController
@@ -71,6 +75,10 @@ float BUTTON_HEIGHT = 60.f;
     // Tap gesture
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedScreen)];
     [self.view addGestureRecognizer:self.gestureRecognizer];
+    
+    // Results
+    self.correctAnswerArray = [[NSMutableArray alloc] init];
+    self.responseTimeArray  = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,6 +158,10 @@ float BUTTON_HEIGHT = 60.f;
                     variableDelay = (arc4random() % 5 + 1) / 10.0;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
+                        // Setup results array
+                        [self.correctAnswerArray addObject:@YES];   // Assume correct
+                        [self.responseTimeArray addObject:@0.0];    // and 0ms in reaction time
+                        
                         // Change to either blue or green
                         int choice = arc4random() % 2;
                         if (choice == 0) {
@@ -192,13 +204,29 @@ float BUTTON_HEIGHT = 60.f;
     // Prevent from re-tapping
     self.testInProgress = NO;
     
-    // Set feedback label
+    // Correct - record speed
     if (self.shouldTap) {
-        [self.feedbackLabel setText:[NSString stringWithFormat:@"Correct! %0.0f ms", [[NSDate date] timeIntervalSinceDate:self.startDate]*1000.0]];
+        
+        NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:self.startDate] * 1000.0;
+        
+        // Feedback label
+        [self.feedbackLabel setText:[NSString stringWithFormat:@"Correct! %0.0f ms", time]];
         [self.feedbackLabel setTextColor:[UIColor colorWithRed:41.0/255 green:128.0/255 blue:185.0/255 alpha:1.0]];
+        
+        // Record time
+        [self.responseTimeArray removeLastObject];
+        [self.responseTimeArray addObject:[NSNumber numberWithDouble:time]];
+        
+    // Wrong
     } else {
+        
+        // Feedback label
         [self.feedbackLabel setText:@"Incorrect"];
         [self.feedbackLabel setTextColor:[UIColor colorWithRed:231.0/255 green:76.0/255 blue:60.0/255 alpha:1.0]];
+        
+        // Record wrong answer
+        [self.correctAnswerArray removeLastObject];
+        [self.correctAnswerArray addObject:@NO];
     }
     
     // Show it briefly
