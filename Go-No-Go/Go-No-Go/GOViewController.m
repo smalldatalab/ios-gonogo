@@ -8,6 +8,7 @@
 
 #import "GOViewController.h"
 #import "GOConstants.h"
+#import "UIColor+Additions.h"
 
 static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
@@ -184,11 +185,11 @@ static const int NO_GO_CUE       = 1;
                         // If No-Go Cue, only 20% probability
                         int flip = arc4random_uniform(100);
                         if ((cueChoice == GO_CUE && flip > 20) || (cueChoice == NO_GO_CUE && flip < 20)) {
-                            [cueBox setBackgroundColor:[UIColor greenColor]];
+                            [cueBox setBackgroundColor:[UIColor VALID_COLOR]];
                             self.shouldTap = YES;
                             self.startDate = [NSDate date];
                         } else {
-                            [cueBox setBackgroundColor:[UIColor blueColor]];
+                            [cueBox setBackgroundColor:[UIColor INVALID_COLOR]];
                             self.shouldTap = NO;
                         }
                         // Set flag for test in progress
@@ -231,8 +232,8 @@ static const int NO_GO_CUE       = 1;
         
         // Feedback label
         [self.feedbackLabel setText:[NSString stringWithFormat:@"Correct! %0.0f ms", time]];
-        [self.feedbackLabel setTextColor:[UIColor colorWithRed:41.0/255 green:128.0/255 blue:185.0/255 alpha:1.0]];
-        
+        [self.feedbackLabel setTextColor:[UIColor colorWithRed:52/255.0 green:152/255.0 blue:219/255.0 alpha:1.0]];
+
         // Record time
         [self.responseTimeArray removeLastObject];
         [self.responseTimeArray addObject:[NSNumber numberWithDouble:time]];

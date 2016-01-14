@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B82980911C45ADDB00C5113A /* GOConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B82980901C45ADDB00C5113A /* GOConstants.m */; };
 		B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */; };
+		B8304D101C48339300C3F5C6 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */; };
 		B865829D1C3EF00700C15BB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B865829C1C3EF00700C15BB8 /* main.m */; };
 		B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B865829F1C3EF00700C15BB8 /* AppDelegate.m */; };
 		B86582A31C3EF00700C15BB8 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582A21C3EF00700C15BB8 /* MainViewController.m */; };
@@ -34,6 +35,8 @@
 		B82980901C45ADDB00C5113A /* GOConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GOConstants.m; sourceTree = "<group>"; };
 		B8304D0B1C48090F00C3F5C6 /* BalloonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalloonViewController.h; sourceTree = "<group>"; };
 		B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalloonViewController.m; sourceTree = "<group>"; };
+		B8304D0E1C48339300C3F5C6 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		B86582981C3EF00700C15BB8 /* Go-No-Go.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go-No-Go.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B865829C1C3EF00700C15BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B865829E1C3EF00700C15BB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 			children = (
 				B829808F1C45ADDB00C5113A /* GOConstants.h */,
 				B82980901C45ADDB00C5113A /* GOConstants.m */,
+				B8304D0E1C48339300C3F5C6 /* UIColor+Additions.h */,
+				B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B86582A31C3EF00700C15BB8 /* MainViewController.m in Sources */,
+				B8304D101C48339300C3F5C6 /* UIColor+Additions.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
 				B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */,
 				B86582C21C3EF11000C15BB8 /* GOViewController.m in Sources */,
