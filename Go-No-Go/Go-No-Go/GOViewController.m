@@ -9,7 +9,9 @@
 #import "GOViewController.h"
 #import "GOConstants.h"
 
-float BUTTON_HEIGHT = 60.f;
+static const float BUTTON_HEIGHT = 60.f;
+static const int GO_CUE          = 0;
+static const int NO_GO_CUE       = 1;
 
 @interface GOViewController ()
 
@@ -56,7 +58,7 @@ float BUTTON_HEIGHT = 60.f;
     [super viewWillAppear:animated];
     
     // Game Explanation
-    self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 200, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) / 2)];
+    self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 40, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) - 80)];
     [self.explanationLabel setCenter:self.view.center];
     [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. The test will take approximately 1 min."];
     [self.explanationLabel setNumberOfLines:0];
@@ -84,10 +86,6 @@ float BUTTON_HEIGHT = 60.f;
     // Tap gesture
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedScreen)];
     [self.view addGestureRecognizer:self.gestureRecognizer];
-    
-    // Results
-    self.correctAnswerArray = [[NSMutableArray alloc] init];
-    self.responseTimeArray  = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,6 +97,10 @@ float BUTTON_HEIGHT = 60.f;
 //------------------------------------------------------------------------------------------
 
 - (void)startTest {
+    
+    // Results
+    self.correctAnswerArray = [[NSMutableArray alloc] init];
+    self.responseTimeArray  = [[NSMutableArray alloc] init];
     
     // Hide button and label
     [UIView animateWithDuration:0.3 animations:^{
@@ -156,12 +158,18 @@ float BUTTON_HEIGHT = 60.f;
                 // Blank screen for 500ms
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_BLANK_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                    // Go Cue
-                    UIView *boxView           = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
-                    boxView.center            = self.view.center;
-                    boxView.layer.borderColor = [UIColor blackColor].CGColor;
-                    boxView.layer.borderWidth = 4.f;
-                    [self.view addSubview:boxView];
+                    UIView *cueBox;
+                    // Flip a coin on go or no-go cue
+                    int cueChoice = arc4random() % 2;
+                    if (cueChoice == GO_CUE) {
+                        cueBox = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 100)];
+                    } else {
+                        cueBox = [[UIView alloc] initWithFrame:CGRectMake(200, 100, 100, 200)];
+                    }
+                    cueBox.center            = self.view.center;
+                    cueBox.layer.borderColor = [UIColor blackColor].CGColor;
+                    cueBox.layer.borderWidth = 4.f;
+                    [self.view addSubview:cueBox];
                     
                     // Show color after 100,200,300,400 or 500ms
                     variableDelay = (arc4random() % 5 + 1) / 10.0;
@@ -171,21 +179,24 @@ float BUTTON_HEIGHT = 60.f;
                         [self.correctAnswerArray addObject:@YES];   // Assume correct
                         [self.responseTimeArray addObject:@0.0];    // and 0ms in reaction time
                         
-                        // Change to either blue or green
-                        int choice = arc4random() % 2;
-                        if (choice == 0) {
-                            [boxView setBackgroundColor:[UIColor greenColor]];
+                        // Different probabilities for go and no-go cues
+                        // If Go Cue presented, 80% probability of green
+                        // If No-Go Cue, only 20% probability
+                        int flip = arc4random_uniform(100);
+                        if ((cueChoice == GO_CUE && flip > 20) || (cueChoice == NO_GO_CUE && flip < 20)) {
+                            [cueBox setBackgroundColor:[UIColor greenColor]];
                             self.shouldTap = YES;
                             self.startDate = [NSDate date];
                         } else {
-                            [boxView setBackgroundColor:[UIColor blueColor]];
+                            [cueBox setBackgroundColor:[UIColor blueColor]];
                             self.shouldTap = NO;
                         }
+                        // Set flag for test in progress
                         self.testInProgress = YES;
                         
                         // Hide after 1000ms
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_TARGET_ON_SCREEN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [boxView removeFromSuperview];
+                            [cueBox removeFromSuperview];
                             [self.feedbackLabel setHidden:YES];
                             self.testInProgress = NO;
                         });
