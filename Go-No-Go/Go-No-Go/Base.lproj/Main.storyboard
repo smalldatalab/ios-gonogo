@@ -48,7 +48,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Balloon Analogue Risk Task for Youth">
+                                <state key="normal" title="Balloon Analogue Risk Task">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -160,7 +160,7 @@
             </objects>
             <point key="canvasLocation" x="402" y="83"/>
         </scene>
-        <!--Balloon Analogue Risk Task for Youth-->
+        <!--Balloon Analogue Risk Task-->
         <scene sceneID="orx-Cf-VRw">
             <objects>
                 <viewController id="T5f-3O-DNI" customClass="BalloonViewController" sceneMemberID="viewController">
@@ -194,10 +194,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjD-KB-73j">
-                                <rect key="frame" x="20" y="530" width="260" height="50"/>
+                                <rect key="frame" x="320" y="460" width="260" height="50"/>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1AG-rC-7vx"/>
+                                    <constraint firstAttribute="height" constant="50" id="2dj-Dr-9Ml"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -210,22 +211,61 @@
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1AG-rC-7vx"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="tappedPump:" destination="T5f-3O-DNI" eventType="touchUpInside" id="Osn-Od-aHl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Earning: $Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpY-wh-Lgs">
+                                <rect key="frame" x="20" y="460" width="260" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="S9T-6a-9lA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Earnings: $X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVo-1k-Nbc">
+                                <rect key="frame" x="20" y="530" width="260" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IXE-bO-Hv8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lpY-wh-Lgs" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="0BA-jz-joq"/>
                             <constraint firstItem="mZG-ik-eN4" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="COt-L3-96a"/>
+                            <constraint firstItem="mZG-ik-eN4" firstAttribute="top" secondItem="mjD-KB-73j" secondAttribute="bottom" constant="20" id="GXn-H8-Rkg"/>
                             <constraint firstItem="mjD-KB-73j" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="NC6-57-pR5"/>
+                            <constraint firstItem="lpY-wh-Lgs" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="NEq-pj-CTg"/>
+                            <constraint firstItem="PVo-1k-Nbc" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="Pxb-Fg-8mx"/>
                             <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mZG-ik-eN4" secondAttribute="bottom" constant="20" id="TsT-6u-Jts"/>
                             <constraint firstItem="mZG-ik-eN4" firstAttribute="trailing" secondItem="3R5-4Z-p0R" secondAttribute="trailingMargin" id="dvU-AV-4bS"/>
+                            <constraint firstItem="PVo-1k-Nbc" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="fMx-No-BNz"/>
                             <constraint firstItem="mjD-KB-73j" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="hWf-0Z-9dJ"/>
+                            <constraint firstItem="mjD-KB-73j" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="i44-pA-HM2"/>
                             <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mjD-KB-73j" secondAttribute="bottom" constant="20" id="kcL-H5-T1r"/>
+                            <constraint firstItem="PVo-1k-Nbc" firstAttribute="top" secondItem="lpY-wh-Lgs" secondAttribute="bottom" constant="20" id="lDH-ES-mPc"/>
+                            <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="PVo-1k-Nbc" secondAttribute="bottom" constant="20" id="rpN-Kj-7Rq"/>
+                            <constraint firstItem="mjD-KB-73j" firstAttribute="trailing" secondItem="3R5-4Z-p0R" secondAttribute="trailingMargin" id="wox-1u-CaW"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="NC6-57-pR5"/>
+                                <exclude reference="hWf-0Z-9dJ"/>
+                                <exclude reference="kcL-H5-T1r"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Balloon Analogue Risk Task for Youth" id="1sf-DX-u2b"/>
+                    <navigationItem key="navigationItem" title="Balloon Analogue Risk Task" id="1sf-DX-u2b"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bkh-Tl-Bh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -242,9 +282,26 @@
                     <view key="view" contentMode="scaleToFill" id="cxL-mF-NmU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="2L4-yd-tV7">
+                                <rect key="frame" x="20" y="72" width="560" height="456"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aWE-Qc-TWi" firstAttribute="top" secondItem="2L4-yd-tV7" secondAttribute="bottom" constant="72" id="5ys-k4-Y6q"/>
+                            <constraint firstItem="2L4-yd-tV7" firstAttribute="leading" secondItem="cxL-mF-NmU" secondAttribute="leadingMargin" id="I48-nO-LaY"/>
+                            <constraint firstItem="2L4-yd-tV7" firstAttribute="top" secondItem="gFF-fF-PxT" secondAttribute="bottom" constant="8" id="LdG-ZD-10T"/>
+                            <constraint firstItem="2L4-yd-tV7" firstAttribute="trailing" secondItem="cxL-mF-NmU" secondAttribute="trailingMargin" id="h97-xl-kMV"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Go / No-Go Test" id="Vu6-AN-NWa"/>
+                    <connections>
+                        <outlet property="explanationLabel" destination="2L4-yd-tV7" id="yOb-Nh-Cw4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1r-JP-xgz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

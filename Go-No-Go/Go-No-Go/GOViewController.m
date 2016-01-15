@@ -18,7 +18,7 @@ static const int NO_GO_CUE       = 1;
 
 // UI elements
 @property (strong, nonatomic) UIButton *startButton;
-@property (strong, nonatomic) UILabel *explanationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *explanationLabel;
 @property (strong, nonatomic) UILabel *feedbackLabel;
 
 // Flags
@@ -59,15 +59,7 @@ static const int NO_GO_CUE       = 1;
     [super viewWillAppear:animated];
     
     // Game Explanation
-    self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 40, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) - 80)];
-    [self.explanationLabel setCenter:self.view.center];
-    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. The test will take approximately 1 min."];
-    [self.explanationLabel setNumberOfLines:0];
-    [self.explanationLabel setFont:[UIFont systemFontOfSize:24.f]];
-    [self.explanationLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.explanationLabel setAdjustsFontSizeToFitWidth:YES];
-    [self.explanationLabel setMinimumScaleFactor:0.7];
-    [self.view addSubview:self.explanationLabel];
+    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min."];
 
     // Start Button
     self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
