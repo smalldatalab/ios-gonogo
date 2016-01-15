@@ -171,7 +171,59 @@
                     <view key="view" contentMode="scaleToFill" id="3R5-4Z-p0R">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZG-ik-eN4">
+                                <rect key="frame" x="320" y="530" width="260" height="50"/>
+                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RFG-QA-lq1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Collect">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tappedCollect:" destination="T5f-3O-DNI" eventType="touchUpInside" id="3Xb-ob-BcP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjD-KB-73j">
+                                <rect key="frame" x="20" y="530" width="260" height="50"/>
+                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1AG-rC-7vx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Pump">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tappedPump:" destination="T5f-3O-DNI" eventType="touchUpInside" id="Osn-Od-aHl"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mZG-ik-eN4" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="COt-L3-96a"/>
+                            <constraint firstItem="mjD-KB-73j" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="NC6-57-pR5"/>
+                            <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mZG-ik-eN4" secondAttribute="bottom" constant="20" id="TsT-6u-Jts"/>
+                            <constraint firstItem="mZG-ik-eN4" firstAttribute="trailing" secondItem="3R5-4Z-p0R" secondAttribute="trailingMargin" id="dvU-AV-4bS"/>
+                            <constraint firstItem="mjD-KB-73j" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="hWf-0Z-9dJ"/>
+                            <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mjD-KB-73j" secondAttribute="bottom" constant="20" id="kcL-H5-T1r"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Balloon Analogue Risk Task for Youth" id="1sf-DX-u2b"/>
                 </viewController>

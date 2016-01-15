@@ -10,6 +10,8 @@
 
 @interface BalloonViewController ()
 
+@property (nonatomic, strong) UIImageView *balloon;
+
 @end
 
 @implementation BalloonViewController
@@ -28,12 +30,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(self.view.frame)-10, CGRectGetHeight(self.view.frame)-10)];
-    [label setText:@"Coming Soon"];
-    [label setAdjustsFontSizeToFitWidth:YES];
-    [label setMinimumScaleFactor:0.8];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:label];
+    // Balloon image
+    self.balloon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"balloon"]];
+    self.balloon.center = self.view.center;
+    [self.view addSubview:self.balloon];
 }
 
 - (void)dismissView
@@ -43,6 +43,30 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+//------------------------------------------------------------------------------------------
+#pragma mark - Actions -
+//------------------------------------------------------------------------------------------
+
+- (IBAction)tappedPump:(id)sender
+{
+    // Prevent the balloon from becoming too large for the screen
+    if (CGRectGetWidth(self.balloon.frame) + 40 >= CGRectGetWidth(self.view.frame) ||
+        CGRectGetHeight(self.balloon.frame) + 100 >= CGRectGetHeight(self.view.frame)) {
+        return;
+    }
+    
+    // Inflate balloon by a factor of 1.055,1.05
+    // (Slightly more on the x-axis to mimic real balloon)
+    CGAffineTransform transform = CGAffineTransformScale(self.balloon.transform, 1.055, 1.05);
+    [self.balloon setTransform:transform];
+}
+
+- (IBAction)tappedCollect:(id)sender
+{
+    // Reset balloon size
+    [self.balloon setTransform:CGAffineTransformIdentity];
 }
 
 @end
