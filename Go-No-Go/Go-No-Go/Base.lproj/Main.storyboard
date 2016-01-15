@@ -220,28 +220,28 @@
                                     <action selector="tappedPump:" destination="T5f-3O-DNI" eventType="touchUpInside" id="Osn-Od-aHl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Earning: $Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpY-wh-Lgs">
-                                <rect key="frame" x="20" y="460" width="260" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Earning: $0" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lpY-wh-Lgs">
+                                <rect key="frame" x="20" y="460" width="280" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="S9T-6a-9lA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Earnings: $X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVo-1k-Nbc">
-                                <rect key="frame" x="20" y="530" width="260" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Earnings: $0" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVo-1k-Nbc">
+                                <rect key="frame" x="20" y="530" width="280" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IXE-bO-Hv8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lpY-wh-Lgs" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="0BA-jz-joq"/>
+                            <constraint firstItem="lpY-wh-Lgs" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-20" id="0BA-jz-joq"/>
                             <constraint firstItem="mZG-ik-eN4" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="COt-L3-96a"/>
                             <constraint firstItem="mZG-ik-eN4" firstAttribute="top" secondItem="mjD-KB-73j" secondAttribute="bottom" constant="20" id="GXn-H8-Rkg"/>
                             <constraint firstItem="mjD-KB-73j" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="NC6-57-pR5"/>
@@ -249,7 +249,7 @@
                             <constraint firstItem="PVo-1k-Nbc" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="Pxb-Fg-8mx"/>
                             <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mZG-ik-eN4" secondAttribute="bottom" constant="20" id="TsT-6u-Jts"/>
                             <constraint firstItem="mZG-ik-eN4" firstAttribute="trailing" secondItem="3R5-4Z-p0R" secondAttribute="trailingMargin" id="dvU-AV-4bS"/>
-                            <constraint firstItem="PVo-1k-Nbc" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="fMx-No-BNz"/>
+                            <constraint firstItem="PVo-1k-Nbc" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-20" id="fMx-No-BNz"/>
                             <constraint firstItem="mjD-KB-73j" firstAttribute="leading" secondItem="3R5-4Z-p0R" secondAttribute="leadingMargin" id="hWf-0Z-9dJ"/>
                             <constraint firstItem="mjD-KB-73j" firstAttribute="width" secondItem="3R5-4Z-p0R" secondAttribute="width" multiplier="0.5" constant="-40" id="i44-pA-HM2"/>
                             <constraint firstItem="p7e-NC-cRp" firstAttribute="top" secondItem="mjD-KB-73j" secondAttribute="bottom" constant="20" id="kcL-H5-T1r"/>
@@ -266,6 +266,10 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Balloon Analogue Risk Task" id="1sf-DX-u2b"/>
+                    <connections>
+                        <outlet property="potentialGainLabel" destination="lpY-wh-Lgs" id="p1Z-gb-AZ9"/>
+                        <outlet property="totalEarningsLabel" destination="PVo-1k-Nbc" id="qDL-Tr-Fpp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bkh-Tl-Bh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
