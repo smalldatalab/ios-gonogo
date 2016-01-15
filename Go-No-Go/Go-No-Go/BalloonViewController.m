@@ -43,7 +43,14 @@
 {
     // Balloon image
     self.balloon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"balloon"]];
-    self.balloon.center = self.view.center;
+    
+    // Center it, with slight y-axis offset
+    self.balloon.center   = self.view.center;
+    CGRect balloonFrame   = self.balloon.frame;
+    balloonFrame.origin.y -= CGRectGetHeight(self.potentialGainLabel.frame);
+    self.balloon.frame    = balloonFrame;
+
+    // Add to view, but below all others
     [self.view addSubview:self.balloon];
     [self.view sendSubviewToBack:self.balloon];
 }
@@ -64,8 +71,9 @@
 - (IBAction)tappedPump:(id)sender
 {
     // Prevent the balloon from becoming too large for the screen
-    if (CGRectGetWidth(self.balloon.frame) + 40 >= CGRectGetWidth(self.view.frame) ||
-        CGRectGetHeight(self.balloon.frame) + 100 >= CGRectGetHeight(self.view.frame)) {
+    if (CGRectGetWidth(self.balloon.frame) + 30 >= CGRectGetWidth(self.view.frame) ||
+        CGRectGetMinY(self.balloon.frame) <= 0 ||
+        CGRectGetMaxY(self.balloon.frame) + 8 >= CGRectGetMinY(self.potentialGainLabel.frame)) {
         return;
     }
     
