@@ -14,16 +14,20 @@ static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
 static const int NO_GO_CUE       = 1;
 
+static const int NUMBER_OF_TRIALS = 4;
+
 @interface GOViewController ()
 
 // UI elements
-@property (strong, nonatomic) UIButton *startButton;
 @property (strong, nonatomic) IBOutlet UILabel *explanationLabel;
+@property (strong, nonatomic) UIButton *startButton;
 @property (strong, nonatomic) UILabel *feedbackLabel;
+@property (strong, nonatomic) UITextView *resultsTextView;
 
 // Flags
 @property (assign, nonatomic) BOOL shouldTap;
 @property (assign, nonatomic) BOOL testInProgress;
+@property (assign, nonatomic) int lapsToDo;
 
 // Track user reactions during tests
 @property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
@@ -89,6 +93,9 @@ static const int NO_GO_CUE       = 1;
 #pragma mark - Test Lifecycle -
 //------------------------------------------------------------------------------------------
 
+/**
+ *  Configure and Start Go/No-Go test
+ */
 - (void)startTest {
     
     // Results
@@ -99,10 +106,17 @@ static const int NO_GO_CUE       = 1;
     [UIView animateWithDuration:0.3 animations:^{
         [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame), CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
         [self.explanationLabel setHidden:YES];
+        
+        // Hide results textview if visible
+        if (self.resultsTextView) {
+            CGRect newFrame            = self.resultsTextView.frame;
+            newFrame.origin.y          = CGRectGetMaxY(self.view.frame) + 20;
+            self.resultsTextView.frame = newFrame;
+        }
     }];
     
     // Go through tests
-    int laps = 5;
+    int laps = self.lapsToDo = NUMBER_OF_TRIALS;
     for (int i=0; i<laps; i++) {
         [self oneLap];
     }
@@ -120,6 +134,9 @@ static const int NO_GO_CUE       = 1;
     });
 }
 
+/**
+ *  Single go/no-go lap (one box showed)
+ */
 - (void)oneLap {
     
     // Private serial queue to preserve presentation ordering
@@ -168,20 +185,28 @@ static const int NO_GO_CUE       = 1;
                     variableDelay = (arc4random() % 5 + 1) / 10.0;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        // Setup results array
-                        [self.correctAnswerArray addObject:@YES];   // Assume correct
-                        [self.responseTimeArray addObject:@0.0];    // and 0ms in reaction time
-                        
                         // Different probabilities for go and no-go cues
                         // If Go Cue presented, 80% probability of green
                         // If No-Go Cue, only 20% probability
                         int flip = arc4random_uniform(100);
+                        
+                        // GO
                         if ((cueChoice == GO_CUE && flip > 20) || (cueChoice == NO_GO_CUE && flip < 20)) {
                             [cueBox setBackgroundColor:[UIColor VALID_COLOR]];
+                            
+                            // Setup results array
+                            [self.correctAnswerArray addObject:@NO];   // Assume incorrect
+                            [self.responseTimeArray addObject:@0.0];    // and 0ms in reaction time
                             self.shouldTap = YES;
                             self.startDate = [NSDate date];
+                            
+                        // NO-GO
                         } else {
                             [cueBox setBackgroundColor:[UIColor INVALID_COLOR]];
+                            
+                            // Setup results array
+                            [self.correctAnswerArray addObject:@YES];   // Assume correct
+                            [self.responseTimeArray addObject:@0.0];    // and 0ms in reaction time
                             self.shouldTap = NO;
                         }
                         // Set flag for test in progress
@@ -192,6 +217,13 @@ static const int NO_GO_CUE       = 1;
                             [cueBox removeFromSuperview];
                             [self.feedbackLabel setHidden:YES];
                             self.testInProgress = NO;
+                            self.lapsToDo -= 1;
+                            
+                            // Done with the tests
+                            if (self.lapsToDo == 0) {
+                                // Show results
+                                [self showResults];
+                            }
                         });
                     });
                 });
@@ -207,6 +239,9 @@ static const int NO_GO_CUE       = 1;
     });
 }
 
+/**
+ *  Handle Tap Gestures during test
+ */
 - (void)tappedScreen {
     
     // Nothing to do if not currently showing a box
@@ -230,6 +265,9 @@ static const int NO_GO_CUE       = 1;
         [self.responseTimeArray removeLastObject];
         [self.responseTimeArray addObject:[NSNumber numberWithDouble:time]];
         
+        [self.correctAnswerArray removeLastObject];
+        [self.correctAnswerArray addObject:@YES];
+        
     // Wrong
     } else {
         
@@ -247,6 +285,71 @@ static const int NO_GO_CUE       = 1;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.feedbackLabel setHidden:YES];
     });
+}
+
+/**
+ *  Show results to the user
+ */
+- (void)showResults {
+    
+    NSLog(@"Gonna show results");
+    
+    // Create a textview to display results, and center it within view
+    self.resultsTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0,
+                                                                        CGRectGetWidth(self.view.frame) - 40,
+                                                                        CGRectGetHeight(self.view.frame) / 1.5)];
+    self.resultsTextView.center                 = self.view.center;
+    self.resultsTextView.font                   = [UIFont systemFontOfSize:24];
+    self.resultsTextView.editable               = NO;
+    self.resultsTextView.scrollEnabled          = NO;
+    self.resultsTextView.userInteractionEnabled = NO;
+    self.resultsTextView.clipsToBounds          = NO;
+    self.resultsTextView.layer.cornerRadius     = 10;
+    self.resultsTextView.layer.borderColor      = [UIColor blackColor].CGColor;
+    self.resultsTextView.layer.borderWidth      = 0.3;
+    self.resultsTextView.layer.shadowColor      = [UIColor blackColor].CGColor;
+    self.resultsTextView.layer.shadowOpacity    = 1.0;
+    self.resultsTextView.layer.shadowRadius     = 5.0;
+    self.resultsTextView.layer.shadowOffset     = CGSizeMake(1, 3);
+
+    // Results
+    self.resultsTextView.text = [NSString stringWithFormat:@"Correct Answers: %d\n \
+                                                        Incorrect Answers: %d\n \
+                                                        Mean Response Time: %.0f msec",
+                            [self occurrencesOfObject:@1 inArray:self.correctAnswerArray],
+                            [self occurrencesOfObject:@0 inArray:self.correctAnswerArray],
+                            [self averageOfNonZeroValues:self.responseTimeArray]];
+    
+    [self occurrencesOfObject:@1 inArray:self.correctAnswerArray];
+    
+    // Drop it below to animate it up
+    CGRect newFrame   = self.resultsTextView.frame;
+    newFrame.origin.y = CGRectGetMaxY(self.view.frame) + 20;
+    [self.resultsTextView setFrame:newFrame];
+    [self.view addSubview:self.resultsTextView];
+    [self.view bringSubviewToFront:self.resultsTextView];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.resultsTextView setCenter:self.view.center];
+    }];
+}
+
+- (int)occurrencesOfObject:(id)object inArray:(NSArray*)array
+{
+    NSCountedSet *set = [[NSCountedSet alloc] initWithArray:array];
+    return (int)[set countForObject:object];
+}
+
+- (double)averageOfNonZeroValues:(NSArray*)array
+{
+    double total = 0.0;
+    int count = 0;
+    for (NSNumber *value in array) {
+        if (value > 0) {
+            total += [value doubleValue];
+            count += 1;
+        }
+    }
+    return total / count;
 }
 
 @end
