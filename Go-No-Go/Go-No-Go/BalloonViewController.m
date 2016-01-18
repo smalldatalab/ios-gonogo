@@ -41,6 +41,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     // Balloon image
     self.balloon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"balloon"]];
     

@@ -296,8 +296,6 @@ static const int NUMBER_OF_TRIALS = 4;
  */
 - (void)showResults {
     
-    NSLog(@"Gonna show results");
-    
     // Create a textview to display results, and center it within view
     self.resultsTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0,
                                                                         CGRectGetWidth(self.view.frame) - 40,
