@@ -303,7 +303,7 @@ static const int NUMBER_OF_TRIALS = 4;
                                                                         CGRectGetWidth(self.view.frame) - 40,
                                                                         CGRectGetHeight(self.view.frame) / 1.5)];
     self.resultsTextView.center                 = self.view.center;
-    self.resultsTextView.font                   = [UIFont systemFontOfSize:24];
+    self.resultsTextView.font                   = [UIFont systemFontOfSize:18];
     self.resultsTextView.editable               = NO;
     self.resultsTextView.scrollEnabled          = NO;
     self.resultsTextView.userInteractionEnabled = NO;
@@ -317,18 +317,16 @@ static const int NUMBER_OF_TRIALS = 4;
     self.resultsTextView.layer.shadowOffset     = CGSizeMake(1, 3);
 
     // Results
-    self.resultsTextView.text = [NSString stringWithFormat:@"Correct Answers: %d\n \
-                                                        Incorrect Answers: %d\n \
-                                                        Mean Response Time: %.0f msec\n \
-                                                        Number of Commissions (hit when should not): %d\n \
-                                                        Number of Ommissions (not hit when should): %d",
-                                 [self occurrencesOfObject:@1 inArray:self.correctAnswerArray],
-                                 [self occurrencesOfObject:@0 inArray:self.correctAnswerArray],
+    self.resultsTextView.text = [NSString stringWithFormat:@"Correct Answers: %d\n\n"
+                                 "Incorrect Answers: %d\n\n"
+                                 "Mean Response Time: %.0f msec\n\n"
+                                 "Number of Commissions (hit when should not): %d\n\n"
+                                 "Number of Ommissions (not hit when should): %d",
+                                 [self occurrencesOfObject:@YES inArray:self.correctAnswerArray],
+                                 [self occurrencesOfObject:@NO inArray:self.correctAnswerArray],
                                  [self averageOfNonZeroValues:self.responseTimeArray],
                                  [self numberOfCommissions],
                                  [self numberOfOmmissions]];
-    
-    [self occurrencesOfObject:@1 inArray:self.correctAnswerArray];
     
     // Drop it below to animate it up
     CGRect newFrame   = self.resultsTextView.frame;
@@ -346,7 +344,7 @@ static const int NUMBER_OF_TRIALS = 4;
 //------------------------------------------------------------------------------------------
 
 // Count occurrences of object in an array
-- (int)occurrencesOfObject:(id)object inArray:(NSArray*)array
+- (int)occurrencesOfObject:(id)object inArray:(NSMutableArray*)array
 {
     NSCountedSet *set = [[NSCountedSet alloc] initWithArray:array];
     return (int)[set countForObject:object];
