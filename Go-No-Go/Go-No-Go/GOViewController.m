@@ -14,7 +14,7 @@ static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
 static const int NO_GO_CUE       = 1;
 
-static const int NUMBER_OF_TRIALS = 4;
+static const int NUMBER_OF_TRIALS = 15;
 
 @interface GOViewController ()
 
