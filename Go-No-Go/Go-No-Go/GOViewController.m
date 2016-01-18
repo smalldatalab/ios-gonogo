@@ -34,6 +34,7 @@ static const int NUMBER_OF_TRIALS = 4;
 @property (strong, nonatomic) NSDate *startDate;
 
 // Track results
+@property (strong, nonatomic) NSMutableArray *cues;
 @property (strong, nonatomic) NSMutableArray *correctAnswerArray;
 @property (strong, nonatomic) NSMutableArray *responseTimeArray;
 
@@ -101,6 +102,7 @@ static const int NUMBER_OF_TRIALS = 4;
     // Results
     self.correctAnswerArray = [[NSMutableArray alloc] init];
     self.responseTimeArray  = [[NSMutableArray alloc] init];
+    self.cues               = [[NSMutableArray alloc] init];
     
     // Hide button and label
     [UIView animateWithDuration:0.3 animations:^{
@@ -193,6 +195,7 @@ static const int NUMBER_OF_TRIALS = 4;
                         // GO
                         if ((cueChoice == GO_CUE && flip > 20) || (cueChoice == NO_GO_CUE && flip < 20)) {
                             [cueBox setBackgroundColor:[UIColor VALID_COLOR]];
+                            [self.cues addObject:[NSNumber numberWithInt:GO_CUE]];
                             
                             // Setup results array
                             [self.correctAnswerArray addObject:@NO];   // Assume incorrect
@@ -203,6 +206,7 @@ static const int NUMBER_OF_TRIALS = 4;
                         // NO-GO
                         } else {
                             [cueBox setBackgroundColor:[UIColor INVALID_COLOR]];
+                            [self.cues addObject:[NSNumber numberWithInt:NO_GO_CUE]];
                             
                             // Setup results array
                             [self.correctAnswerArray addObject:@YES];   // Assume correct
@@ -315,10 +319,14 @@ static const int NUMBER_OF_TRIALS = 4;
     // Results
     self.resultsTextView.text = [NSString stringWithFormat:@"Correct Answers: %d\n \
                                                         Incorrect Answers: %d\n \
-                                                        Mean Response Time: %.0f msec",
-                            [self occurrencesOfObject:@1 inArray:self.correctAnswerArray],
-                            [self occurrencesOfObject:@0 inArray:self.correctAnswerArray],
-                            [self averageOfNonZeroValues:self.responseTimeArray]];
+                                                        Mean Response Time: %.0f msec\n \
+                                                        Number of Commissions (hit when should not): %d\n \
+                                                        Number of Ommissions (not hit when should): %d",
+                                 [self occurrencesOfObject:@1 inArray:self.correctAnswerArray],
+                                 [self occurrencesOfObject:@0 inArray:self.correctAnswerArray],
+                                 [self averageOfNonZeroValues:self.responseTimeArray],
+                                 [self numberOfCommissions],
+                                 [self numberOfOmmissions]];
     
     [self occurrencesOfObject:@1 inArray:self.correctAnswerArray];
     
@@ -333,12 +341,18 @@ static const int NUMBER_OF_TRIALS = 4;
     }];
 }
 
+//------------------------------------------------------------------------------------------
+#pragma mark - Helper Methods -
+//------------------------------------------------------------------------------------------
+
+// Count occurrences of object in an array
 - (int)occurrencesOfObject:(id)object inArray:(NSArray*)array
 {
     NSCountedSet *set = [[NSCountedSet alloc] initWithArray:array];
     return (int)[set countForObject:object];
 }
 
+// Return mean of values in array, excluding 0's
 - (double)averageOfNonZeroValues:(NSArray*)array
 {
     double total = 0.0;
@@ -350,6 +364,34 @@ static const int NUMBER_OF_TRIALS = 4;
         }
     }
     return total / count;
+}
+
+// Commissions: Hit when should not
+- (int)numberOfCommissions
+{
+    int commissions = 0;
+    for (int i=0; i<self.cues.count; i++) {
+        int cue = [[self.cues objectAtIndex:i] intValue];
+        BOOL correct = [[self.correctAnswerArray objectAtIndex:i] boolValue];
+        if (cue == NO_GO_CUE && !correct) {
+            commissions += 1;
+        }
+    }
+    return commissions;
+}
+
+// Omissions: Do not hit when should
+- (int)numberOfOmmissions
+{
+    int ommissions = 0;
+    for (int i=0; i<self.cues.count; i++) {
+        int cue = [[self.cues objectAtIndex:i] intValue];
+        BOOL correct = [[self.correctAnswerArray objectAtIndex:i] boolValue];
+        if (cue == GO_CUE && !correct) {
+            ommissions += 1;
+        }
+    }
+    return ommissions;
 }
 
 @end
