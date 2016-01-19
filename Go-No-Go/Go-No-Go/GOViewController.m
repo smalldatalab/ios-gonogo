@@ -8,7 +8,6 @@
 
 #import "GOViewController.h"
 #import "AppConstants.h"
-#import "UIColor+Additions.h"
 
 static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;

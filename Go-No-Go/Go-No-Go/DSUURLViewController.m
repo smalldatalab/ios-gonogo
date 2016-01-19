@@ -9,7 +9,6 @@
 #import "DSUURLViewController.h"
 #import "OMHClient.h"
 #import "UIView+AutoLayoutHelpers.h"
-#import "UIColor+Additions.h"
 
 @interface DSUURLViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 

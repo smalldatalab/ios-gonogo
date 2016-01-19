@@ -7,7 +7,6 @@
 //
 
 #import "MainViewController.h"
-#import "UIColor+Additions.h"
 
 @interface MainViewController ()
 

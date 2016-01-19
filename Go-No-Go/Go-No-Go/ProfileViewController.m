@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *logoutButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 
 @end
 
@@ -26,7 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.usernameLabel.text = [OMHClient signedInUsername] ?: @"";
+    self.usernameLabel.text     = [OMHClient signedInUsername] ?: @"";
+    self.logoutButton.tintColor = [UIColor belizeBlueColor];
+    self.doneButton.tintColor   = [UIColor belizeBlueColor];
 }
 
 - (void)didReceiveMemoryWarning {

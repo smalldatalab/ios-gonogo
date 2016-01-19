@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import "OMHClient.h"
 #import "DSUURLViewController.h"
-#import "UIColor+Additions.h"
 
 @interface LoginViewController () <OMHSignInDelegate, UITextFieldDelegate>
 

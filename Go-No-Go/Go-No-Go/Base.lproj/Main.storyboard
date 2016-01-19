@@ -169,6 +169,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="3o7-ea-8ec" id="32a-KL-ze9"/>
                         <outlet property="logoutButton" destination="TwH-Jq-SD5" id="xQG-3F-682"/>
                         <outlet property="usernameLabel" destination="DFn-XB-kQu" id="qbh-13-A2K"/>
                     </connections>
