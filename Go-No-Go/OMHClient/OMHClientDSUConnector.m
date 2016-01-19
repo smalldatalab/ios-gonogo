@@ -378,7 +378,7 @@ static GPPSignIn *_gppSignIn = nil;
             config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"OMHBackgroundSessionConfiguration"];
         }
         else {
-            config = [NSURLSessionConfiguration backgroundSessionConfiguration:@"OMHBackgroundSessionConfiguration"];
+            config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"OMHBackgroundSessionConfiguration"];
         }
         _backgroundSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL sessionConfiguration:config];
         _backgroundSessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -413,7 +413,7 @@ static GPPSignIn *_gppSignIn = nil;
    completionBlock:(void (^)(id responseObject, NSError *error, NSInteger statusCode))block
 {
 //    OMHLog(@"request: %@", request);
-    [self.httpSessionManager GET:request parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.httpSessionManager GET:request parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         // request succeeded
         block(responseObject, nil, [self statusCodeFromSessionTask:task]);
         
@@ -427,7 +427,7 @@ static GPPSignIn *_gppSignIn = nil;
      withParameters:(NSDictionary *)parameters
     completionBlock:(void (^)(id responseObject, NSError *error, NSInteger statusCode))block
 {
-    [self.httpSessionManager POST:request parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.httpSessionManager POST:request parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         // request succeeded
         block(responseObject, nil, [self statusCodeFromSessionTask:task]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
