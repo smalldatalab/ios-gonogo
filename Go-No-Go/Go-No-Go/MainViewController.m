@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "UIColor+Additions.h"
 
 @interface MainViewController ()
 
@@ -20,7 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    // Button for profile page
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user"] style:UIBarButtonItemStylePlain target:self action:@selector(openProfile)];
+    item.tintColor = [UIColor belizeBlueColor];
+    [self.navigationItem setLeftBarButtonItem:item];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,8 +34,13 @@
 }
 
 //------------------------------------------------------------------------------------------
-#pragma mark - IBActions -
+#pragma mark - Actions -
 //------------------------------------------------------------------------------------------
+
+- (void)openProfile {
+    UINavigationController *pvc = [self.storyboard instantiateViewControllerWithIdentifier:@"profileNavigationController"];
+    [self presentViewController:pvc animated:YES completion:nil];
+}
 
 - (IBAction)showSelfReports:(id)sender
 {

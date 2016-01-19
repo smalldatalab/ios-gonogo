@@ -118,6 +118,81 @@
             </objects>
             <point key="canvasLocation" x="402" y="839"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="Jpl-mX-jr2">
+            <objects>
+                <viewController id="tfD-2D-I4r" customClass="ProfileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SH0-WJ-or3"/>
+                        <viewControllerLayoutGuide type="bottom" id="qyW-4b-cpA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kt9-Jl-89P">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DFn-XB-kQu">
+                                <rect key="frame" x="20" y="100" width="560" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="AfL-YE-SjS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwH-Jq-SD5">
+                                <rect key="frame" x="20" y="188" width="560" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="1AR-gc-AOc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutPressed:" destination="tfD-2D-I4r" eventType="touchUpInside" id="AW3-aF-kQG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="TwH-Jq-SD5" secondAttribute="trailing" id="Ezl-KQ-9bE"/>
+                            <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="36" id="Rf2-V3-bxn"/>
+                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="top" secondItem="DFn-XB-kQu" secondAttribute="bottom" constant="30" id="UIq-UR-u0i"/>
+                            <constraint firstItem="DFn-XB-kQu" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="eTf-5g-MFC"/>
+                            <constraint firstItem="DFn-XB-kQu" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="ekk-dg-xx8"/>
+                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="v6s-pc-dA7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="bzT-hH-fxj">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="3o7-ea-8ec">
+                            <connections>
+                                <action selector="donePressed:" destination="tfD-2D-I4r" id="eSh-10-CiY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="logoutButton" destination="TwH-Jq-SD5" id="xQG-3F-682"/>
+                        <outlet property="usernameLabel" destination="DFn-XB-kQu" id="qbh-13-A2K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bwx-f5-iPF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1252" y="-658"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Cyq-oK-8yk">
+            <objects>
+                <navigationController storyboardIdentifier="profileNavigationController" id="aci-Wx-6vI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6g6-gf-cjl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tfD-2D-I4r" kind="relationship" relationship="rootViewController" id="L9X-ab-1sx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Yg-qJ-6jc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="402" y="-658"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="De8-t1-SfA">
             <objects>
