@@ -16,32 +16,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-zn-m6y">
-                                <rect key="frame" x="20" y="80" width="560" height="80"/>
-                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ogT-Rm-eHd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Signup">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showSignup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P8l-cO-hoL"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af7-vx-KPR">
-                                <rect key="frame" x="20" y="320" width="560" height="80"/>
+                                <rect key="frame" x="20" y="227" width="560" height="80"/>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Odz-r3-Yef"/>
@@ -62,7 +41,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz1-Co-OcM">
-                                <rect key="frame" x="20" y="440" width="560" height="80"/>
+                                <rect key="frame" x="20" y="381" width="560" height="80"/>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Tec-u6-HCe"/>
@@ -83,7 +62,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVJ-hh-33z">
-                                <rect key="frame" x="20" y="200" width="560" height="80"/>
+                                <rect key="frame" x="20" y="74" width="560" height="80"/>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="kEx-l2-QKW"/>
@@ -106,23 +85,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OVf-zn-m6y" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="3vg-TD-Khe"/>
                             <constraint firstItem="RVJ-hh-33z" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="5Yu-md-msI"/>
                             <constraint firstItem="af7-vx-KPR" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="7oH-pZ-UVz"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="af7-vx-KPR" secondAttribute="bottom" multiplier="5:3" constant="-66.666666666666742" id="Bko-Ts-kBg"/>
-                            <constraint firstItem="OVf-zn-m6y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Feo-0E-k6x"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OVf-zn-m6y" secondAttribute="bottom" multiplier="5:1" constant="-200" id="Fua-s9-Wad"/>
-                            <constraint firstItem="cz1-Co-OcM" firstAttribute="centerX" secondItem="OVf-zn-m6y" secondAttribute="centerX" id="NSy-gh-B1t"/>
-                            <constraint firstItem="af7-vx-KPR" firstAttribute="centerX" secondItem="OVf-zn-m6y" secondAttribute="centerX" id="SA7-Um-RuS"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="af7-vx-KPR" secondAttribute="bottom" multiplier="4:2" constant="-79" id="Bko-Ts-kBg"/>
                             <constraint firstItem="cz1-Co-OcM" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ToH-IH-Mer"/>
                             <constraint firstItem="RVJ-hh-33z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="cvH-oG-hC7"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cz1-Co-OcM" secondAttribute="bottom" multiplier="5:4" constant="-50" id="fxB-s8-AhU"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cz1-Co-OcM" secondAttribute="bottom" multiplier="4:3" constant="-79" id="fxB-s8-AhU"/>
                             <constraint firstItem="af7-vx-KPR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="htk-CC-L25"/>
                             <constraint firstItem="cz1-Co-OcM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nKY-C0-qVd"/>
-                            <constraint firstItem="RVJ-hh-33z" firstAttribute="centerX" secondItem="OVf-zn-m6y" secondAttribute="centerX" id="seo-K1-liw"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RVJ-hh-33z" secondAttribute="bottom" multiplier="5:2" constant="-100" id="x2i-tJ-4bG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RVJ-hh-33z" secondAttribute="bottom" multiplier="4:1" constant="-79" id="x2i-tJ-4bG"/>
                         </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

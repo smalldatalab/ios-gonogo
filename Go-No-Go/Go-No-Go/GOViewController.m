@@ -7,7 +7,7 @@
 //
 
 #import "GOViewController.h"
-#import "GOConstants.h"
+#import "AppConstants.h"
 #import "UIColor+Additions.h"
 
 static const float BUTTON_HEIGHT = 60.f;

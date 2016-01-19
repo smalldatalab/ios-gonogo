@@ -12,5 +12,6 @@
 
 + (UIColor*)VALID_COLOR;
 + (UIColor*)INVALID_COLOR;
++ (UIColor *)belizeBlueColor;
 
 @end

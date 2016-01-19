@@ -34,5 +34,24 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSPrincipalClass</key>
+	<string>OMHApplication</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	      <key>NSAllowsArbitraryLoads</key>
+	      <false/>
+	       <key>NSExceptionDomains</key>
+	       <dict>
+	            <key>aws-qa.smalldata.io</key>
+	            <dict>
+	                <key>NSIncludesSubdomains</key>
+	                <true/>
+	                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+	                <true/>
+	                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+	                <string>TLSv1.1</string>
+	            </dict>
+	       </dict>
+	</dict>
 </dict>
 </plist>

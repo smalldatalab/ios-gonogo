@@ -7,17 +7,20 @@
 //
 
 #import "UIColor+Additions.h"
+#define RANGE 255.0
 
 @implementation UIColor (Additions)
 
-+ (UIColor*)VALID_COLOR
-{
-    return [UIColor colorWithRed:46/255.0 green:204/255.0 blue:113/255.0 alpha:1.0];
++ (UIColor*)VALID_COLOR {
+    return [UIColor colorWithRed:46/RANGE green:204/RANGE blue:113/RANGE alpha:1.0];
 }
 
-+ (UIColor*)INVALID_COLOR
-{
-    return [UIColor colorWithRed:41/255.0 green:128/255.0 blue:185/255.0 alpha:1.0];
++ (UIColor*)INVALID_COLOR {
+    return [UIColor colorWithRed:41/RANGE green:128/RANGE blue:185/RANGE alpha:1.0];
+}
+
++ (UIColor *)belizeBlueColor {
+    return [UIColor colorWithRed:41/RANGE green:128/RANGE blue:185/RANGE alpha:1.0];
 }
 
 @end
