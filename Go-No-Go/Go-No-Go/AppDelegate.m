@@ -25,10 +25,12 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // Setup OMH DSU
     [OMHClient setupClientWithAppGoogleClientID:[AppConstants googleClientID]
                                  appDSUClientID:kDSUClientID
                              appDSUClientSecret:[AppConstants DSUClientSecret]];
     
+    // Show either Login or Main VC
     UIViewController *root = nil;
     if (![OMHClient sharedClient].isSignedIn) {
         self.loginViewController = [[LoginViewController alloc] init];
@@ -40,7 +42,6 @@
     }
     
     self.window.rootViewController = root;
-    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
@@ -57,6 +58,7 @@
 
 - (UINavigationController *)navigationController
 {
+    // Instantiate Nav Controller with Main VC as root
     if (_navigationController == nil) {
         MainViewController *mvc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         UINavigationController *navcon = [[UINavigationController alloc] initWithRootViewController:mvc];
@@ -67,6 +69,7 @@
 
 - (void)userDidLogin
 {
+    // Logged in, transition from Login to Main
     UINavigationController *newRoot = self.navigationController;
     [UIView transitionFromView:self.loginViewController.view toView:newRoot.view duration:0.35 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
         self.window.rootViewController = newRoot;
@@ -76,6 +79,7 @@
 
 - (void)userDidLogout
 {
+    // Logged out, clear whatever is presenting and go back to Login
     LoginViewController *newRoot = self.loginViewController;
     
     UIView *fromView = nil;

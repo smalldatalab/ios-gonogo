@@ -816,6 +816,7 @@ static GPPSignIn *_gppSignIn = nil;
 {
     GPPSignInButton *googleButton = [[GPPSignInButton alloc] init];
     googleButton.style = kGPPSignInButtonStyleWide;
+    googleButton.colorScheme = kGPPSignInButtonColorSchemeLight;
     return googleButton;
 }
 

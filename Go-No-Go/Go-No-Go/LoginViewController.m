@@ -113,6 +113,10 @@
     [self.view addGestureRecognizer:tap];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)setupGoogleSignInButton
 {
     if (self.googleSignInButton) {
