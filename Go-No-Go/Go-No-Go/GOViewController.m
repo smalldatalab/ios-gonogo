@@ -8,6 +8,7 @@
 
 #import "GOViewController.h"
 #import "AppConstants.h"
+#import "OMHClient.h"
 
 static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
@@ -224,7 +225,8 @@ static const int NUMBER_OF_TRIALS = 15;
                             
                             // Done with the tests
                             if (self.lapsToDo == 0) {
-                                // Show results
+
+                                [self submitResults];
                                 [self showResults];
                             }
                         });
@@ -324,7 +326,7 @@ static const int NUMBER_OF_TRIALS = 15;
                                  [self averageOfNonZeroValues:self.responseTimeArray],
                                  [self numberOfCommissions],
                                  [self numberOfOmmissions]];
-    
+
     // Drop it below to animate it up
     CGRect newFrame   = self.resultsTextView.frame;
     newFrame.origin.y = CGRectGetMaxY(self.view.frame) + 20;
@@ -334,6 +336,44 @@ static const int NUMBER_OF_TRIALS = 15;
     [UIView animateWithDuration:0.5 animations:^{
         [self.resultsTextView setCenter:self.view.center];
     }];
+}
+
+//------------------------------------------------------------------------------------------
+#pragma mark - DSU Upload -
+//------------------------------------------------------------------------------------------
+
+- (void)submitResults {
+    NSDictionary *dataPoint = [self createDataPointForTestResults];
+    [[OMHClient sharedClient] submitDataPoint:dataPoint];
+}
+
+- (NSDictionary *)createDataPointForTestResults {
+    OMHDataPoint *dataPoint = [OMHDataPoint templateDataPoint];
+    dataPoint.header.schemaID = [AppConstants schemaID];
+    dataPoint.header.acquisitionProvenance = [AppConstants acquisitionProvenance];
+    dataPoint.body = [self JSONResultsForDataPoint];
+    return dataPoint;
+}
+
+- (NSDictionary *)JSONResultsForDataPoint {
+    
+    int correctResponses     = [self numberOfCorrectResponses];
+    int correctNonResponses  = [self numberOfCorrectNonResponses];
+    int commissions          = [self numberOfCommissions];
+    int ommissions           = [self numberOfOmmissions];
+
+    double meanResponseTime  = [self averageOfNonZeroValues:self.responseTimeArray];
+    double rangeResponseTime = [self rangeOfResponseTimes];
+    
+    NSDictionary *results = @{@"effective_time_frame" : @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]},
+                              @"number_of_trials" : @(NUMBER_OF_TRIALS),
+                              @"correct_responses" : @(correctResponses),
+                              @"correct_nonresponses" : @(correctNonResponses),
+                              @"commissions" : @(commissions),
+                              @"ommissions" : @(ommissions),
+                              @"response_time_mean" : @(meanResponseTime),
+                              @"response_time_range" : @(rangeResponseTime)};
+    return results;
 }
 
 //------------------------------------------------------------------------------------------
@@ -361,32 +401,59 @@ static const int NUMBER_OF_TRIALS = 15;
     return total / count;
 }
 
-// Commissions: Hit when should not
-- (int)numberOfCommissions
-{
-    int commissions = 0;
-    for (int i=0; i<self.cues.count; i++) {
-        int cue = [[self.cues objectAtIndex:i] intValue];
-        BOOL correct = [[self.correctAnswerArray objectAtIndex:i] boolValue];
-        if (cue == NO_GO_CUE && !correct) {
-            commissions += 1;
-        }
+- (double)rangeOfResponseTimes {
+    NSMutableArray *nonZeroResponseTimes = [[NSMutableArray alloc] initWithArray:self.responseTimeArray copyItems:YES];
+    [nonZeroResponseTimes removeObjectIdenticalTo:@(0.0)];
+
+    // In case not enough data points
+    if ([nonZeroResponseTimes count] < 2) {
+        return 0.0;
     }
-    return commissions;
+
+    // Find min & max values
+    float xmax = -MAXFLOAT;
+    float xmin = MAXFLOAT;
+    for (NSNumber *num in nonZeroResponseTimes) {
+        float x = num.floatValue;
+        if (x < xmin) xmin = x;
+        if (x > xmax) xmax = x;
+    }
+    
+    return xmax - xmin;
 }
 
-// Omissions: Do not hit when should
-- (int)numberOfOmmissions
-{
-    int ommissions = 0;
-    for (int i=0; i<self.cues.count; i++) {
-        int cue = [[self.cues objectAtIndex:i] intValue];
-        BOOL correct = [[self.correctAnswerArray objectAtIndex:i] boolValue];
-        if (cue == GO_CUE && !correct) {
-            ommissions += 1;
+- (int)countResponsesForCue: (int)cue andCorrectness:(BOOL)correct {
+    int total = 0;
+
+    for (int i = 0; i < self.cues.count; i++) {
+        int current_cue          = [[self.cues objectAtIndex:i] intValue];
+        BOOL current_correctness = [[self.correctAnswerArray objectAtIndex:i] boolValue];
+        
+        if (current_cue == cue && current_correctness == correct) {
+            total++;
         }
     }
-    return ommissions;
+    return total;
+}
+
+// Hit when should: Green Correct
+- (int)numberOfCorrectResponses {
+    return [self countResponsesForCue:GO_CUE andCorrectness:YES];
+}
+
+// No hit when should not: Blue Correct
+- (int)numberOfCorrectNonResponses {
+    return [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
+}
+
+// Hit when should not: Blue incorrect
+- (int)numberOfCommissions {
+    return [self countResponsesForCue:NO_GO_CUE andCorrectness:NO];
+}
+
+// No hit when should: Green incorrect
+- (int)numberOfOmmissions {
+    return [self countResponsesForCue:GO_CUE andCorrectness:NO];
 }
 
 @end
