@@ -147,27 +147,22 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
     }
     
     // Notify the user then register local notifications
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                       UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil];
-                                                       [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-                                                   }];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // Default 'OK' action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }];
     [alertController addAction:okAction];
     
     // If already requested, add action to open settings
     if (hasRequested) {
-        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Settings"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * _Nonnull action) {
-                                                                   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                                                               }];
+        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
         [alertController addAction:settingsAction];
     }
-    
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
