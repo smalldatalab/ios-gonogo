@@ -130,19 +130,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwH-Jq-SD5">
-                                <rect key="frame" x="20" y="188" width="560" height="49"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="ymD-PA-psk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Logout"/>
-                                <connections>
-                                    <action selector="logoutPressed:" destination="tfD-2D-I4r" eventType="touchUpInside" id="AW3-aF-kQG"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DFn-XB-kQu">
-                                <rect key="frame" x="312" y="100" width="268" height="58"/>
+                                <rect key="frame" x="312" y="90" width="268" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="J5y-fI-IT3"/>
                                     <constraint firstAttribute="height" constant="58" id="V7z-gO-BZf"/>
@@ -152,8 +141,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Connected Account:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmZ-yU-L51">
-                                <rect key="frame" x="20" y="100" width="282" height="58"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Connected Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmZ-yU-L51">
+                                <rect key="frame" x="20" y="90" width="282" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="4yM-mP-U7y"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="282" id="EdF-OK-78v"/>
@@ -163,21 +152,45 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="scu-FI-NEf">
+                                <rect key="frame" x="531" y="174" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="w4s-Ib-IiR"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="remindersSwitchChanged:" destination="tfD-2D-I4r" eventType="valueChanged" id="L6T-0w-yHp"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Reminders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kY1-Z6-7AH">
+                                <rect key="frame" x="20" y="168" width="503" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1Pf-du-g5X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="top" secondItem="DFn-XB-kQu" secondAttribute="bottom" constant="30" id="Cb0-sy-abA"/>
+                            <constraint firstItem="kY1-Z6-7AH" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="Bzt-ja-98c"/>
+                            <constraint firstItem="scu-FI-NEf" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="IHk-sU-5oP"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="leading" secondItem="cmZ-yU-L51" secondAttribute="trailing" constant="10" id="IYy-kt-JDd"/>
-                            <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="36" id="LMo-wE-Wv6"/>
-                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="top" secondItem="cmZ-yU-L51" secondAttribute="bottom" constant="30" id="OgW-23-zoO"/>
+                            <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="LMo-wE-Wv6"/>
                             <constraint firstItem="cmZ-yU-L51" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="Sjs-af-PvH"/>
-                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="Wbf-na-dWq"/>
-                            <constraint firstItem="TwH-Jq-SD5" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="YUA-XD-rbM"/>
+                            <constraint firstItem="kY1-Z6-7AH" firstAttribute="top" secondItem="cmZ-yU-L51" secondAttribute="bottom" constant="20" id="axg-uw-cJ6"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="c82-P5-cwT"/>
-                            <constraint firstItem="cmZ-yU-L51" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="36" id="n1r-p8-DJK"/>
+                            <constraint firstItem="scu-FI-NEf" firstAttribute="leading" secondItem="kY1-Z6-7AH" secondAttribute="trailing" constant="8" id="fgj-GW-iMw"/>
+                            <constraint firstItem="cmZ-yU-L51" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="n1r-p8-DJK"/>
+                            <constraint firstItem="scu-FI-NEf" firstAttribute="centerY" secondItem="kY1-Z6-7AH" secondAttribute="centerY" id="pWu-ie-ih0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="bzT-hH-fxj">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="n6y-IW-rFk">
+                            <connections>
+                                <action selector="logoutPressed:" destination="tfD-2D-I4r" id="9Go-6z-yhY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="3o7-ea-8ec">
                             <connections>
                                 <action selector="donePressed:" destination="tfD-2D-I4r" id="eSh-10-CiY"/>
@@ -186,7 +199,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="3o7-ea-8ec" id="32a-KL-ze9"/>
-                        <outlet property="logoutButton" destination="TwH-Jq-SD5" id="xQG-3F-682"/>
+                        <outlet property="logoutButton" destination="n6y-IW-rFk" id="AtM-kM-Fmp"/>
+                        <outlet property="remindersSwitch" destination="scu-FI-NEf" id="mxA-Ly-vNd"/>
                         <outlet property="usernameLabel" destination="DFn-XB-kQu" id="qbh-13-A2K"/>
                     </connections>
                 </viewController>
