@@ -357,20 +357,29 @@ static const int NUMBER_OF_TRIALS = 15;
 
 - (NSDictionary *)JSONResultsForDataPoint {
     
-    int correctResponses     = [self numberOfCorrectResponses];
-    int correctNonResponses  = [self numberOfCorrectNonResponses];
-    int commissions          = [self numberOfCommissions];
-    int ommissions           = [self numberOfOmmissions];
+    int correctResponses      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray];
+    int incorrectResponses    = [self occurrencesOfObject:@NO inArray:self.correctAnswerArray];
+    int commissions           = [self numberOfCommissions];
+    int ommissions            = [self numberOfOmmissions];
+    int correctBlueResponses  = [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
+    int correctGreenResponses = [self countResponsesForCue:GO_CUE andCorrectness:YES];
 
+    double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / NUMBER_OF_TRIALS;
     double meanResponseTime  = [self averageOfNonZeroValues:self.responseTimeArray];
     double rangeResponseTime = [self rangeOfResponseTimes];
     
-    NSDictionary *results = @{@"effective_time_frame" : @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]},
+    NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
+    
+    NSDictionary *results = @{@"variable_label" : @"Go-no-go",
+                              @"effective_time_frame" : time,
                               @"number_of_trials" : @(NUMBER_OF_TRIALS),
                               @"correct_responses" : @(correctResponses),
-                              @"correct_nonresponses" : @(correctNonResponses),
+                              @"incorrect_responses" : @(incorrectResponses),
+                              @"correct_blue_responses" : @(correctBlueResponses),
+                              @"correct_green_responses" : @(correctGreenResponses),
                               @"commissions" : @(commissions),
                               @"ommissions" : @(ommissions),
+                              @"mean_accuracy" : @(meanAccuracy),
                               @"response_time_mean" : @(meanResponseTime),
                               @"response_time_range" : @(rangeResponseTime)};
     return results;
@@ -434,16 +443,6 @@ static const int NUMBER_OF_TRIALS = 15;
         }
     }
     return total;
-}
-
-// Hit when should: Green Correct
-- (int)numberOfCorrectResponses {
-    return [self countResponsesForCue:GO_CUE andCorrectness:YES];
-}
-
-// No hit when should not: Blue Correct
-- (int)numberOfCorrectNonResponses {
-    return [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
 }
 
 // Hit when should not: Blue incorrect
