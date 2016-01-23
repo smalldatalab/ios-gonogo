@@ -367,6 +367,7 @@ static const int NUMBER_OF_TRIALS = 15;
     double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / NUMBER_OF_TRIALS;
     double meanResponseTime  = [self averageOfNonZeroValues:self.responseTimeArray];
     double rangeResponseTime = [self rangeOfResponseTimes];
+    double stdDevReponseTime = [self standardDeviationOfReponseTimes];
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
@@ -381,7 +382,8 @@ static const int NUMBER_OF_TRIALS = 15;
                               @"ommissions" : @(ommissions),
                               @"mean_accuracy" : @(meanAccuracy),
                               @"response_time_mean" : @(meanResponseTime),
-                              @"response_time_range" : @(rangeResponseTime)};
+                              @"response_time_range" : @(rangeResponseTime),
+                              @"response_time_standard_deviation" : @(stdDevReponseTime)};
     return results;
 }
 
@@ -411,6 +413,7 @@ static const int NUMBER_OF_TRIALS = 15;
 }
 
 - (double)rangeOfResponseTimes {
+    // Remove zeros
     NSMutableArray *nonZeroResponseTimes = [[NSMutableArray alloc] initWithArray:self.responseTimeArray copyItems:YES];
     [nonZeroResponseTimes removeObjectIdenticalTo:@(0.0)];
 
@@ -429,6 +432,15 @@ static const int NUMBER_OF_TRIALS = 15;
     }
     
     return xmax - xmin;
+}
+
+- (double)standardDeviationOfReponseTimes {
+    // Remove zeros
+    NSMutableArray *nonZeroResponseTimes = [[NSMutableArray alloc] initWithArray:self.responseTimeArray copyItems:YES];
+    [nonZeroResponseTimes removeObjectIdenticalTo:@(0.0)];
+    
+    NSExpression *expression = [NSExpression expressionForFunction:@"stddev:" arguments:@[[NSExpression expressionForConstantValue:nonZeroResponseTimes]]];
+    return [[expression expressionValueWithObject:nil context:nil] doubleValue];
 }
 
 - (int)countResponsesForCue: (int)cue andCorrectness:(BOOL)correct {
