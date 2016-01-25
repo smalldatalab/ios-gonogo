@@ -363,11 +363,16 @@ static const int NUMBER_OF_TRIALS = 15;
     int ommissions            = [self numberOfOmmissions];
     int correctBlueResponses  = [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
     int correctGreenResponses = [self countResponsesForCue:GO_CUE andCorrectness:YES];
-
     double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / NUMBER_OF_TRIALS;
-    double meanResponseTime  = [self averageOfNonZeroValues:self.responseTimeArray];
-    double rangeResponseTime = [self rangeOfResponseTimes];
-    double stdDevReponseTime = [self standardDeviationOfReponseTimes];
+    
+    // Conform to OMH unit format
+    // See: http://www.openmhealth.org/documentation/#/schema-docs/schema-library/schemas/omh_duration-unit-value
+    NSDictionary *meanResponseTime  = @{@"unit" : @"ms",
+                                        @"value" : @([self averageOfNonZeroValues:self.responseTimeArray])};
+    NSDictionary *rangeResponseTime = @{@"unit" : @"ms",
+                                        @"value" : @([self rangeOfResponseTimes])};
+    NSDictionary *stdDevReponseTime = @{@"unit" : @"ms",
+                                        @"value" : @([self standardDeviationOfReponseTimes])};
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
@@ -381,9 +386,10 @@ static const int NUMBER_OF_TRIALS = 15;
                               @"commissions" : @(commissions),
                               @"ommissions" : @(ommissions),
                               @"mean_accuracy" : @(meanAccuracy),
-                              @"response_time_mean" : @(meanResponseTime),
-                              @"response_time_range" : @(rangeResponseTime),
-                              @"response_time_standard_deviation" : @(stdDevReponseTime)};
+                              @"response_time_mean" : meanResponseTime,
+                              @"response_time_range" : rangeResponseTime,
+                              @"response_time_standard_deviation" : stdDevReponseTime};
+    
     return results;
 }
 
