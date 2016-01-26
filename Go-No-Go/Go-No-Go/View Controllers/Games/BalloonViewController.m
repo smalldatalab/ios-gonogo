@@ -82,7 +82,7 @@ static NSInteger const kMaxPumps  = 12;
     CGFloat increment = (CGRectGetWidth(self.view.frame) / (kMaxPumps * 1000));
     
     // Animate pumping
-    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
         // Inflate slightly more on the x-axis to mimic real balloon
         CGAffineTransform transform = CGAffineTransformScale(self.balloon.transform, 1.005 * (kPumpFactor+increment), (kPumpFactor+increment));
         [self.balloon setTransform:transform];
