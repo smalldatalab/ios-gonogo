@@ -12,6 +12,7 @@
 static CGFloat const kPumpFactor  = 1.1;
 static CGFloat const kGainPerPump = 0.25;
 static NSInteger const kMaxPumps  = 12;
+static NSInteger const kNumBalloons = 15;
 
 @interface BalloonViewController ()
 
@@ -25,6 +26,7 @@ static NSInteger const kMaxPumps  = 12;
 @property (nonatomic, assign) double potentialGain;
 @property (nonatomic, assign) int pumps;
 @property (nonatomic, assign) int positionToImplode;
+@property (nonatomic, assign) int currentBalloon;
 
 @end
 
@@ -46,6 +48,7 @@ static NSInteger const kMaxPumps  = 12;
     self.earnings = 0;
     self.potentialGain = 0;
     self.pumps = 0;
+    self.currentBalloon = 1;
     self.positionToImplode = kMaxPumps + 1;
 }
 
@@ -69,6 +72,12 @@ static NSInteger const kMaxPumps  = 12;
 //------------------------------------------------------------------------------------------
 
 - (IBAction)tappedPump:(id)sender {
+    // Limit number of balloons
+    if (self.currentBalloon > kNumBalloons) {
+        //TODO: Show results here
+        return;
+    }
+    
     // Increment current number of pumps
     self.pumps++;
     
@@ -94,6 +103,7 @@ static NSInteger const kMaxPumps  = 12;
 }
 
 - (IBAction)tappedCollect:(id)sender {
+    self.currentBalloon++;
     [self resetBalloon];
 }
 
@@ -104,6 +114,7 @@ static NSInteger const kMaxPumps  = 12;
 - (void)implodeBalloon {
     // No gains if balloon implodes
     self.potentialGain = 0;
+    self.currentBalloon++;
     [self updateEarningLabels];
 
     // Prevent user pumping or collecting during animation
@@ -153,7 +164,12 @@ static NSInteger const kMaxPumps  = 12;
 }
 
 - (void)updateEarningLabels {
-    self.totalEarningsLabel.text = [NSString stringWithFormat:@"Total Earnings: $%.2f", self.earnings];
+    // If some balloons are left, show the count, else only show earnings
+    if (self.currentBalloon <= kNumBalloons) {
+        self.totalEarningsLabel.text = [NSString stringWithFormat:@"Balloon %d out of 15.\nTotal Earnings: $%.2f", self.currentBalloon, self.earnings];
+    } else {
+        self.totalEarningsLabel.text = [NSString stringWithFormat:@"Total Earnings: $%.2f", self.earnings];
+    }
     self.potentialGainLabel.text = [NSString stringWithFormat:@"Potential Gain: $%.2f", self.potentialGain];
 }
 
