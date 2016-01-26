@@ -163,11 +163,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B82980921C45ADE000C5113A /* Additions */ = {
+		B82980921C45ADE000C5113A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				B829808F1C45ADDB00C5113A /* AppConstants.h */,
-				B82980901C45ADDB00C5113A /* AppConstants.m */,
 				B8304D0E1C48339300C3F5C6 /* UIColor+Additions.h */,
 				B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */,
 				B860BACB1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.h */,
@@ -175,35 +173,80 @@
 				B8C3D1551C56DB1A000D383C /* UIView+Explode.h */,
 				B8C3D1561C56DB1A000D383C /* UIView+Explode.m */,
 			);
-			name = Additions;
+			path = Categories;
 			sourceTree = "<group>";
 		};
-		B859A49E1C3F04AE004C7FFA /* View Controllers */ = {
+		B83290431C581A8500DA1C30 /* Games */ = {
 			isa = PBXGroup;
 			children = (
-				B86582A11C3EF00700C15BB8 /* MainViewController.h */,
-				B86582A21C3EF00700C15BB8 /* MainViewController.m */,
-				B860BAC81C4E92F600A6E7F8 /* LoginViewController.h */,
-				B860BAC91C4E92F600A6E7F8 /* LoginViewController.m */,
-				B8FB17E61C4EBECF002E8CD3 /* ProfileViewController.h */,
-				B8FB17E71C4EBECF002E8CD3 /* ProfileViewController.m */,
-				B8F1ECC61C4E937F00449EC7 /* DSUURLViewController.h */,
-				B8F1ECC71C4E937F00449EC7 /* DSUURLViewController.m */,
 				B8304D0B1C48090F00C3F5C6 /* BalloonViewController.h */,
 				B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */,
 				B86582C01C3EF11000C15BB8 /* GOViewController.h */,
 				B86582C11C3EF11000C15BB8 /* GOViewController.m */,
 			);
-			name = "View Controllers";
+			path = Games;
+			sourceTree = "<group>";
+		};
+		B83290441C581A8E00DA1C30 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B8F1ECC61C4E937F00449EC7 /* DSUURLViewController.h */,
+				B8F1ECC71C4E937F00449EC7 /* DSUURLViewController.m */,
+				B860BAC81C4E92F600A6E7F8 /* LoginViewController.h */,
+				B860BAC91C4E92F600A6E7F8 /* LoginViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B83290451C581A9B00DA1C30 /* Main Pages */ = {
+			isa = PBXGroup;
+			children = (
+				B86582A11C3EF00700C15BB8 /* MainViewController.h */,
+				B86582A21C3EF00700C15BB8 /* MainViewController.m */,
+				B8FB17E61C4EBECF002E8CD3 /* ProfileViewController.h */,
+				B8FB17E71C4EBECF002E8CD3 /* ProfileViewController.m */,
+			);
+			path = "Main Pages";
+			sourceTree = "<group>";
+		};
+		B83290461C581AD700DA1C30 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B86582A71C3EF00700C15BB8 /* Assets.xcassets */,
+				B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */,
+				B86582A41C3EF00700C15BB8 /* Main.storyboard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B83290471C5821E800DA1C30 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				B829808F1C45ADDB00C5113A /* AppConstants.h */,
+				B82980901C45ADDB00C5113A /* AppConstants.m */,
+				B865829E1C3EF00700C15BB8 /* AppDelegate.h */,
+				B865829F1C3EF00700C15BB8 /* AppDelegate.m */,
+			);
+			path = "App Delegate";
+			sourceTree = "<group>";
+		};
+		B859A49E1C3F04AE004C7FFA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B83290431C581A8500DA1C30 /* Games */,
+				B83290441C581A8E00DA1C30 /* Login */,
+				B83290451C581A9B00DA1C30 /* Main Pages */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		B865828F1C3EF00700C15BB8 = {
 			isa = PBXGroup;
 			children = (
 				B865829A1C3EF00700C15BB8 /* Go-No-Go */,
-				B8F1ECC91C4E9A6400449EC7 /* OMHClient */,
-				B86582B41C3EF00700C15BB8 /* Go-No-GoTests */,
 				B8C9B4231C4D9DB8006CE5DD /* Frameworks */,
+				B86582B41C3EF00700C15BB8 /* Go-No-GoTests */,
+				B8F1ECC91C4E9A6400449EC7 /* OMHClient */,
 				B86582991C3EF00700C15BB8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -220,16 +263,13 @@
 		B865829A1C3EF00700C15BB8 /* Go-No-Go */ = {
 			isa = PBXGroup;
 			children = (
-				B865829E1C3EF00700C15BB8 /* AppDelegate.h */,
-				B865829F1C3EF00700C15BB8 /* AppDelegate.m */,
+				B83290471C5821E800DA1C30 /* App Delegate */,
 				B859A49E1C3F04AE004C7FFA /* View Controllers */,
-				B82980921C45ADE000C5113A /* Additions */,
-				B86582A41C3EF00700C15BB8 /* Main.storyboard */,
-				B86582A71C3EF00700C15BB8 /* Assets.xcassets */,
-				B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */,
+				B83290461C581AD700DA1C30 /* UI */,
+				B82980921C45ADE000C5113A /* Categories */,
+				B865829B1C3EF00700C15BB8 /* Supporting Files */,
 				B86582AC1C3EF00700C15BB8 /* Info.plist */,
 				B8FB17E31C4EB513002E8CD3 /* Secrets.plist */,
-				B865829B1C3EF00700C15BB8 /* Supporting Files */,
 			);
 			path = "Go-No-Go";
 			sourceTree = "<group>";
@@ -237,10 +277,10 @@
 		B865829B1C3EF00700C15BB8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B865829C1C3EF00700C15BB8 /* main.m */,
 				B8F545CC1C4EF8CF00108CEB /* PrefixHeader.pch */,
+				B865829C1C3EF00700C15BB8 /* main.m */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B86582B41C3EF00700C15BB8 /* Go-No-GoTests */ = {
@@ -299,13 +339,13 @@
 		B8F545CD1C4EFB6E00108CEB /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				B8F545E11C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.h */,
-				B8F545E21C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m */,
 				B8F545CE1C4EFB6E00108CEB /* AFHTTPSessionManager.h */,
 				B8F545CF1C4EFB6E00108CEB /* AFHTTPSessionManager.m */,
-				B8F545D01C4EFB6E00108CEB /* AFNetworking.h */,
+				B8F545E11C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.h */,
+				B8F545E21C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m */,
 				B8F545D11C4EFB6E00108CEB /* AFNetworkReachabilityManager.h */,
 				B8F545D21C4EFB6E00108CEB /* AFNetworkReachabilityManager.m */,
+				B8F545D01C4EFB6E00108CEB /* AFNetworking.h */,
 				B8F545D31C4EFB6E00108CEB /* AFSecurityPolicy.h */,
 				B8F545D41C4EFB6E00108CEB /* AFSecurityPolicy.m */,
 				B8F545D51C4EFB6E00108CEB /* AFURLRequestSerialization.h */,
@@ -470,6 +510,7 @@
 				B86582A51C3EF00700C15BB8 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */ = {
@@ -478,6 +519,7 @@
 				B86582AA1C3EF00700C15BB8 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -572,7 +614,7 @@
 					"$(PROJECT_DIR)/OMHClient/GoogleSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Go-No-Go/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "Go-No-Go/Supporting Files/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -596,7 +638,7 @@
 					"$(PROJECT_DIR)/OMHClient/GoogleSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Go-No-Go/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "Go-No-Go/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = "Go-No-Go/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
