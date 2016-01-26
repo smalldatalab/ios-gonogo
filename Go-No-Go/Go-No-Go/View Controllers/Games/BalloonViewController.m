@@ -148,7 +148,8 @@ static NSInteger const kMaxPumps  = 12;
 }
 
 - (void)pickRandomImplodingStep {
-    self.positionToImplode = arc4random_uniform(kMaxPumps+1) + 1;
+    // Select a random position on which to explode balloon, excluding 0 and 1
+    self.positionToImplode = arc4random_uniform(kMaxPumps-1) + 2;
 }
 
 - (void)updateEarningLabels {
