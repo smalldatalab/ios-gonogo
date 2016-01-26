@@ -20,6 +20,7 @@
 		B86582AB1C3EF00700C15BB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86582A91C3EF00700C15BB8 /* LaunchScreen.storyboard */; };
 		B86582B61C3EF00700C15BB8 /* Go_No_GoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582B51C3EF00700C15BB8 /* Go_No_GoTests.m */; };
 		B86582C21C3EF11000C15BB8 /* GOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86582C11C3EF11000C15BB8 /* GOViewController.m */; };
+		B8C3D1571C56DB1A000D383C /* UIView+Explode.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C3D1561C56DB1A000D383C /* UIView+Explode.m */; };
 		B8C9B40E1C4D9D5A006CE5DD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C9B40D1C4D9D5A006CE5DD /* AddressBook.framework */; };
 		B8C9B4101C4D9D63006CE5DD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C9B40F1C4D9D63006CE5DD /* AssetsLibrary.framework */; };
 		B8C9B4121C4D9D70006CE5DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C9B4111C4D9D70006CE5DD /* Foundation.framework */; };
@@ -85,6 +86,8 @@
 		B86582B71C3EF00700C15BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B86582C01C3EF11000C15BB8 /* GOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GOViewController.h; sourceTree = "<group>"; };
 		B86582C11C3EF11000C15BB8 /* GOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GOViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		B8C3D1551C56DB1A000D383C /* UIView+Explode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Explode.h"; sourceTree = "<group>"; };
+		B8C3D1561C56DB1A000D383C /* UIView+Explode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Explode.m"; sourceTree = "<group>"; };
 		B8C9B40D1C4D9D5A006CE5DD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		B8C9B40F1C4D9D63006CE5DD /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		B8C9B4111C4D9D70006CE5DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,6 +172,8 @@
 				B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */,
 				B860BACB1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.h */,
 				B860BACC1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.m */,
+				B8C3D1551C56DB1A000D383C /* UIView+Explode.h */,
+				B8C3D1561C56DB1A000D383C /* UIView+Explode.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				B8F1ECF91C4E9A6400449EC7 /* OMHApplication.m in Sources */,
 				B8F545DB1C4EFB6E00108CEB /* AFHTTPSessionManager.m in Sources */,
 				B860BACD1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.m in Sources */,
+				B8C3D1571C56DB1A000D383C /* UIView+Explode.m in Sources */,
 				B8F1ECFB1C4E9A6400449EC7 /* OMHDataPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
