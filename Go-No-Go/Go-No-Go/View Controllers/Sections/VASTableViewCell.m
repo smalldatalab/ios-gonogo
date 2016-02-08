@@ -11,27 +11,23 @@
 @implementation VASTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    // Add value steps if possible
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (IBAction)sliderChanged:(id)sender {
-    
     // Round value to closest int
-    UISlider *slider = (UISlider*)sender;
-    int sliderValue = (int)lroundf(slider.value);
-    [slider setValue:sliderValue animated:YES];
+    long sliderValue = lroundf(self.slider.value);
+    [self.slider setValue:sliderValue animated:YES];
     
     // Set value label
     if (sliderValue == 0) {
         [self.valueLabel setText:[NSString stringWithFormat:@"None at All"]];
     } else {
-        [self.valueLabel setText:[NSString stringWithFormat:@"%d", sliderValue]];
+        [self.valueLabel setText:[NSString stringWithFormat:@"%ld", sliderValue]];
     }
 }
 

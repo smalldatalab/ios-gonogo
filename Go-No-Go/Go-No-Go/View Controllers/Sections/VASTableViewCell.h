@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign) IBOutlet UILabel *titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel *valueLabel;
+@property (nonatomic, assign) IBOutlet UISlider *slider;
 
 @end
