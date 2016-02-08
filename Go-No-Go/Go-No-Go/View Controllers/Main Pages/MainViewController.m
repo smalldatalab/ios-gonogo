@@ -41,12 +41,4 @@
     [self presentViewController:pvc animated:YES completion:nil];
 }
 
-- (IBAction)showSelfReports:(id)sender
-{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Self-Reports" message:@"Coming Soon." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:action];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
 @end

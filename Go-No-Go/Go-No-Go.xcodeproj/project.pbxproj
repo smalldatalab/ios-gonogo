@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8087F301C5953CB002CD9E9 /* VASTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8087F2F1C5953CB002CD9E9 /* VASTableViewController.m */; };
 		B82980911C45ADDB00C5113A /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B82980901C45ADDB00C5113A /* AppConstants.m */; };
 		B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */; };
 		B8304D101C48339300C3F5C6 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8304D0F1C48339300C3F5C6 /* UIColor+Additions.m */; };
@@ -46,6 +47,7 @@
 		B8F545DF1C4EFB6E00108CEB /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F545D81C4EFB6E00108CEB /* AFURLResponseSerialization.m */; };
 		B8F545E01C4EFB6E00108CEB /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F545DA1C4EFB6E00108CEB /* AFURLSessionManager.m */; };
 		B8F545E31C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F545E21C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m */; };
+		B8F8C9321C6941E60081438A /* VASTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8C9311C6941E60081438A /* VASTableViewCell.m */; };
 		B8FB17E41C4EB513002E8CD3 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8FB17E31C4EB513002E8CD3 /* Secrets.plist */; };
 		B8FB17E81C4EBECF002E8CD3 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FB17E71C4EBECF002E8CD3 /* ProfileViewController.m */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B8087F2E1C5953CB002CD9E9 /* VASTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VASTableViewController.h; sourceTree = "<group>"; };
+		B8087F2F1C5953CB002CD9E9 /* VASTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VASTableViewController.m; sourceTree = "<group>"; };
 		B829808F1C45ADDB00C5113A /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		B82980901C45ADDB00C5113A /* AppConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstants.m; sourceTree = "<group>"; };
 		B8304D0B1C48090F00C3F5C6 /* BalloonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalloonViewController.h; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 		B8F545DA1C4EFB6E00108CEB /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		B8F545E11C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		B8F545E21C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		B8F8C9301C6941E60081438A /* VASTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VASTableViewCell.h; sourceTree = "<group>"; };
+		B8F8C9311C6941E60081438A /* VASTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VASTableViewCell.m; sourceTree = "<group>"; };
 		B8FB17E31C4EB513002E8CD3 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		B8FB17E61C4EBECF002E8CD3 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		B8FB17E71C4EBECF002E8CD3 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -176,15 +182,19 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		B83290431C581A8500DA1C30 /* Games */ = {
+		B83290431C581A8500DA1C30 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
 				B8304D0B1C48090F00C3F5C6 /* BalloonViewController.h */,
 				B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */,
 				B86582C01C3EF11000C15BB8 /* GOViewController.h */,
 				B86582C11C3EF11000C15BB8 /* GOViewController.m */,
+				B8087F2E1C5953CB002CD9E9 /* VASTableViewController.h */,
+				B8087F2F1C5953CB002CD9E9 /* VASTableViewController.m */,
+				B8F8C9301C6941E60081438A /* VASTableViewCell.h */,
+				B8F8C9311C6941E60081438A /* VASTableViewCell.m */,
 			);
-			path = Games;
+			path = Sections;
 			sourceTree = "<group>";
 		};
 		B83290441C581A8E00DA1C30 /* Login */ = {
@@ -233,7 +243,7 @@
 		B859A49E1C3F04AE004C7FFA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B83290431C581A8500DA1C30 /* Games */,
+				B83290431C581A8500DA1C30 /* Sections */,
 				B83290441C581A8E00DA1C30 /* Login */,
 				B83290451C581A9B00DA1C30 /* Main Pages */,
 			);
@@ -462,6 +472,7 @@
 			files = (
 				B86582A31C3EF00700C15BB8 /* MainViewController.m in Sources */,
 				B8304D101C48339300C3F5C6 /* UIColor+Additions.m in Sources */,
+				B8087F301C5953CB002CD9E9 /* VASTableViewController.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
 				B8F1ECFA1C4E9A6400449EC7 /* OMHClientDSUConnector.m in Sources */,
 				B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */,
@@ -477,6 +488,7 @@
 				B82980911C45ADDB00C5113A /* AppConstants.m in Sources */,
 				B865829D1C3EF00700C15BB8 /* main.m in Sources */,
 				B8F1ECC81C4E937F00449EC7 /* DSUURLViewController.m in Sources */,
+				B8F8C9321C6941E60081438A /* VASTableViewCell.m in Sources */,
 				B8F1ECF91C4E9A6400449EC7 /* OMHApplication.m in Sources */,
 				B8F545DB1C4EFB6E00108CEB /* AFHTTPSessionManager.m in Sources */,
 				B860BACD1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.m in Sources */,
