@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol VASTableViewCellProtocol <NSObject>
+
+- (void)questionAtIndexPath:(NSIndexPath*)indexPath answeredWith:(NSNumber*)answer;
+
+@end
+
 @interface VASTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) id<VASTableViewCellProtocol> delegate;
 
 @property (nonatomic, assign) IBOutlet UILabel *titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel *valueLabel;

@@ -24,10 +24,21 @@
     [self.slider setValue:sliderValue animated:YES];
     
     // Set value label
-    if (sliderValue == 0) {
-        [self.valueLabel setText:[NSString stringWithFormat:@"None at All"]];
+    [self updateValueLabel];
+    
+    // Notify delegate
+    if (self.delegate) {
+        [self.delegate questionAtIndexPath:self.indexPath answeredWith:@(sliderValue)];
+    }
+}
+
+- (void)updateValueLabel {
+    if (self.slider.value == 0) {
+        [self.valueLabel setText:[NSString stringWithFormat:@"Never"]];
+    } else if (self.slider.value == 10) {
+        [self.valueLabel setText:[NSString stringWithFormat:@"All the time"]];
     } else {
-        [self.valueLabel setText:[NSString stringWithFormat:@"%ld", sliderValue]];
+        [self.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.slider.value]];
     }
 }
 
