@@ -46,6 +46,10 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     for (int i=0; i<self.questionsArray.count; i++) {
         [self.answersArray addObject:@0];
     }
+    
+    // Tableview
+    self.tableView.estimatedRowHeight = 100.0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)dismissView {
