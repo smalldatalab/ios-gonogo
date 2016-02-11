@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMMarkSlider.h"
 
 @protocol VASTableViewCellProtocol <NSObject>
 
@@ -21,6 +22,6 @@
 
 @property (nonatomic, assign) IBOutlet UILabel *titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel *valueLabel;
-@property (nonatomic, assign) IBOutlet UISlider *slider;
+@property (nonatomic, assign) IBOutlet JMMarkSlider *slider;
 
 @end

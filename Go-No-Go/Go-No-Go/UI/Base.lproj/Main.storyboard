@@ -149,7 +149,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <slider contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="8kb-2f-I1E">
+                                        <slider contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="8kb-2f-I1E" customClass="JMMarkSlider">
                                             <rect key="frame" x="16" y="81" width="568" height="31"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>

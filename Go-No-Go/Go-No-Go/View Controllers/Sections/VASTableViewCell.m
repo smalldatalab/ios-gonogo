@@ -11,7 +11,14 @@
 @implementation VASTableViewCell
 
 - (void)awakeFromNib {
-    // Add value steps if possible
+
+    // Customize slider
+    self.slider.selectedBarColor = [UIColor colorWithRed:0.0014 green:0.8571 blue:0.0 alpha:1.0];
+    self.slider.unselectedBarColor = [UIColor lightGrayColor];
+    
+    self.slider.markColor = [UIColor whiteColor];
+    self.slider.markPositions = @[@10, @20, @30, @40, @50, @60, @70, @80, @90];
+    self.slider.markWidth = 1.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
