@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 
 static NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION";
-static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
 
 @interface ProfileViewController ()
 
@@ -19,7 +18,6 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, strong) IBOutlet UISwitch *remindersSwitch;
-@property (nonatomic, strong) UIDatePicker *datePicker;
 
 @end
 
@@ -42,19 +40,7 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // Configure date picker
-    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.remindersSwitch.frame) + 8.f, CGRectGetWidth(self.view.frame), 200.f)];
-    [self.datePicker setDatePickerMode:UIDatePickerModeTime];
-    [self.datePicker setDate:[NSDate date]];
-    [self.datePicker setHidden:YES];
-    [self.datePicker setAlpha:0.0];
-    [self.view addSubview:self.datePicker];
-    
-    // If a reminder time is saved, use it, else use current time
-    NSDate *reminderTime = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:kDailyReminderTime];
-    self.datePicker.date    = reminderTime ?: [NSDate date];
     self.remindersSwitch.on = [self hasRemindersEnabled];
-    [self updateDatePickerAppearance];
 }
 
 - (IBAction)donePressed:(id)sender {
@@ -78,38 +64,11 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
 }
 
 - (IBAction)remindersSwitchChanged:(id)sender {
-    [self updateDatePickerAppearance];
-}
-
-- (void)updateDatePickerAppearance {
-    
-    // Prevent user from messing with switch during animation
-    [self.remindersSwitch setUserInteractionEnabled:NO];
-    
-    // Show time picker
     if (self.remindersSwitch.isOn) {
-        [self.datePicker setHidden:NO];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.datePicker setAlpha:1.0];
-        } completion:^(BOOL finished) {
-            [self.remindersSwitch setUserInteractionEnabled:YES];
-            
-            // Check for notification permissions
-            if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-                [self requestNotificationPermissions];
-            }
-            
-        }];
-    }
-    
-    // Hide date picker
-    else {
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.datePicker setAlpha:0.0];
-        } completion:^(BOOL finished) {
-            [self.datePicker setHidden:YES];
-            [self.remindersSwitch setUserInteractionEnabled:YES];
-        }];
+        // Check for notification permissions
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            [self requestNotificationPermissions];
+        }
     }
 }
 
@@ -143,7 +102,6 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
         
         // Reset to OFF
         [self.remindersSwitch setOn:NO animated:YES];
-        [self updateDatePickerAppearance];
     }
     
     // Notify the user then register local notifications
@@ -172,19 +130,36 @@ static NSString * const kDailyReminderTime         = @"DAILY_REMINDER_TIME";
     
     if (self.remindersSwitch.isOn) {
         
-        // Create new local notification
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.alertBody      = @"Daily reminder to answer questions";// Should change text
-        notification.fireDate       = self.datePicker.date;
-        notification.repeatInterval = NSCalendarUnitDay;
-        notification.soundName      = UILocalNotificationDefaultSoundName;
-        notification.timeZone       = [NSTimeZone defaultTimeZone];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+        [components setHour: 12];
+        [components setMinute: 0];
+        [components setSecond: 0];
+        [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
+        NSDate *morningTime = [calendar dateFromComponents:components];
         
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        [components setHour:19];
+        [components setMinute:0];
+        [components setSecond:0];
+        NSDate *eveningTime = [calendar dateFromComponents:components];
         
-        // Save it to user defaults
-        [[NSUserDefaults standardUserDefaults] setObject:self.datePicker.date forKey:kDailyReminderTime];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        // Create morning notification
+        UILocalNotification *morningNotification = [[UILocalNotification alloc] init];
+        morningNotification.alertBody      = @"Daily reminder to answer questions";// Should change text
+        morningNotification.fireDate       = morningTime;
+        morningNotification.repeatInterval = NSCalendarUnitDay;
+        morningNotification.soundName      = UILocalNotificationDefaultSoundName;
+        morningNotification.timeZone       = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:morningNotification];
+        
+        // Create evening notification
+        UILocalNotification *eveningNotification = [[UILocalNotification alloc] init];
+        eveningNotification.alertBody      = @"Daily reminder to answer questions";// Should change text
+        eveningNotification.fireDate       = eveningTime;
+        eveningNotification.repeatInterval = NSCalendarUnitDay;
+        eveningNotification.soundName      = UILocalNotificationDefaultSoundName;
+        eveningNotification.timeZone       = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:eveningNotification];
     }
 }
 
