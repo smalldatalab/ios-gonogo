@@ -8,13 +8,20 @@
 
 #import "VASTableViewController.h"
 #import "VASTableViewCell.h"
+#import "ImpulsivityQuestions.h"
+#import "OMHClient.h"
+#import "AppConstants.h"
 
 NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
+static NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
 
 @interface VASTableViewController () <VASTableViewCellProtocol>
 
 @property (strong, nonatomic) NSArray<NSString*> *questionsArray;
 @property (strong, nonatomic) NSMutableArray<NSNumber*> *answersArray;
+
+@property (nonatomic, assign) BOOL hasAnsweredAQuestion;
+@property (nonatomic, strong) NSString *testType;
 
 @end
 
@@ -28,18 +35,33 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     [item setTintColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]];
     [self.navigationItem setRightBarButtonItem:item];
     
-    // Questions
-    self.questionsArray = [[NSArray alloc] initWithObjects:
-                           @"I do things that I end up regretting later",
-                           @"I have difficulty controlling how much I check my mobile phone",
-                           @"I stick to my long-term goals even if I am tempted by short-term pleasure. ",
-                           @"I tend to do things that feel good in the short-term but are bad for me in the long-term",
-                           @"I have difficulty controlling my impulses when I am tempted by something even if I don’t want to do it. ",
-                           @"I have difficulty controlling how much I use social media",
-                           @"I feel like I am missing out on fun activities going on around me",
-                           @"I have difficulty completing tasks that require me to stay focused for long periods",
-                           @"I tend to do things I regret because I get influenced by other people ",
-                           nil];
+    // Need to do baseline first
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kHAS_COMPLETED_BASELINE]) {
+        self.questionsArray = [ImpulsivityQuestions baselineVASQuestions];
+        self.testType = @"baseline";
+    }
+    
+    // Baseline done
+    else {
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:[NSDate date]];
+        NSInteger currentHour = [components hour];
+
+        // Morning
+        if (currentHour < 12) {
+            self.questionsArray = [ImpulsivityQuestions morningVASQuestions];
+            self.testType = @"morning";
+        }
+        // Evening
+        else if (currentHour > 19) {
+            self.questionsArray = [ImpulsivityQuestions eveningVASQuestions];
+            self.testType = @"evening";
+        }
+        // Else baseline
+        else {
+            self.questionsArray = [ImpulsivityQuestions baselineVASQuestions];
+            self.testType = @"baseline";
+        }
+    }
 
     // Fill answers with 0s
     self.answersArray = [[NSMutableArray alloc] init];
@@ -53,7 +75,14 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 }
 
 - (void)dismissView {
-    //TODO: Save responses
+    
+    // If user has answered at least a question, save the results to DSU
+    if (self.hasAnsweredAQuestion) {
+        [self submitResults];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHAS_COMPLETED_BASELINE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -62,6 +91,7 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 }
 
 - (void)questionAtIndexPath:(NSIndexPath *)indexPath answeredWith:(NSNumber *)answer {
+    self.hasAnsweredAQuestion = YES;
     [self.answersArray setObject:answer atIndexedSubscript:indexPath.row];
 }
 
@@ -91,6 +121,45 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     }
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (![self.testType isEqualToString:@"baseline"]) {
+        return @"Think about this morning and yesterday for the following questions.";
+    }
+    return nil;
+}
+
+#pragma mark - Data Upload
+
+- (void)submitResults {
+    NSDictionary *dataPoint = [self createDataPointForTestResults];
+    [[OMHClient sharedClient] submitDataPoint:dataPoint];
+}
+
+- (NSDictionary *)createDataPointForTestResults {
+    OMHDataPoint *dataPoint = [OMHDataPoint templateDataPoint];
+    dataPoint.header.schemaID = [AppConstants VASschemaID];
+    dataPoint.header.acquisitionProvenance = [AppConstants acquisitionProvenance];
+    dataPoint.body = [self JSONResultsForDataPoint];
+    return dataPoint;
+}
+
+- (NSDictionary *)JSONResultsForDataPoint {
+    
+    // Construct dictionary of responses
+    NSMutableDictionary *answers = [[NSMutableDictionary alloc] init];
+    for (int i=0; i<self.questionsArray.count; i++) {
+        [answers setObject:self.answersArray[i] forKey:self.questionsArray[i]];
+    }
+    
+    NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
+    
+    NSDictionary *results = @{@"effective_time_frame" : time,
+                              @"test_type" : self.testType,
+                              @"results" : answers};
+    
+    return results;
 }
 
 @end

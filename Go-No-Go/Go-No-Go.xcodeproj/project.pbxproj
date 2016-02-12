@@ -24,6 +24,7 @@
 		B876872E1C6DB5CA00219224 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B876872C1C6DB5C900219224 /* Fabric.framework */; };
 		B876872F1C6DB5CA00219224 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B876872D1C6DB5CA00219224 /* Crashlytics.framework */; };
 		B89C34AF1C6CE4CE006E9B0B /* JMMarkSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C34AE1C6CE4CE006E9B0B /* JMMarkSlider.m */; };
+		B8BAC7A51C6E2AB500DA81F2 /* ImpulsivityQuestions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BAC7A41C6E2AB400DA81F2 /* ImpulsivityQuestions.m */; };
 		B8C3D1571C56DB1A000D383C /* UIView+Explode.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C3D1561C56DB1A000D383C /* UIView+Explode.m */; };
 		B8C9B40E1C4D9D5A006CE5DD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C9B40D1C4D9D5A006CE5DD /* AddressBook.framework */; };
 		B8C9B4101C4D9D63006CE5DD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C9B40F1C4D9D63006CE5DD /* AssetsLibrary.framework */; };
@@ -97,6 +98,8 @@
 		B876872D1C6DB5CA00219224 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B89C34AD1C6CE4CE006E9B0B /* JMMarkSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMMarkSlider.h; sourceTree = "<group>"; };
 		B89C34AE1C6CE4CE006E9B0B /* JMMarkSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMMarkSlider.m; sourceTree = "<group>"; };
+		B8BAC7A31C6E2AB400DA81F2 /* ImpulsivityQuestions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImpulsivityQuestions.h; sourceTree = "<group>"; };
+		B8BAC7A41C6E2AB400DA81F2 /* ImpulsivityQuestions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImpulsivityQuestions.m; sourceTree = "<group>"; };
 		B8C3D1551C56DB1A000D383C /* UIView+Explode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Explode.h"; sourceTree = "<group>"; };
 		B8C3D1561C56DB1A000D383C /* UIView+Explode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Explode.m"; sourceTree = "<group>"; };
 		B8C9B40D1C4D9D5A006CE5DD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -247,6 +250,8 @@
 				B82980901C45ADDB00C5113A /* AppConstants.m */,
 				B865829E1C3EF00700C15BB8 /* AppDelegate.h */,
 				B865829F1C3EF00700C15BB8 /* AppDelegate.m */,
+				B8BAC7A31C6E2AB400DA81F2 /* ImpulsivityQuestions.h */,
+				B8BAC7A41C6E2AB400DA81F2 /* ImpulsivityQuestions.m */,
 			);
 			path = "App Delegate";
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				B8087F301C5953CB002CD9E9 /* VASTableViewController.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
 				B8F1ECFA1C4E9A6400449EC7 /* OMHClientDSUConnector.m in Sources */,
+				B8BAC7A51C6E2AB500DA81F2 /* ImpulsivityQuestions.m in Sources */,
 				B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */,
 				B8F545E31C4EFBA500108CEB /* AFNetworkActivityIndicatorManager.m in Sources */,
 				B8F545E01C4EFB6E00108CEB /* AFURLSessionManager.m in Sources */,

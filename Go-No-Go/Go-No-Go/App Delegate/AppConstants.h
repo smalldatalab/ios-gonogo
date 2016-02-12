@@ -28,6 +28,7 @@ extern NSTimeInterval const DURATION_WAIT_LAP;
 + (NSString *)DSUClientSecret;
 + (OMHSchemaID *)schemaID;
 + (OMHSchemaID *)BARTschemaID;
++ (OMHSchemaID *)VASschemaID;
 + (OMHAcquisitionProvenance *)acquisitionProvenance;
 
 @end
