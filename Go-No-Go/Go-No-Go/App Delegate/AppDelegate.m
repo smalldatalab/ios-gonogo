@@ -11,6 +11,9 @@
 #import "AppConstants.h"
 #import "LoginViewController.h"
 #import "MainViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 @interface AppDelegate () <OMHSignInDelegate>
 
@@ -44,6 +47,8 @@
     self.window.rootViewController = root;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [Fabric with:@[[Crashlytics class]]];
     
     return YES;
 }
