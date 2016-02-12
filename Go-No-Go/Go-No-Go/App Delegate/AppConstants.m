@@ -53,6 +53,18 @@ NSTimeInterval const DURATION_WAIT_LAP         = 100 / MSEC_PER_SEC;
     return sSchemaID;
 }
 
++ (OMHSchemaID *)BARTschemaID
+{
+    static OMHSchemaID *sSchemaID = nil;
+    if (!sSchemaID) {
+        sSchemaID = [[OMHSchemaID alloc] init];
+        sSchemaID.schemaNamespace = @"cornell";
+        sSchemaID.name = @"balloon_analogue_risk_test_results";
+        sSchemaID.version = @"1.0";
+    }
+    return sSchemaID;
+}
+
 + (OMHAcquisitionProvenance *)acquisitionProvenance
 {
     static OMHAcquisitionProvenance *sProvenance = nil;

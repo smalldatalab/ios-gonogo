@@ -27,6 +27,7 @@ extern NSTimeInterval const DURATION_WAIT_LAP;
 + (NSString *)googleClientID;
 + (NSString *)DSUClientSecret;
 + (OMHSchemaID *)schemaID;
++ (OMHSchemaID *)BARTschemaID;
 + (OMHAcquisitionProvenance *)acquisitionProvenance;
 
 @end

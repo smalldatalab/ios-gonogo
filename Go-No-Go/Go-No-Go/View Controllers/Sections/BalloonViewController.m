@@ -8,6 +8,8 @@
 
 #import "BalloonViewController.h"
 #import "UIView+Explode.h"
+#import "AppConstants.h"
+#import "OMHClient.h"
 
 static CGFloat const kPumpFactor  = 1.1;
 static CGFloat const kGainPerPump = 0.25;
@@ -16,17 +18,27 @@ static NSInteger const kNumBalloons = 15;
 
 @interface BalloonViewController ()
 
+// UI
 @property (nonatomic, strong) UIImageView *balloon;
 @property (nonatomic, strong) IBOutlet UILabel *potentialGainLabel;
 @property (nonatomic, strong) IBOutlet UILabel *totalEarningsLabel;
 @property (nonatomic, strong) IBOutlet UIButton *pumpButton;
 @property (nonatomic, strong) IBOutlet UIButton *collectButton;
+@property (strong, nonatomic) UITextView *resultsTextView;
 
+// Test Variables
 @property (nonatomic, assign) double earnings;
 @property (nonatomic, assign) double potentialGain;
 @property (nonatomic, assign) int pumps;
 @property (nonatomic, assign) int positionToImplode;
 @property (nonatomic, assign) int currentBalloon;
+
+// Data Recording
+@property (nonatomic, strong) NSMutableArray *pumpsPerBalloon;
+@property (nonatomic, strong) NSMutableArray *pumpsAfterExplode;
+@property (nonatomic, strong) NSMutableArray *pumpsAfterNoExplode;
+@property (nonatomic, assign) BOOL lastBalloonExploded;
+@property (nonatomic, assign) int numberOfExplosions;
 
 @end
 
@@ -48,8 +60,13 @@ static NSInteger const kNumBalloons = 15;
     self.earnings = 0;
     self.potentialGain = 0;
     self.pumps = 0;
+    self.numberOfExplosions = 0;
     self.currentBalloon = 1;
+    self.lastBalloonExploded = NO;
     self.positionToImplode = kMaxPumps + 1;
+    self.pumpsPerBalloon = [[NSMutableArray alloc] init];
+    self.pumpsAfterExplode = [[NSMutableArray alloc] init];
+    self.pumpsAfterNoExplode = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,13 +85,12 @@ static NSInteger const kNumBalloons = 15;
 }
 
 //------------------------------------------------------------------------------------------
-#pragma mark - Actions -
+#pragma mark - Game Actions -
 //------------------------------------------------------------------------------------------
 
 - (IBAction)tappedPump:(id)sender {
     // Limit number of balloons
     if (self.currentBalloon > kNumBalloons) {
-        //TODO: Show results here
         return;
     }
     
@@ -93,7 +109,9 @@ static NSInteger const kNumBalloons = 15;
     // Animate pumping
     [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
         // Inflate slightly more on the x-axis to mimic real balloon
-        CGAffineTransform transform = CGAffineTransformScale(self.balloon.transform, 1.005 * (kPumpFactor+increment), (kPumpFactor+increment));
+        CGAffineTransform transform = CGAffineTransformScale(self.balloon.transform,
+                                                             1.005 * (kPumpFactor+increment),
+                                                             (kPumpFactor+increment));
         [self.balloon setTransform:transform];
     } completion:nil];
     
@@ -104,6 +122,7 @@ static NSInteger const kNumBalloons = 15;
 
 - (IBAction)tappedCollect:(id)sender {
     self.currentBalloon++;
+    self.lastBalloonExploded = NO; // Set flag
     [self resetBalloon];
 }
 
@@ -115,6 +134,8 @@ static NSInteger const kNumBalloons = 15;
     // No gains if balloon implodes
     self.potentialGain = 0;
     self.currentBalloon++;
+    self.numberOfExplosions++;
+    self.lastBalloonExploded = YES; // Set flag
     [self updateEarningLabels];
 
     // Prevent user pumping or collecting during animation
@@ -153,9 +174,26 @@ static NSInteger const kNumBalloons = 15;
     // Update data
     self.earnings += self.potentialGain;
     self.potentialGain = 0;
+
+    // Record Data after first balloon
+    if (self.currentBalloon > 1) {
+        [self.pumpsPerBalloon addObject:@(self.pumps)];
+        if (self.lastBalloonExploded) {
+            [self.pumpsAfterExplode addObject:@(self.pumps)];
+        } else {
+            [self.pumpsAfterNoExplode addObject:@(self.pumps)];
+        }
+    }
+    
     self.pumps = 0;
     [self pickRandomImplodingStep];
     [self updateEarningLabels];
+    
+    // Done with the game, show results and upload to DSU
+    if (self.currentBalloon > kNumBalloons) {
+        [self submitResults];
+        [self showResults];
+    }
 }
 
 - (void)pickRandomImplodingStep {
@@ -171,6 +209,135 @@ static NSInteger const kNumBalloons = 15;
         self.totalEarningsLabel.text = [NSString stringWithFormat:@"Total Earnings: $%.2f", self.earnings];
     }
     self.potentialGainLabel.text = [NSString stringWithFormat:@"Potential Gain: $%.2f", self.potentialGain];
+}
+
+//------------------------------------------------------------------------------------------
+#pragma mark - Post-Game -
+//------------------------------------------------------------------------------------------
+
+- (void)submitResults {
+    NSDictionary *dataPoint = [self createDataPointForTestResults];
+    [[OMHClient sharedClient] submitDataPoint:dataPoint];
+}
+
+- (NSDictionary *)createDataPointForTestResults {
+    OMHDataPoint *dataPoint = [OMHDataPoint templateDataPoint];
+    dataPoint.header.schemaID = [AppConstants BARTschemaID];
+    dataPoint.header.acquisitionProvenance = [AppConstants acquisitionProvenance];
+    dataPoint.body = [self JSONResultsForDataPoint];
+    return dataPoint;
+}
+
+- (NSDictionary *)JSONResultsForDataPoint {
+    double meanPumps = [self averageOfNonZeroValues:self.pumpsPerBalloon];
+    int rangePumps = [self rangeOfValues:self.pumpsPerBalloon];
+    double stdDevPumps = [self standardDeviationOfValues:self.pumpsPerBalloon];
+    
+    NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
+    
+    NSDictionary *results = @{@"effective_time_frame" : time,
+                              @"pumps_mean" : @(meanPumps),
+                              @"pumps_range" : @(rangePumps),
+                              @"pumps_standard_deviation" : @(stdDevPumps),
+                              @"number_of_explosions" : @(self.numberOfExplosions),
+                              @"number_of_balloons" : @(kNumBalloons),
+                              @"total_gains" : @(self.earnings),
+                              @"max_pumps_per_balloon" : @(kMaxPumps),
+                              @"earning_increment_per_pump" : @(kGainPerPump),
+                              @"mean_pumps_after_explode" : @((int)[self averageOfNonZeroValues:self.pumpsAfterExplode]),
+                              @"mean_pumps_after_no_explode" : @((int)[self averageOfNonZeroValues:self.pumpsAfterNoExplode])};
+
+    return results;
+}
+
+/**
+ *  Show results to the user
+ */
+- (void)showResults {
+    
+    // Prevent tapping buttons
+    [self.collectButton setEnabled:NO];
+    [self.pumpButton setEnabled:NO];
+    
+    // Create a textview to display results, and center it within view
+    self.resultsTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 70,
+                                                                        CGRectGetWidth(self.view.frame) - 40,
+                                                                        CGRectGetHeight(self.view.frame) / 1.2)];
+    // Fix for centering view
+    CGPoint center = self.view.center;
+    center.y       = CGRectGetMidY(self.view.frame) + CGRectGetHeight(self.navigationController.navigationBar.frame);
+    self.resultsTextView.center                 = center;
+    self.resultsTextView.font                   = [UIFont systemFontOfSize:18];
+    self.resultsTextView.editable               = NO;
+    self.resultsTextView.scrollEnabled          = NO;
+    self.resultsTextView.userInteractionEnabled = NO;
+    self.resultsTextView.clipsToBounds          = NO;
+    self.resultsTextView.layer.cornerRadius     = 10;
+    self.resultsTextView.layer.borderColor      = [UIColor blackColor].CGColor;
+    self.resultsTextView.layer.borderWidth      = 0.3;
+    self.resultsTextView.layer.shadowColor      = [UIColor blackColor].CGColor;
+    self.resultsTextView.layer.shadowOpacity    = 1.0;
+    self.resultsTextView.layer.shadowRadius     = 5.0;
+    self.resultsTextView.layer.shadowOffset     = CGSizeMake(1, 3);
+    
+    // Results
+    self.resultsTextView.text = [NSString stringWithFormat:@"Average Pumps per Balloon: %.1f\n\n"
+                                 "Total Earnings: $%.2f\n\n"
+                                 "Number of Balloon Explosions: %d\n\n",
+                                 [self averageOfNonZeroValues:self.pumpsPerBalloon],
+                                 self.earnings,
+                                 self.numberOfExplosions];
+    
+    // Drop it below to animate it up
+    CGRect newFrame   = self.resultsTextView.frame;
+    newFrame.origin.y = CGRectGetMaxY(self.view.frame) + 20;
+    [self.resultsTextView setFrame:newFrame];
+    [self.view addSubview:self.resultsTextView];
+    [self.view bringSubviewToFront:self.resultsTextView];
+    [UIView animateWithDuration:0.5 animations:^{
+        CGPoint center = self.view.center;
+        center.y       = CGRectGetMidY(self.view.frame) + CGRectGetHeight(self.navigationController.navigationBar.frame);
+        [self.resultsTextView setCenter:center];
+    }];
+}
+
+//------------------------------------------------------------------------------------------
+#pragma mark - Helper Methods -
+//------------------------------------------------------------------------------------------
+
+// Return mean of values in array, excluding 0's
+- (double)averageOfNonZeroValues:(NSArray*)array
+{
+    double total = 0.0;
+    int count = 0;
+    for (NSNumber *value in array) {
+        if (value > 0) {
+            total += [value doubleValue];
+            count += 1;
+        }
+    }
+    return total / count;
+}
+
+- (int)rangeOfValues:(NSArray*)array {
+    if (array.count < 2) {
+        return 0;
+    }
+    
+    // Find min & max values
+    int xmax = -INT_MAX;
+    int xmin = INT_MAX;
+    for (NSNumber *num in array) {
+        int x = num.intValue;
+        if (x < xmin) xmin = x;
+        if (x > xmax) xmax = x;
+    }
+    return xmax - xmin;
+}
+
+- (double)standardDeviationOfValues:(NSArray*)array {
+    NSExpression *expression = [NSExpression expressionForFunction:@"stddev:" arguments:@[[NSExpression expressionForConstantValue:array]]];
+    return [[expression expressionValueWithObject:nil context:nil] doubleValue];
 }
 
 @end
