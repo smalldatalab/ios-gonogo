@@ -192,12 +192,12 @@ static const int NUMBER_OF_TRIALS = 30;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
                         // Different probabilities for go and no-go cues
-                        // If Go Cue presented, 80% probability of green
-                        // If No-Go Cue, only 20% probability
+                        // If Go Cue presented, 70% probability of green
+                        // If No-Go Cue, only 30% probability
                         int flip = arc4random_uniform(100);
                         
                         // GO
-                        if ((cueChoice == GO_CUE && flip > 20) || (cueChoice == NO_GO_CUE && flip < 20)) {
+                        if ((cueChoice == GO_CUE && flip > 30) || (cueChoice == NO_GO_CUE && flip < 30)) {
                             [cueBox setBackgroundColor:[UIColor VALID_COLOR]];
                             [self.cues addObject:[NSNumber numberWithInt:GO_CUE]];
                             
