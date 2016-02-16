@@ -64,7 +64,11 @@ static const int NUMBER_OF_TRIALS = 15;
     [super viewWillAppear:animated];
     
     // Game Explanation
-    [self.explanationLabel setText:@"Welcome to the Go/No-Go test. \n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min."];
+    NSString *instructionsString = @"Welcome to the Go/No-Go test.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min.";
+    NSMutableAttributedString *instructionsText = [[NSMutableAttributedString alloc] initWithString:instructionsString];
+    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"green, tap anywhere on the screen as quickly as possible"]];
+    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"blue, do not respond at all"]];
+    [self.explanationLabel setAttributedText:instructionsText];
 
     // Start Button
     self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
