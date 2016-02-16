@@ -66,7 +66,7 @@ static NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
     // Fill answers with 0s
     self.answersArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.questionsArray.count; i++) {
-        [self.answersArray addObject:@0];
+        [self.answersArray addObject:@5];
     }
     
     // Tableview
@@ -112,13 +112,8 @@ static NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
     cell.indexPath = indexPath;
     cell.delegate = self;
     cell.slider.value = [[self.answersArray objectAtIndex:indexPath.row] floatValue];
-    if (cell.slider.value == 0) {
-        [cell.valueLabel setText:[NSString stringWithFormat:@"Never"]];
-    } else if (cell.slider.value == 10) {
-        [cell.valueLabel setText:[NSString stringWithFormat:@"All the time"]];
-    } else {
-        [cell.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)cell.slider.value]];
-    }
+    cell.isBaselineQuestion = [self.testType isEqualToString:@"baseline"];
+    [cell updateValueLabel];
     
     return cell;
 }

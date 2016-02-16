@@ -17,11 +17,14 @@
 
 @interface VASTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) BOOL isBaselineQuestion;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) id<VASTableViewCellProtocol> delegate;
 
 @property (nonatomic, assign) IBOutlet UILabel *titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel *valueLabel;
 @property (nonatomic, assign) IBOutlet JMMarkSlider *slider;
+
+- (void)updateValueLabel;
 
 @end

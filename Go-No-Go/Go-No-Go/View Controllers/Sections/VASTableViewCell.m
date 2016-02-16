@@ -40,12 +40,31 @@
 }
 
 - (void)updateValueLabel {
-    if (self.slider.value == 0) {
-        [self.valueLabel setText:[NSString stringWithFormat:@"Never"]];
-    } else if (self.slider.value == 10) {
-        [self.valueLabel setText:[NSString stringWithFormat:@"All the time"]];
-    } else {
-        [self.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.slider.value]];
+    
+    switch ((int)self.slider.value) {
+        case 0:
+            [self.valueLabel setText:[NSString stringWithFormat:@"Never"]];
+            break;
+            
+        case 5:
+            if (self.isBaselineQuestion) {
+                [self.valueLabel setText:[NSString stringWithFormat:@"Half the time"]];
+            } else {
+                [self.valueLabel setText:[NSString stringWithFormat:@"Moderately"]];
+            }
+            break;
+            
+        case 10:
+            if (self.isBaselineQuestion) {
+                [self.valueLabel setText:[NSString stringWithFormat:@"All the time"]];
+            } else {
+                [self.valueLabel setText:[NSString stringWithFormat:@"Extremely"]];
+            }
+            break;
+            
+        default:
+            [self.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.slider.value]];
+            break;
     }
 }
 
