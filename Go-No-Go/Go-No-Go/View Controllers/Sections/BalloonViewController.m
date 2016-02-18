@@ -108,11 +108,10 @@ static const float BUTTON_HEIGHT = 60.f;
     // Start Button
     self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
     [self.startButton setTitle:@"Start" forState:UIControlStateNormal];
-    [self.startButton setBackgroundColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]]; //rgba(52, 73, 94,1.0)
+    [self.startButton setBackgroundColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.startButton addTarget:self action:@selector(hideInstructions) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.startButton];
-
 }
 
 - (void)hideInstructions {
@@ -129,7 +128,6 @@ static const float BUTTON_HEIGHT = 60.f;
             [view setHidden:NO];
         }
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
