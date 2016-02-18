@@ -132,7 +132,7 @@ static NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION"
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-        [components setHour: 12];
+        [components setHour: 10];
         [components setMinute: 0];
         [components setSecond: 0];
         [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
