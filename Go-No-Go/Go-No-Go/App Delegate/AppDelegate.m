@@ -99,6 +99,10 @@
         self.window.rootViewController = newRoot;
         self.navigationController = nil;
     }];
+    
+    // Clear key on baseline test
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHAS_COMPLETED_BASELINE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)application: (UIApplication *)application

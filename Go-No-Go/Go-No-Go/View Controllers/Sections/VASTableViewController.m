@@ -13,7 +13,6 @@
 #import "AppConstants.h"
 
 NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
-static NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
 
 @interface VASTableViewController () <VASTableViewCellProtocol>
 

@@ -11,6 +11,7 @@
 #define MSEC_PER_SEC 1000.0;
 
 NSString * const kDSUClientID = @"io.smalldata.ios.goNoGo";
+NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
 
 @implementation AppConstants
 

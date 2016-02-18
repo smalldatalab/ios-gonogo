@@ -14,6 +14,11 @@
  */
 extern NSString * const kDSUClientID;
 
+/**
+ *  Others
+ */
+extern NSString * const kHAS_COMPLETED_BASELINE;
+
 @interface AppConstants : NSObject
 
 /**
