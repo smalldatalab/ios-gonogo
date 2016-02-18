@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
 
     // Customize slider
-    self.slider.selectedBarColor = [UIColor colorWithRed:0.0014 green:0.8571 blue:0.0 alpha:1.0];
+    self.slider.selectedBarColor = [UIColor colorWithRed:0.0021 green:0.5427 blue:0.8975 alpha:1.0];
     self.slider.unselectedBarColor = [UIColor lightGrayColor];
     
     self.slider.markColor = [UIColor whiteColor];
@@ -40,32 +40,7 @@
 }
 
 - (void)updateValueLabel {
-    
-    switch ((int)self.slider.value) {
-        case 0:
-            [self.valueLabel setText:[NSString stringWithFormat:@"Never"]];
-            break;
-            
-        case 5:
-            if (self.isBaselineQuestion) {
-                [self.valueLabel setText:[NSString stringWithFormat:@"Half the time"]];
-            } else {
-                [self.valueLabel setText:[NSString stringWithFormat:@"Moderately"]];
-            }
-            break;
-            
-        case 10:
-            if (self.isBaselineQuestion) {
-                [self.valueLabel setText:[NSString stringWithFormat:@"All the time"]];
-            } else {
-                [self.valueLabel setText:[NSString stringWithFormat:@"Extremely"]];
-            }
-            break;
-            
-        default:
-            [self.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.slider.value]];
-            break;
-    }
+    [self.digitValueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.slider.value]];
 }
 
 @end

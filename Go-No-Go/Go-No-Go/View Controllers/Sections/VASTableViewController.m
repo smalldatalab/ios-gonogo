@@ -112,7 +112,18 @@ static NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
     cell.indexPath = indexPath;
     cell.delegate = self;
     cell.slider.value = [[self.answersArray objectAtIndex:indexPath.row] floatValue];
-    cell.isBaselineQuestion = [self.testType isEqualToString:@"baseline"];
+    
+    // Set value labels
+    BOOL isBaseline = [self.testType isEqualToString:@"baseline"];
+    [cell.lowValueLabel setText:@"Never"];
+    if (isBaseline) {
+        [cell.midValueLabel setText:@"Half the time"];
+        [cell.highValueLabel setText:@"All the time"];
+    } else {
+        [cell.midValueLabel setText:@"Moderately"];
+        [cell.highValueLabel setText:@"Extremely"];
+    }
+    
     [cell updateValueLabel];
     
     return cell;
