@@ -15,6 +15,7 @@ static CGFloat const kPumpFactor  = 1.1;
 static CGFloat const kGainPerPump = 0.25;
 static NSInteger const kMaxPumps  = 12;
 static NSInteger const kNumBalloons = 15;
+static const float BUTTON_HEIGHT = 60.f;
 
 @interface BalloonViewController ()
 
@@ -24,7 +25,9 @@ static NSInteger const kNumBalloons = 15;
 @property (nonatomic, strong) IBOutlet UILabel *totalEarningsLabel;
 @property (nonatomic, strong) IBOutlet UIButton *pumpButton;
 @property (nonatomic, strong) IBOutlet UIButton *collectButton;
-@property (strong, nonatomic) UITextView *resultsTextView;
+@property (nonatomic, strong) UITextView *resultsTextView;
+@property (strong, nonatomic) UILabel *explanationLabel;
+@property (strong, nonatomic) UIButton *startButton;
 
 // Test Variables
 @property (nonatomic, assign) double earnings;
@@ -74,10 +77,59 @@ static NSInteger const kNumBalloons = 15;
 
     // Set up the balloon on the screen
     [self resetBalloon];
+    [self showInstructions];
 }
 
 - (void)dismissView {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showInstructions {
+    
+    // Hide UI
+    for (UIView *view in @[self.potentialGainLabel, self.totalEarningsLabel, self.pumpButton, self.collectButton, self.balloon]) {
+        [view setHidden:YES];
+    }
+    
+    // Show explanation
+    self.explanationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70,
+                                                                      CGRectGetWidth(self.view.frame) - 40,
+                                                                      CGRectGetHeight(self.view.frame) - 70 - BUTTON_HEIGHT)];
+    // Game Explanation
+    NSString *instructionsString = @"Welcome to the Balloon Analogue Risk Task. \n\nIn this game, each balloon pump can earn you $0.50. Tap the pump button to inflate the balloon and the collect button to collect earnings and move on to the next balloon. However, remember that a balloon can implode at any point.\n\nYour goal is to earn as much possible from 15 balloons.";
+    [self.explanationLabel setText:instructionsString];
+    [self.explanationLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.explanationLabel setNumberOfLines:0];
+    [self.explanationLabel setFont:[UIFont systemFontOfSize:24.0]];
+    [self.explanationLabel setAdjustsFontSizeToFitWidth:YES];
+    [self.explanationLabel setMinimumScaleFactor:0.6];
+    [self.view addSubview:self.explanationLabel];
+    
+    // Start Button
+    self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
+    [self.startButton setTitle:@"Start" forState:UIControlStateNormal];
+    [self.startButton setBackgroundColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]]; //rgba(52, 73, 94,1.0)
+    [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.startButton addTarget:self action:@selector(hideInstructions) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.startButton];
+
+}
+
+- (void)hideInstructions {
+    // Hide start button
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame), CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
+        [self.explanationLabel setAlpha:0];
+    } completion:^(BOOL finished) {
+        [self.startButton removeFromSuperview];
+        [self.explanationLabel removeFromSuperview];
+    
+        // Hide UI
+        for (UIView *view in @[self.potentialGainLabel, self.totalEarningsLabel, self.pumpButton, self.collectButton, self.balloon]) {
+            [view setHidden:NO];
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
