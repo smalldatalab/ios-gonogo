@@ -96,11 +96,15 @@ static const float BUTTON_HEIGHT = 60.f;
                                                                       CGRectGetWidth(self.view.frame) - 40,
                                                                       CGRectGetHeight(self.view.frame) - 70 - BUTTON_HEIGHT)];
     // Game Explanation
-    NSString *instructionsString = @"Welcome to the Balloon Analogue Risk Task. \n\nIn this game, each balloon pump can earn you $0.50. Tap the pump button to inflate the balloon and the collect button to collect earnings and move on to the next balloon. However, remember that a balloon can implode at any point.\n\nYour goal is to earn as much possible from 15 balloons.";
-    [self.explanationLabel setText:instructionsString];
+    NSString *instructionsString = @"Welcome to the Balloon Game.\n\nYour goal for this game is to make as much money as possible by inflating the balloons. To play, tap the pump button to inflate the balloon and earn 50 cents for each pump. To collect your money for each balloon, hit the collect button and move on to the next balloon. But remember, the more you pump the balloon, the greater chance of it bursting. When it bursts, you get no money for that balloon. Your goal is to earn as much possible over the 15 balloons.";
+    NSMutableAttributedString *instructionsText = [[NSMutableAttributedString alloc] initWithString:instructionsString];
+    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:23.0] range:[instructionsString rangeOfString:@"pump button to inflate the balloon and earn 50 cents for each pump"]];
+    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:23.0] range:[instructionsString rangeOfString:@"collect button and move on to the next balloon"]];
+    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:23.0] range:[instructionsString rangeOfString:@"15 balloons"]];
+    [self.explanationLabel setFont:[UIFont systemFontOfSize:23.0]];
+    [self.explanationLabel setAttributedText:instructionsText];
     [self.explanationLabel setTextAlignment:NSTextAlignmentCenter];
     [self.explanationLabel setNumberOfLines:0];
-    [self.explanationLabel setFont:[UIFont systemFontOfSize:24.0]];
     [self.explanationLabel setAdjustsFontSizeToFitWidth:YES];
     [self.explanationLabel setMinimumScaleFactor:0.6];
     [self.view addSubview:self.explanationLabel];
