@@ -33,7 +33,6 @@ static const float BUTTON_HEIGHT = 60.f;
 @property (nonatomic, assign) double earnings;
 @property (nonatomic, assign) double potentialGain;
 @property (nonatomic, assign) int pumps;
-@property (nonatomic, assign) int positionToImplode;
 @property (nonatomic, assign) int currentBalloon;
 
 // Data Recording
@@ -66,7 +65,6 @@ static const float BUTTON_HEIGHT = 60.f;
     self.numberOfExplosions = 0;
     self.currentBalloon = 1;
     self.lastBalloonExploded = NO;
-    self.positionToImplode = kMaxPumps + 1;
     self.pumpsPerBalloon = [[NSMutableArray alloc] init];
     self.pumpsAfterExplode = [[NSMutableArray alloc] init];
     self.pumpsAfterNoExplode = [[NSMutableArray alloc] init];
@@ -152,7 +150,7 @@ static const float BUTTON_HEIGHT = 60.f;
     self.pumps++;
     
     // Balloon imploding now
-    if (self.pumps == self.positionToImplode || self.pumps >= kMaxPumps) {
+    if ([self shouldImplodeNow] || self.pumps >= kMaxPumps) {
         [self implodeBalloon];
         return;
     }
@@ -240,7 +238,6 @@ static const float BUTTON_HEIGHT = 60.f;
     }
     
     self.pumps = 0;
-    [self pickRandomImplodingStep];
     [self updateEarningLabels];
     
     // Done with the game, show results and upload to DSU
@@ -250,9 +247,9 @@ static const float BUTTON_HEIGHT = 60.f;
     }
 }
 
-- (void)pickRandomImplodingStep {
-    // Select a random position on which to explode balloon, excluding 0 and 1
-    self.positionToImplode = arc4random_uniform(kMaxPumps-1) + 2;
+- (BOOL)shouldImplodeNow {
+    // Probability of burst: 1-12, 1-11, 1-10, etc.
+    return (arc4random_uniform(kMaxPumps-self.pumps+1)) <= 1;
 }
 
 - (void)updateEarningLabels {
