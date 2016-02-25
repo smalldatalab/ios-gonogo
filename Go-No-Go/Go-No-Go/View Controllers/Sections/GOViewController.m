@@ -28,6 +28,7 @@ static const int NUMBER_OF_TRIALS = 30;
 @property (assign, nonatomic) BOOL shouldTap;
 @property (assign, nonatomic) BOOL testInProgress;
 @property (assign, nonatomic) int lapsToDo;
+@property (assign, nonatomic) BOOL done;
 
 // Track user reactions during tests
 @property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
@@ -56,12 +57,15 @@ static const int NUMBER_OF_TRIALS = 30;
 
 - (void)dismissView
 {
+    self.done = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.done = NO;
     
     // Game Explanation
     NSString *instructionsString = @"Welcome to the Go/No-Go test.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min.";
@@ -122,22 +126,8 @@ static const int NUMBER_OF_TRIALS = 30;
     }];
     
     // Go through tests
-    int laps = self.lapsToDo = NUMBER_OF_TRIALS;
-    for (int i=0; i<laps; i++) {
-        [self oneLap];
-    }
-    
-    // Wait total duration of test before showing controls again
-    NSTimeInterval totalLength = laps * (DURATION_WAIT_LAP + DURATION_BLANK_SCREEN + DURATION_FIXATION_CROSS + DURATION_TARGET_ON_SCREEN + 0.8);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(totalLength * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        // Show button and label
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.startButton setFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
-            [self.explanationLabel setHidden:NO];
-            self.shouldTap = NO;
-        }];
-    });
+    self.lapsToDo = NUMBER_OF_TRIALS;
+    [self oneLap];
 }
 
 /**
@@ -145,20 +135,11 @@ static const int NUMBER_OF_TRIALS = 30;
  */
 - (void)oneLap {
     
-    // Private serial queue to preserve presentation ordering
-    static dispatch_queue_t goQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        goQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
-    });
+    // Manually cancel dispatch
+    if (self.done) {
+        return;
+    }
     
-    __block double variableDelay; // Store the random delay for the cued target to be displayed
-    // Enter queue
-    dispatch_async(goQueue, ^{
-        
-        // Suspend queue
-        dispatch_suspend(goQueue);
-        
         // Show plus sign for 800ms
         __block UIImageView *imgView;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DURATION_WAIT_LAP * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -188,8 +169,8 @@ static const int NUMBER_OF_TRIALS = 30;
                     [self.view addSubview:cueBox];
                     
                     // Show color after 100,200,300,400 or 500ms
-                    variableDelay = (arc4random() % 5 + 1) / 10.0;
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(variableDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    NSTimeInterval delay = 0.3;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
                         // Different probabilities for go and no-go cues
                         // If Go Cue presented, 70% probability of green
@@ -232,20 +213,16 @@ static const int NUMBER_OF_TRIALS = 30;
 
                                 [self submitResults];
                                 [self showResults];
+                                
+                            // More laps left, loop back
+                            } else {
+                                [self oneLap];
                             }
                         });
                     });
                 });
             });
         });
-        
-        // Resume queue
-        const NSTimeInterval totalWait = DURATION_WAIT_LAP + DURATION_FIXATION_CROSS + DURATION_BLANK_SCREEN + variableDelay + DURATION_TARGET_ON_SCREEN + 0.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(totalWait * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            dispatch_resume(goQueue);
-        });
-    });
 }
 
 /**
@@ -289,7 +266,7 @@ static const int NUMBER_OF_TRIALS = 30;
         [self.correctAnswerArray addObject:@NO];
     }
     
-    // Show it briefly
+    // Show time feedback briefly
     [self.feedbackLabel setHidden:NO];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.feedbackLabel setHidden:YES];
@@ -347,6 +324,10 @@ static const int NUMBER_OF_TRIALS = 30;
 //------------------------------------------------------------------------------------------
 
 - (void)submitResults {
+    if (self.done) {
+        return;
+    }
+
     NSDictionary *dataPoint = [self createDataPointForTestResults];
     [[OMHClient sharedClient] submitDataPoint:dataPoint];
 }
@@ -449,8 +430,12 @@ static const int NUMBER_OF_TRIALS = 30;
     NSMutableArray *nonZeroResponseTimes = [[NSMutableArray alloc] initWithArray:self.responseTimeArray copyItems:YES];
     [nonZeroResponseTimes removeObjectIdenticalTo:@(0.0)];
     
-    NSExpression *expression = [NSExpression expressionForFunction:@"stddev:" arguments:@[[NSExpression expressionForConstantValue:nonZeroResponseTimes]]];
-    return [[expression expressionValueWithObject:nil context:nil] doubleValue];
+    if (nonZeroResponseTimes.count > 1) {
+        NSExpression *expression = [NSExpression expressionForFunction:@"stddev:" arguments:@[[NSExpression expressionForConstantValue:nonZeroResponseTimes]]];
+        return [[expression expressionValueWithObject:nil context:nil] doubleValue];
+    }
+    
+    return 0.0;
 }
 
 - (int)countResponsesForCue: (int)cue andCorrectness:(BOOL)correct {
