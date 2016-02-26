@@ -10,6 +10,9 @@
 
 @interface ImpulsivityQuestions : NSObject
 
++ (NSString*)baselineVASInstructions;
++ (NSString*)dailyVASInstructions;
+
 + (NSArray*)baselineVASQuestions;
 + (NSArray*)morningVASQuestions;
 + (NSArray*)eveningVASQuestions;

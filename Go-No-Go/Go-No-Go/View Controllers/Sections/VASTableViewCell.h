@@ -22,9 +22,6 @@
 
 @property (nonatomic, assign) IBOutlet UILabel *titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel *digitValueLabel;
-@property (nonatomic, assign) IBOutlet UILabel *lowValueLabel;
-@property (nonatomic, assign) IBOutlet UILabel *midValueLabel;
-@property (nonatomic, assign) IBOutlet UILabel *highValueLabel;
 @property (nonatomic, assign) IBOutlet JMMarkSlider *slider;
 
 - (void)updateValueLabel;

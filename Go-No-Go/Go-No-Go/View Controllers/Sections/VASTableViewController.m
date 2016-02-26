@@ -112,17 +112,6 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     cell.delegate = self;
     cell.slider.value = [[self.answersArray objectAtIndex:indexPath.row] floatValue];
     
-    // Set value labels
-    BOOL isBaseline = [self.testType isEqualToString:@"baseline"];
-    [cell.lowValueLabel setText:@"Never"];
-    if (isBaseline) {
-        [cell.midValueLabel setText:@"Half the time"];
-        [cell.highValueLabel setText:@"All the time"];
-    } else {
-        [cell.midValueLabel setText:@"Moderately"];
-        [cell.highValueLabel setText:@"Extremely"];
-    }
-    
     [cell updateValueLabel];
     
     return cell;
@@ -130,9 +119,10 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self.testType isEqualToString:@"baseline"]) {
-        return @"Think about this morning and yesterday for the following questions.";
+        return [ImpulsivityQuestions baselineVASInstructions];
+    } else {
+        return [ImpulsivityQuestions dailyVASInstructions];
     }
-    return nil;
 }
 
 #pragma mark - Data Upload
