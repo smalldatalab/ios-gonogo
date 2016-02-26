@@ -27,7 +27,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Balloon Analogue Risk Task">
+                                <state key="normal" title="Balloon Game">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -69,7 +69,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Go / No-Go">
+                                <state key="normal" title="Square Task">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -388,7 +388,7 @@
             </objects>
             <point key="canvasLocation" x="402" y="83"/>
         </scene>
-        <!--Balloon Analogue Risk Task-->
+        <!--Balloon Game-->
         <scene sceneID="orx-Cf-VRw">
             <objects>
                 <viewController id="T5f-3O-DNI" customClass="BalloonViewController" sceneMemberID="viewController">
@@ -499,7 +499,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Balloon Analogue Risk Task" id="1sf-DX-u2b"/>
+                    <navigationItem key="navigationItem" title="Balloon Game" id="1sf-DX-u2b"/>
                     <connections>
                         <outlet property="collectButton" destination="mZG-ik-eN4" id="vyB-Te-s7G"/>
                         <outlet property="potentialGainLabel" destination="lpY-wh-Lgs" id="p1Z-gb-AZ9"/>
@@ -511,7 +511,7 @@
             </objects>
             <point key="canvasLocation" x="1252" y="839"/>
         </scene>
-        <!--Go / No-Go Test-->
+        <!--Square Task-->
         <scene sceneID="hEJ-vi-lxm">
             <objects>
                 <viewController id="IEm-5L-lLb" customClass="GOViewController" sceneMemberID="viewController">
@@ -538,7 +538,7 @@
                             <constraint firstItem="2L4-yd-tV7" firstAttribute="trailing" secondItem="cxL-mF-NmU" secondAttribute="trailingMargin" id="h97-xl-kMV"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Go / No-Go Test" id="Vu6-AN-NWa"/>
+                    <navigationItem key="navigationItem" title="Square Task" id="Vu6-AN-NWa"/>
                     <connections>
                         <outlet property="explanationLabel" destination="2L4-yd-tV7" id="yOb-Nh-Cw4"/>
                     </connections>

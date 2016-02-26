@@ -68,7 +68,7 @@ static const int NUMBER_OF_TRIALS = 30;
     self.done = NO;
     
     // Game Explanation
-    NSString *instructionsString = @"Welcome to the Go/No-Go test.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min.";
+    NSString *instructionsString = @"Welcome to the Square Task.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min.";
     NSMutableAttributedString *instructionsText = [[NSMutableAttributedString alloc] initWithString:instructionsString];
     [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"green, tap anywhere on the screen as quickly as possible"]];
     [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"blue, do not respond at all"]];
@@ -76,7 +76,7 @@ static const int NUMBER_OF_TRIALS = 30;
 
     // Start Button
     self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - BUTTON_HEIGHT, CGRectGetWidth(self.view.frame), BUTTON_HEIGHT)];
-    [self.startButton setTitle:@"Start Go/No-Go" forState:UIControlStateNormal];
+    [self.startButton setTitle:@"Start Square Task" forState:UIControlStateNormal];
     [self.startButton setBackgroundColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]]; //rgba(52, 73, 94,1.0)
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.startButton addTarget:self action:@selector(startTest) forControlEvents:UIControlEventTouchUpInside];
