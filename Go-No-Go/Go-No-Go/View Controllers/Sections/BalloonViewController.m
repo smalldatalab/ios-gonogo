@@ -248,8 +248,14 @@ static const float BUTTON_HEIGHT = 60.f;
 }
 
 - (BOOL)shouldImplodeNow {
-    // Probability of burst: 1-12, 1-11, 1-10, etc.
-    return (arc4random_uniform(kMaxPumps-self.pumps+1)) <= 1;
+    // Don't burst on first pump
+    if (self.pumps <= 1) {
+        return NO;
+    }
+    
+    // Probability of burst: 1-11, 1-10, 1-9, etc.
+    int maxValue = (int)(kMaxPumps-self.pumps+1);
+    return (arc4random_uniform(maxValue) + 1) == 1;
 }
 
 - (void)updateEarningLabels {
