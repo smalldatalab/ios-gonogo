@@ -14,7 +14,6 @@
 + (NSString*)dailyVASInstructions;
 
 + (NSArray*)baselineVASQuestions;
-+ (NSArray*)morningVASQuestions;
-+ (NSArray*)eveningVASQuestions;
++ (NSArray*)dailyVASQuestions;
 
 @end

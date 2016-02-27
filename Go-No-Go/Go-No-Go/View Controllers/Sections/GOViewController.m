@@ -14,7 +14,7 @@ static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
 static const int NO_GO_CUE       = 1;
 
-static const int NUMBER_OF_TRIALS = 30;
+static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
 
 @interface GOViewController ()
 
@@ -68,10 +68,17 @@ static const int NUMBER_OF_TRIALS = 30;
     self.done = NO;
     
     // Game Explanation
-    NSString *instructionsString = @"Welcome to the Square Task.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 1 min.";
+    NSString *instructionsString = @"Welcome to the Square Task.\n\n\nOnce you start, you will be presented with a rectangle. When the rectangle turns green, tap anywhere on the screen as quickly as possible. When it turns blue, do not respond at all. \n\nThe test will take approximately 3 min.";
     NSMutableAttributedString *instructionsText = [[NSMutableAttributedString alloc] initWithString:instructionsString];
-    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"green, tap anywhere on the screen as quickly as possible"]];
-    [instructionsText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:24.0] range:[instructionsString rangeOfString:@"blue, do not respond at all"]];
+    [instructionsText addAttribute:NSFontAttributeName
+                             value:[UIFont boldSystemFontOfSize:24.0]
+                             range:[instructionsString rangeOfString:@"green, tap anywhere on the screen as quickly as possible"]];
+    [instructionsText addAttribute:NSFontAttributeName
+                             value:[UIFont boldSystemFontOfSize:24.0]
+                             range:[instructionsString rangeOfString:@"blue, do not respond at all"]];
+    [instructionsText addAttribute:NSFontAttributeName
+                             value:[UIFont boldSystemFontOfSize:24.0]
+                             range:[instructionsString rangeOfString:@"3 min"]];
     [self.explanationLabel setAttributedText:instructionsText];
 
     // Start Button

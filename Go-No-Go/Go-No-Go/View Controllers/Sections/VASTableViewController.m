@@ -47,12 +47,12 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 
         // Morning
         if (currentHour < 12) {
-            self.questionsArray = [ImpulsivityQuestions morningVASQuestions];
+            self.questionsArray = [ImpulsivityQuestions dailyVASQuestions];
             self.testType = @"morning";
         }
         // Evening
         else if (currentHour > 19) {
-            self.questionsArray = [ImpulsivityQuestions eveningVASQuestions];
+            self.questionsArray = [ImpulsivityQuestions dailyVASQuestions];
             self.testType = @"evening";
         }
         // Else baseline
