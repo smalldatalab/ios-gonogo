@@ -9,8 +9,7 @@
 #import "ProfileViewController.h"
 #import "OMHClient.h"
 #import "AppDelegate.h"
-
-static NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION";
+#import "AppConstants.h"
 
 @interface ProfileViewController ()
 

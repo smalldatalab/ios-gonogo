@@ -73,6 +73,75 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // Register local notifications
+    [self requestNotifications];
+}
+
+- (void)requestNotifications {
+    UIUserNotificationSettings *settings = [UIApplication sharedApplication].currentUserNotificationSettings;
+    
+    // Already enabled or denied
+    if ((settings.types & UIUserNotificationTypeAlert) || [[NSUserDefaults standardUserDefaults] boolForKey:kHasRequestedPermissionKey]) {
+        return;
+    }
+    
+    NSString *title = @"Reminder Permissions";
+    NSString *message = @"To deliver reminders, Pulsus needs permission to display notifications. Please allow notifications for Pulsus.";
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasRequestedPermissionKey];
+    
+    // Notify the user then register local notifications
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // Default 'OK' action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound
+                                                                                 categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [self updateReminders];
+    }];
+    [alertController addAction:okAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)updateReminders {
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    [components setHour: 10];
+    [components setMinute: 0];
+    [components setSecond: 0];
+    [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
+    NSDate *morningTime = [calendar dateFromComponents:components];
+    
+    [components setHour:19];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSDate *eveningTime = [calendar dateFromComponents:components];
+    
+    // Create morning notification
+    UILocalNotification *morningNotification = [[UILocalNotification alloc] init];
+    morningNotification.alertBody      = @"Daily reminder to complete your self-report.";
+    morningNotification.fireDate       = morningTime;
+    morningNotification.repeatInterval = NSCalendarUnitDay;
+    morningNotification.soundName      = UILocalNotificationDefaultSoundName;
+    morningNotification.timeZone       = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:morningNotification];
+    
+    // Create evening notification
+    UILocalNotification *eveningNotification = [[UILocalNotification alloc] init];
+    eveningNotification.alertBody      = @"Daily reminder to complete your self-report.";
+    eveningNotification.fireDate       = eveningTime;
+    eveningNotification.repeatInterval = NSCalendarUnitDay;
+    eveningNotification.soundName      = UILocalNotificationDefaultSoundName;
+    eveningNotification.timeZone       = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:eveningNotification];
+}
+
 - (void)dismissView {
     
     // If user has answered at least a question, save the results to DSU
