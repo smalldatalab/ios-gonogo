@@ -79,7 +79,7 @@
 		B860BAC91C4E92F600A6E7F8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B860BACB1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayoutHelpers.h"; sourceTree = "<group>"; };
 		B860BACC1C4E931C00A6E7F8 /* UIView+AutoLayoutHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayoutHelpers.m"; sourceTree = "<group>"; };
-		B86582981C3EF00700C15BB8 /* Go-No-Go.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go-No-Go.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B86582981C3EF00700C15BB8 /* Pulsus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulsus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B865829C1C3EF00700C15BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B865829E1C3EF00700C15BB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B865829F1C3EF00700C15BB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 		B86582991C3EF00700C15BB8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B86582981C3EF00700C15BB8 /* Go-No-Go.app */,
+				B86582981C3EF00700C15BB8 /* Pulsus.app */,
 				B86582B11C3EF00700C15BB8 /* Go-No-GoTests.xctest */,
 			);
 			name = Products;
@@ -389,9 +389,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B86582971C3EF00700C15BB8 /* Go-No-Go */ = {
+		B86582971C3EF00700C15BB8 /* Pulsus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B86582BA1C3EF00700C15BB8 /* Build configuration list for PBXNativeTarget "Go-No-Go" */;
+			buildConfigurationList = B86582BA1C3EF00700C15BB8 /* Build configuration list for PBXNativeTarget "Pulsus" */;
 			buildPhases = (
 				B86582941C3EF00700C15BB8 /* Sources */,
 				B86582951C3EF00700C15BB8 /* Frameworks */,
@@ -402,9 +402,9 @@
 			);
 			dependencies = (
 			);
-			name = "Go-No-Go";
+			name = Pulsus;
 			productName = "Go-No-Go";
-			productReference = B86582981C3EF00700C15BB8 /* Go-No-Go.app */;
+			productReference = B86582981C3EF00700C15BB8 /* Pulsus.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B86582B01C3EF00700C15BB8 /* Go-No-GoTests */ = {
@@ -457,7 +457,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B86582971C3EF00700C15BB8 /* Go-No-Go */,
+				B86582971C3EF00700C15BB8 /* Pulsus */,
 				B86582B01C3EF00700C15BB8 /* Go-No-GoTests */,
 			);
 		};
@@ -548,7 +548,7 @@
 /* Begin PBXTargetDependency section */
 		B86582B31C3EF00700C15BB8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B86582971C3EF00700C15BB8 /* Go-No-Go */;
+			target = B86582971C3EF00700C15BB8 /* Pulsus */;
 			targetProxy = B86582B21C3EF00700C15BB8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -746,7 +746,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B86582BA1C3EF00700C15BB8 /* Build configuration list for PBXNativeTarget "Go-No-Go" */ = {
+		B86582BA1C3EF00700C15BB8 /* Build configuration list for PBXNativeTarget "Pulsus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B86582BB1C3EF00700C15BB8 /* Debug */,

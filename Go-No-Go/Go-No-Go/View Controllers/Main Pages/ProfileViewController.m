@@ -93,12 +93,12 @@ static NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION"
     
     if (!hasRequested) {
         title = @"Reminder Permissions";
-        message = @"To deliver reminders, Go/No-Go needs permission to display notifications. Please allow notifications for Go/No-Go.";
+        message = @"To deliver reminders, Pulsus needs permission to display notifications. Please allow notifications for Pulsus.";
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasRequestedPermissionKey];
     }
     else {
         title = @"Insufficient Permissions";
-        message = @"To deliver reminders, Go/No-Go needs permission to display notifications. Please enable notifications for Go/No-Go in your device settings.";
+        message = @"To deliver reminders, Pulsus needs permission to display notifications. Please enable notifications for Pulsus in your device settings.";
         
         // Reset to OFF
         [self.remindersSwitch setOn:NO animated:YES];

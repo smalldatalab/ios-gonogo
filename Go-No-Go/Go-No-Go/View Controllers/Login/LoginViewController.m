@@ -33,7 +33,7 @@
     [self.view setBackgroundColor:[UIColor belizeBlueColor]];
     
     UILabel *header = [[UILabel alloc] init];
-    header.text = @"Go/No-Go";
+    header.text = @"Pulsus";
     header.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:45.0];
     header.textAlignment = NSTextAlignmentCenter;
     header.textColor = [UIColor whiteColor];

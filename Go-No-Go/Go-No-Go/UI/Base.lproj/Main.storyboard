@@ -58,7 +58,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Fms-0g-BBP" kind="presentation" id="WC0-sV-sbn"/>
+                                    <segue destination="Fms-0g-BBP" kind="presentation" identifier="selfReportSegue" id="WC0-sV-sbn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVJ-hh-33z">
@@ -122,7 +122,7 @@
         <scene sceneID="Sm7-v6-HbX">
             <objects>
                 <tableViewController id="h3y-9d-YG5" customClass="VASTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="160" sectionHeaderHeight="18" sectionFooterHeight="18" id="pcY-kX-ksq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="160" sectionHeaderHeight="30" sectionFooterHeight="18" id="pcY-kX-ksq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>

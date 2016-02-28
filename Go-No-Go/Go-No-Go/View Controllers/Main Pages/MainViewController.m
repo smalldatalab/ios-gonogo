@@ -32,6 +32,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self performSegueWithIdentifier:@"selfReportSegue" sender:self];
+    });
+}
+
 //------------------------------------------------------------------------------------------
 #pragma mark - Actions -
 //------------------------------------------------------------------------------------------
