@@ -10,6 +10,8 @@
 
 @interface MainViewController ()
 
+@property (nonatomic, assign) BOOL showedSelfReport;
+
 @end
 
 @implementation MainViewController
@@ -35,9 +37,21 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    // Direct users to either square task or balloon game after coming back from self-report
+    if (self.showedSelfReport) {
+        static dispatch_once_t onceToken2;
+        dispatch_once(&onceToken2, ^{
+            NSString *segue = arc4random_uniform(2) == 0 ? @"squareTaskSegue" : @"balloonGameSegue";
+            [self performSegueWithIdentifier:segue sender:self];
+        });
+        self.showedSelfReport = NO;
+    }
+    
+    // Direct users to self-report
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self performSegueWithIdentifier:@"selfReportSegue" sender:self];
+        self.showedSelfReport = YES;
     });
 }
 

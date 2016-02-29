@@ -37,7 +37,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="sMt-a0-ed0" kind="presentation" id="8CY-NC-zNk"/>
+                                    <segue destination="sMt-a0-ed0" kind="presentation" identifier="balloonGameSegue" id="8CY-NC-zNk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz1-Co-OcM">
@@ -79,7 +79,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HHl-dZ-N8I" kind="presentation" id="f3g-zD-MAF"/>
+                                    <segue destination="HHl-dZ-N8I" kind="presentation" identifier="squareTaskSegue" id="f3g-zD-MAF"/>
                                 </connections>
                             </button>
                         </subviews>
