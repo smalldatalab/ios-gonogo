@@ -315,6 +315,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDn-gO-8HD">
+                                <rect key="frame" x="20" y="230" width="560" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="GBe-UM-KKA"/>
+                                </constraints>
+                                <state key="normal" title="Complete Baseline Self-Report"/>
+                                <connections>
+                                    <segue destination="Fms-0g-BBP" kind="presentation" identifier="completeBaselineSegue" id="fzm-0g-2Hw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -323,11 +333,14 @@
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="leading" secondItem="cmZ-yU-L51" secondAttribute="trailing" constant="10" id="IYy-kt-JDd"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="LMo-wE-Wv6"/>
                             <constraint firstItem="cmZ-yU-L51" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="Sjs-af-PvH"/>
+                            <constraint firstItem="EDn-gO-8HD" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="T0Q-Io-2T4"/>
+                            <constraint firstItem="EDn-gO-8HD" firstAttribute="top" secondItem="kY1-Z6-7AH" secondAttribute="bottom" constant="18" id="Uef-2t-lnp"/>
                             <constraint firstItem="kY1-Z6-7AH" firstAttribute="top" secondItem="cmZ-yU-L51" secondAttribute="bottom" constant="20" id="axg-uw-cJ6"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="c82-P5-cwT"/>
                             <constraint firstItem="scu-FI-NEf" firstAttribute="leading" secondItem="kY1-Z6-7AH" secondAttribute="trailing" constant="8" id="fgj-GW-iMw"/>
                             <constraint firstItem="cmZ-yU-L51" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="n1r-p8-DJK"/>
                             <constraint firstItem="scu-FI-NEf" firstAttribute="centerY" secondItem="kY1-Z6-7AH" secondAttribute="centerY" id="pWu-ie-ih0"/>
+                            <constraint firstItem="EDn-gO-8HD" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="z4k-rf-TpN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="bzT-hH-fxj">
@@ -343,6 +356,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="completeBaselineButton" destination="EDn-gO-8HD" id="4eT-nt-mWK"/>
                         <outlet property="doneButton" destination="3o7-ea-8ec" id="32a-KL-ze9"/>
                         <outlet property="logoutButton" destination="n6y-IW-rFk" id="AtM-kM-Fmp"/>
                         <outlet property="remindersSwitch" destination="scu-FI-NEf" id="mxA-Ly-vNd"/>
@@ -545,4 +559,7 @@
             <point key="canvasLocation" x="1252" y="83"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fzm-0g-2Hw"/>
+    </inferredMetricsTieBreakers>
 </document>

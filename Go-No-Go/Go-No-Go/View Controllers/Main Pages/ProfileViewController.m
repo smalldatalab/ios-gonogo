@@ -10,6 +10,7 @@
 #import "OMHClient.h"
 #import "AppDelegate.h"
 #import "AppConstants.h"
+#import "VASTableViewController.h"
 
 @interface ProfileViewController ()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, strong) IBOutlet UISwitch *remindersSwitch;
+@property (nonatomic, strong) IBOutlet UIButton *completeBaselineButton;
 
 @end
 
@@ -30,10 +32,11 @@
     [super viewDidLoad];
     
     // Configure UI
-    self.usernameLabel.text          = [OMHClient signedInUsername] ?: @"N/A";
-    self.logoutButton.tintColor      = [UIColor belizeBlueColor];
-    self.doneButton.tintColor        = [UIColor belizeBlueColor];
-    self.remindersSwitch.onTintColor = [UIColor belizeBlueColor];
+    self.usernameLabel.text               = [OMHClient signedInUsername] ?: @"N/A";
+    self.logoutButton.tintColor           = [UIColor belizeBlueColor];
+    self.doneButton.tintColor             = [UIColor belizeBlueColor];
+    self.remindersSwitch.onTintColor      = [UIColor belizeBlueColor];
+    self.completeBaselineButton.tintColor = [UIColor belizeBlueColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,6 +71,14 @@
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             [self requestNotificationPermissions];
         }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"completeBaselineSegue"]) {
+        UINavigationController *nav = (UINavigationController*)[segue destinationViewController];
+        VASTableViewController *vas = (VASTableViewController*)[nav topViewController];
+        vas.testType = baselineTestType;
     }
 }
 

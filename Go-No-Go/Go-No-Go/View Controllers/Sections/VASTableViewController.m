@@ -20,7 +20,6 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 @property (strong, nonatomic) NSMutableArray<NSNumber*> *answersArray;
 
 @property (nonatomic, assign) BOOL hasAnsweredAQuestion;
-@property (nonatomic, strong) NSString *testType;
 
 @end
 
@@ -34,32 +33,24 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     [item setTintColor:[UIColor colorWithRed:52.0/255 green:73.0/255 blue:94.0/255 alpha:1.0]];
     [self.navigationItem setRightBarButtonItem:item];
     
-    // Need to do baseline first
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kHAS_COMPLETED_BASELINE]) {
-        self.questionsArray = [ImpulsivityQuestions baselineVASQuestions];
-        self.testType = @"baseline";
+    // Test type hasn't been specified by other VC
+    if (self.testType == 0) {
+        
+        // Need to do baseline first
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:kHAS_COMPLETED_BASELINE]) {
+            self.testType = baselineTestType;
+        }
+        // Baseline done
+        else {
+            self.testType = dailyTestType;
+        }
     }
     
-    // Baseline done
-    else {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:[NSDate date]];
-        NSInteger currentHour = [components hour];
-
-        // Morning
-        if (currentHour < 12) {
-            self.questionsArray = [ImpulsivityQuestions dailyVASQuestions];
-            self.testType = @"morning";
-        }
-        // Evening
-        else if (currentHour > 19) {
-            self.questionsArray = [ImpulsivityQuestions dailyVASQuestions];
-            self.testType = @"evening";
-        }
-        // Else baseline
-        else {
-            self.questionsArray = [ImpulsivityQuestions baselineVASQuestions];
-            self.testType = @"baseline";
-        }
+    // Choose questions
+    if (self.testType == baselineTestType) {
+        self.questionsArray = [ImpulsivityQuestions baselineVASQuestions];
+    } else {
+        self.questionsArray = [ImpulsivityQuestions dailyVASQuestions];
     }
 
     // Fill answers with 0s
@@ -187,7 +178,7 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (![self.testType isEqualToString:@"baseline"]) {
+    if (self.testType != baselineTestType) {
         return [ImpulsivityQuestions baselineVASInstructions];
     } else {
         return [ImpulsivityQuestions dailyVASInstructions];
@@ -218,9 +209,10 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     }
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
+    NSString *test = self.testType == baselineTestType ? @"baseline" : @"daily";
     
     NSDictionary *results = @{@"effective_time_frame" : time,
-                              @"test_type" : self.testType,
+                              @"test_type" : test,
                               @"results" : answers};
     
     return results;

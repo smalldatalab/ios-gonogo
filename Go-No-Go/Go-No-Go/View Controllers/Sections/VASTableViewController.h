@@ -10,4 +10,11 @@
 
 @interface VASTableViewController : UITableViewController
 
+typedef NS_ENUM(NSUInteger, TestTypeEnum) {
+    baselineTestType = 1,
+    dailyTestType = 2
+};
+
+@property (nonatomic, assign) TestTypeEnum testType;
+
 @end
