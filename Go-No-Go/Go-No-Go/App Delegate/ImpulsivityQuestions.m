@@ -15,7 +15,7 @@
 }
 
 + (NSString*)dailyVASInstructions {
-    return @"Please answer the questions below using the slider that goes from 0 (Not at All) to 10 (Extremely) based on how you have been feeling today. Each slider is set to moderately to begin.";
+    return @"Please answer the questions below about your day so far using the slider that goes from 0 (Not at all) to 10 (Extremely)";
 }
 
 + (NSArray*)baselineVASQuestions {

@@ -178,7 +178,7 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.testType != baselineTestType) {
+    if (self.testType == baselineTestType) {
         return [ImpulsivityQuestions baselineVASInstructions];
     } else {
         return [ImpulsivityQuestions dailyVASInstructions];
