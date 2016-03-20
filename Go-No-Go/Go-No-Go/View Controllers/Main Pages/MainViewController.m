@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "SVProgressHUD.h"
 
 @interface MainViewController ()
 
@@ -27,6 +28,9 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user"] style:UIBarButtonItemStylePlain target:self action:@selector(openProfile)];
     item.tintColor = [UIColor belizeBlueColor];
     [self.navigationItem setLeftBarButtonItem:item];
+    
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleLight];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +46,12 @@
         static dispatch_once_t onceToken2;
         dispatch_once(&onceToken2, ^{
             NSString *segue = arc4random_uniform(2) == 0 ? @"squareTaskSegue" : @"balloonGameSegue";
-            [self performSegueWithIdentifier:segue sender:self];
+            NSString *infoHUD = [segue isEqualToString:@"squareTaskSegue"] ? @"Please complete a Square Task" : @"Please complete a Balloon Game";
+            [SVProgressHUD showInfoWithStatus:infoHUD];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self performSegueWithIdentifier:segue sender:self];
+            });
         });
         self.showedSelfReport = NO;
     }
@@ -50,8 +59,12 @@
     // Direct users to self-report
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self performSegueWithIdentifier:@"selfReportSegue" sender:self];
-        self.showedSelfReport = YES;
+        [SVProgressHUD showInfoWithStatus:@"Please complete your daily questions"];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"selfReportSegue" sender:self];
+            self.showedSelfReport = YES;
+        });
     });
 }
 
