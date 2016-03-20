@@ -19,6 +19,8 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, strong) IBOutlet UISwitch *remindersSwitch;
 @property (nonatomic, strong) IBOutlet UIButton *completeBaselineButton;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *remindersSegmentedControl;
+@property (nonatomic, strong) IBOutlet UIDatePicker *datePicker;
 
 @end
 
@@ -32,17 +34,25 @@
     [super viewDidLoad];
     
     // Configure UI
-    self.usernameLabel.text               = [OMHClient signedInUsername] ?: @"N/A";
-    self.logoutButton.tintColor           = [UIColor belizeBlueColor];
-    self.doneButton.tintColor             = [UIColor belizeBlueColor];
-    self.remindersSwitch.onTintColor      = [UIColor belizeBlueColor];
-    self.completeBaselineButton.tintColor = [UIColor belizeBlueColor];
+    self.usernameLabel.text                  = [OMHClient signedInUsername] ?: @"N/A";
+    self.logoutButton.tintColor              = [UIColor belizeBlueColor];
+    self.doneButton.tintColor                = [UIColor belizeBlueColor];
+    self.remindersSwitch.onTintColor         = [UIColor belizeBlueColor];
+    self.completeBaselineButton.tintColor    = [UIColor belizeBlueColor];
+    self.remindersSegmentedControl.tintColor = [UIColor belizeBlueColor];
+    
+    // Set time
+    [self remindersSegmentedChanged:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.remindersSwitch.on = [self hasRemindersEnabled];
+    if (!self.remindersSwitch.on) {
+        self.datePicker.alpha = 0;
+        self.remindersSegmentedControl.alpha = 0;
+    }
 }
 
 - (IBAction)donePressed:(id)sender {
@@ -67,11 +77,36 @@
 
 - (IBAction)remindersSwitchChanged:(id)sender {
     if (self.remindersSwitch.isOn) {
+        
+        // Show date picker
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.datePicker setAlpha:1];
+            [self.remindersSegmentedControl setAlpha:1];
+        }];
+        
         // Check for notification permissions
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             [self requestNotificationPermissions];
         }
+        
+    } else {
+        
+        // Hide date picker
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.datePicker setAlpha:0];
+            [self.remindersSegmentedControl setAlpha:0];
+        }];
     }
+}
+
+- (IBAction)datePickerValueChanged:(id)sender {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (self.remindersSegmentedControl.selectedSegmentIndex == 0) {
+        [userDefaults setObject:self.datePicker.date forKey:kMorningReminderTime];
+    } else {
+        [userDefaults setObject:self.datePicker.date forKey:kEveningReminderTime];
+    }
+    [userDefaults synchronize];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -81,6 +116,13 @@
         vas.testType = baselineTestType;
     }
 }
+- (IBAction)remindersSegmentedChanged:(id)sender {
+    if (self.remindersSegmentedControl.selectedSegmentIndex == 0) {
+        [self.datePicker setDate:[self morningReminderTime] animated:YES];
+    } else {
+        [self.datePicker setDate:[self eveningReminderTime] animated:YES];
+    }
+}
 
 //------------------------------------------------------------------------------------------
 #pragma mark - Reminders -
@@ -88,6 +130,40 @@
 
 - (BOOL)hasRemindersEnabled {
     return ([[[UIApplication sharedApplication] scheduledLocalNotifications] count] > 0);
+}
+
+- (NSDate*)morningReminderTime {
+    // Time saved in user defaults
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kMorningReminderTime]) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:kMorningReminderTime];
+    }
+    
+    // If none, standard is 10am
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    [components setHour: 10];
+    [components setMinute: 0];
+    [components setSecond: 0];
+    [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
+    NSDate *morningTime = [calendar dateFromComponents:components];
+    return morningTime;
+}
+
+- (NSDate*)eveningReminderTime {
+    // Time saved in user defaults
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kEveningReminderTime]) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:kEveningReminderTime];
+    }
+    
+    // If none, standard is 7pm
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    [components setHour:19];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSDate *eveningTime = [calendar dateFromComponents:components];
+    return eveningTime;
 }
 
 - (void)requestNotificationPermissions
@@ -140,23 +216,10 @@
     
     if (self.remindersSwitch.isOn) {
         
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-        [components setHour: 10];
-        [components setMinute: 0];
-        [components setSecond: 0];
-        [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
-        NSDate *morningTime = [calendar dateFromComponents:components];
-        
-        [components setHour:19];
-        [components setMinute:0];
-        [components setSecond:0];
-        NSDate *eveningTime = [calendar dateFromComponents:components];
-        
         // Create morning notification
         UILocalNotification *morningNotification = [[UILocalNotification alloc] init];
         morningNotification.alertBody      = @"Daily reminder to answer questions";// Should change text
-        morningNotification.fireDate       = morningTime;
+        morningNotification.fireDate       = [self morningReminderTime];
         morningNotification.repeatInterval = NSCalendarUnitDay;
         morningNotification.soundName      = UILocalNotificationDefaultSoundName;
         morningNotification.timeZone       = [NSTimeZone defaultTimeZone];
@@ -165,7 +228,7 @@
         // Create evening notification
         UILocalNotification *eveningNotification = [[UILocalNotification alloc] init];
         eveningNotification.alertBody      = @"Daily reminder to answer questions";// Should change text
-        eveningNotification.fireDate       = eveningTime;
+        eveningNotification.fireDate       = [self eveningReminderTime];
         eveningNotification.repeatInterval = NSCalendarUnitDay;
         eveningNotification.soundName      = UILocalNotificationDefaultSoundName;
         eveningNotification.timeZone       = [NSTimeZone defaultTimeZone];

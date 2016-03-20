@@ -276,7 +276,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DFn-XB-kQu">
-                                <rect key="frame" x="312" y="90" width="268" height="58"/>
+                                <rect key="frame" x="312" y="75" width="268" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="J5y-fI-IT3"/>
                                     <constraint firstAttribute="height" constant="58" id="V7z-gO-BZf"/>
@@ -287,7 +287,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Connected Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmZ-yU-L51">
-                                <rect key="frame" x="20" y="90" width="282" height="58"/>
+                                <rect key="frame" x="20" y="75" width="282" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="4yM-mP-U7y"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="282" id="EdF-OK-78v"/>
@@ -298,7 +298,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="scu-FI-NEf">
-                                <rect key="frame" x="531" y="174" width="51" height="31"/>
+                                <rect key="frame" x="531" y="159" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="w4s-Ib-IiR"/>
                                 </constraints>
@@ -307,7 +307,7 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Reminders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kY1-Z6-7AH">
-                                <rect key="frame" x="20" y="168" width="503" height="44"/>
+                                <rect key="frame" x="20" y="153" width="503" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="1Pf-du-g5X"/>
                                 </constraints>
@@ -315,8 +315,33 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="ASe-cV-Cjn">
+                                <rect key="frame" x="0.0" y="233" width="600" height="178"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="178" id="yhg-7U-t1e"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="479864089.18390799">
+                                    <!--2016-03-16 23:34:49 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="tfD-2D-I4r" eventType="valueChanged" id="ddY-X3-zZn"/>
+                                </connections>
+                            </datePicker>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kwz-Vc-MEq">
+                                <rect key="frame" x="20" y="205" width="560" height="29"/>
+                                <segments>
+                                    <segment title="Morning"/>
+                                    <segment title="Evening"/>
+                                </segments>
+                                <connections>
+                                    <action selector="remindersSegmentedChanged:" destination="tfD-2D-I4r" eventType="valueChanged" id="dwd-3m-vLn"/>
+                                </connections>
+                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDn-gO-8HD">
-                                <rect key="frame" x="20" y="230" width="560" height="36"/>
+                                <rect key="frame" x="20" y="556" width="560" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="GBe-UM-KKA"/>
                                 </constraints>
@@ -331,16 +356,23 @@
                             <constraint firstItem="kY1-Z6-7AH" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="Bzt-ja-98c"/>
                             <constraint firstItem="scu-FI-NEf" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="IHk-sU-5oP"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="leading" secondItem="cmZ-yU-L51" secondAttribute="trailing" constant="10" id="IYy-kt-JDd"/>
-                            <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="LMo-wE-Wv6"/>
+                            <constraint firstItem="DFn-XB-kQu" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="11" id="LMo-wE-Wv6"/>
+                            <constraint firstItem="kwz-Vc-MEq" firstAttribute="top" secondItem="kY1-Z6-7AH" secondAttribute="bottom" constant="8" id="N23-8y-Iab"/>
+                            <constraint firstItem="ASe-cV-Cjn" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" constant="-20" id="N7a-Zb-LJS"/>
+                            <constraint firstItem="EDn-gO-8HD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ASe-cV-Cjn" secondAttribute="bottom" constant="10" id="OnN-2F-qaZ"/>
                             <constraint firstItem="cmZ-yU-L51" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="Sjs-af-PvH"/>
                             <constraint firstItem="EDn-gO-8HD" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="T0Q-Io-2T4"/>
-                            <constraint firstItem="EDn-gO-8HD" firstAttribute="top" secondItem="kY1-Z6-7AH" secondAttribute="bottom" constant="18" id="Uef-2t-lnp"/>
+                            <constraint firstItem="ASe-cV-Cjn" firstAttribute="top" secondItem="kwz-Vc-MEq" secondAttribute="bottom" id="To7-Ba-X5g"/>
+                            <constraint firstItem="kwz-Vc-MEq" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="WaU-74-v7t"/>
                             <constraint firstItem="kY1-Z6-7AH" firstAttribute="top" secondItem="cmZ-yU-L51" secondAttribute="bottom" constant="20" id="axg-uw-cJ6"/>
                             <constraint firstItem="DFn-XB-kQu" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="c82-P5-cwT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ASe-cV-Cjn" secondAttribute="trailing" constant="-20" id="e8e-nQ-rCM"/>
                             <constraint firstItem="scu-FI-NEf" firstAttribute="leading" secondItem="kY1-Z6-7AH" secondAttribute="trailing" constant="8" id="fgj-GW-iMw"/>
-                            <constraint firstItem="cmZ-yU-L51" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="26" id="n1r-p8-DJK"/>
+                            <constraint firstItem="cmZ-yU-L51" firstAttribute="top" secondItem="SH0-WJ-or3" secondAttribute="bottom" constant="11" id="n1r-p8-DJK"/>
                             <constraint firstItem="scu-FI-NEf" firstAttribute="centerY" secondItem="kY1-Z6-7AH" secondAttribute="centerY" id="pWu-ie-ih0"/>
+                            <constraint firstItem="kwz-Vc-MEq" firstAttribute="leading" secondItem="kt9-Jl-89P" secondAttribute="leadingMargin" id="wXT-vS-QJF"/>
                             <constraint firstItem="EDn-gO-8HD" firstAttribute="trailing" secondItem="kt9-Jl-89P" secondAttribute="trailingMargin" id="z4k-rf-TpN"/>
+                            <constraint firstItem="qyW-4b-cpA" firstAttribute="top" secondItem="EDn-gO-8HD" secondAttribute="bottom" constant="8" id="zb3-3Q-HKu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="bzT-hH-fxj">
@@ -357,8 +389,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="completeBaselineButton" destination="EDn-gO-8HD" id="4eT-nt-mWK"/>
+                        <outlet property="datePicker" destination="ASe-cV-Cjn" id="K3s-Wj-i2v"/>
                         <outlet property="doneButton" destination="3o7-ea-8ec" id="32a-KL-ze9"/>
                         <outlet property="logoutButton" destination="n6y-IW-rFk" id="AtM-kM-Fmp"/>
+                        <outlet property="remindersSegmentedControl" destination="kwz-Vc-MEq" id="goe-ex-F5h"/>
                         <outlet property="remindersSwitch" destination="scu-FI-NEf" id="mxA-Ly-vNd"/>
                         <outlet property="usernameLabel" destination="DFn-XB-kQu" id="qbh-13-A2K"/>
                     </connections>

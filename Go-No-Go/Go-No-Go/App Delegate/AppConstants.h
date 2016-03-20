@@ -19,6 +19,8 @@ extern NSString * const kDSUClientID;
  */
 extern NSString * const kHAS_COMPLETED_BASELINE;
 extern NSString * const kHasRequestedPermissionKey;
+extern NSString * const kMorningReminderTime;
+extern NSString * const kEveningReminderTime;
 
 @interface AppConstants : NSObject
 

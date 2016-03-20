@@ -13,6 +13,8 @@
 NSString * const kDSUClientID = @"io.smalldata.ios.goNoGo";
 NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
 NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION";
+NSString * const kMorningReminderTime = @"MORNING_REMINDER_TIME";
+NSString * const kEveningReminderTime = @"EVENING_REMINDER_TIME";
 
 @implementation AppConstants
 
