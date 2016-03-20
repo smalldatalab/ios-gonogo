@@ -21,6 +21,8 @@ extern NSString * const kHAS_COMPLETED_BASELINE;
 extern NSString * const kHasRequestedPermissionKey;
 extern NSString * const kMorningReminderTime;
 extern NSString * const kEveningReminderTime;
+extern NSString * const kDidGoThroughResearcherCode;
+extern NSString * const kResearcherCode;
 
 @interface AppConstants : NSObject
 

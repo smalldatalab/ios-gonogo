@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "SVProgressHUD.h"
+#import "OMHClient.h"
 
 @interface MainViewController ()
 
@@ -40,6 +41,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    // Return early (and don't present tasks if not signed in)
+    if (![OMHClient sharedClient].isSignedIn || ![OMHClient sharedClient].isReachable) {
+        return;
+    }
     
     // Direct users to either square task or balloon game after coming back from self-report
     if (self.showedSelfReport) {

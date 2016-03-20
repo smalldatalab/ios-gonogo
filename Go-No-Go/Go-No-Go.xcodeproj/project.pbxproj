@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B80287E61C9F276400063BAD /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80287E51C9F276400063BAD /* OnboardingViewController.m */; };
 		B8087F301C5953CB002CD9E9 /* VASTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8087F2F1C5953CB002CD9E9 /* VASTableViewController.m */; };
 		B82980911C45ADDB00C5113A /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B82980901C45ADDB00C5113A /* AppConstants.m */; };
 		B8304D0D1C48090F00C3F5C6 /* BalloonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8304D0C1C48090F00C3F5C6 /* BalloonViewController.m */; };
@@ -71,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B80287E41C9F276400063BAD /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		B80287E51C9F276400063BAD /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		B8087F2E1C5953CB002CD9E9 /* VASTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VASTableViewController.h; sourceTree = "<group>"; };
 		B8087F2F1C5953CB002CD9E9 /* VASTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VASTableViewController.m; sourceTree = "<group>"; };
 		B829808F1C45ADDB00C5113A /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
@@ -228,6 +231,8 @@
 				B8F1ECC71C4E937F00449EC7 /* DSUURLViewController.m */,
 				B860BAC81C4E92F600A6E7F8 /* LoginViewController.h */,
 				B860BAC91C4E92F600A6E7F8 /* LoginViewController.m */,
+				B80287E41C9F276400063BAD /* OnboardingViewController.h */,
+				B80287E51C9F276400063BAD /* OnboardingViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 				B86582A31C3EF00700C15BB8 /* MainViewController.m in Sources */,
 				B8304D101C48339300C3F5C6 /* UIColor+Additions.m in Sources */,
 				B8087F301C5953CB002CD9E9 /* VASTableViewController.m in Sources */,
+				B80287E61C9F276400063BAD /* OnboardingViewController.m in Sources */,
 				B86582A01C3EF00700C15BB8 /* AppDelegate.m in Sources */,
 				B8F1ECFA1C4E9A6400449EC7 /* OMHClientDSUConnector.m in Sources */,
 				B8BAC7A51C6E2AB500DA81F2 /* ImpulsivityQuestions.m in Sources */,

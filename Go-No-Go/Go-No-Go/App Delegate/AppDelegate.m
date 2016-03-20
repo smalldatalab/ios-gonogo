@@ -100,8 +100,10 @@
         self.navigationController = nil;
     }];
     
-    // Clear key on baseline test
+    // Clear key on baseline test and researcher code
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHAS_COMPLETED_BASELINE];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidGoThroughResearcherCode];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kResearcherCode];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -355,7 +355,7 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
     int ommissions            = [self numberOfOmmissions];
     int correctBlueResponses  = [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
     int correctGreenResponses = [self countResponsesForCue:GO_CUE andCorrectness:YES];
-    double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / NUMBER_OF_TRIALS;
+    double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / (double)NUMBER_OF_TRIALS;
     
     // Conform to OMH unit format
     // See: http://www.openmhealth.org/documentation/#/schema-docs/schema-library/schemas/omh_duration-unit-value
@@ -368,7 +368,8 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
-    NSDictionary *results = @{@"variable_label" : @"Go-no-go",
+    NSDictionary *results = @{@"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
+                              @"variable_label" : @"Go-no-go",
                               @"effective_time_frame" : time,
                               @"number_of_trials" : @(NUMBER_OF_TRIALS),
                               @"correct_responses" : @(correctResponses),

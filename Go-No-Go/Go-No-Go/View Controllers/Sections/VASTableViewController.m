@@ -212,6 +212,7 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     NSString *test = self.testType == baselineTestType ? @"baseline" : @"daily";
     
     NSDictionary *results = @{@"effective_time_frame" : time,
+                              @"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
                               @"test_type" : test,
                               @"results" : answers};
     

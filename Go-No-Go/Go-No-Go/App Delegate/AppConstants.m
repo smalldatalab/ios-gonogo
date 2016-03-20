@@ -15,6 +15,8 @@ NSString * const kHAS_COMPLETED_BASELINE = @"HAS_COMPLETED_BASELINE";
 NSString * const kHasRequestedPermissionKey = @"HAS_REQUESTED_PERMISSION";
 NSString * const kMorningReminderTime = @"MORNING_REMINDER_TIME";
 NSString * const kEveningReminderTime = @"EVENING_REMINDER_TIME";
+NSString * const kDidGoThroughResearcherCode = @"DID_GO_THROUGH_RESEARCHER_CODE";
+NSString * const kResearcherCode = @"RESEARCHER_CODE";
 
 @implementation AppConstants
 

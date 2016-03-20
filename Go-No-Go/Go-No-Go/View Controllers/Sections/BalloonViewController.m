@@ -292,7 +292,9 @@ static const float BUTTON_HEIGHT = 60.f;
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
-    NSDictionary *results = @{@"effective_time_frame" : time,
+    NSDictionary *results = @{@"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
+                              @"variable_label" : @"BART",
+                              @"effective_time_frame" : time,
                               @"pumps_mean" : @(meanPumps),
                               @"pumps_range" : @(rangePumps),
                               @"pumps_standard_deviation" : @(stdDevPumps),

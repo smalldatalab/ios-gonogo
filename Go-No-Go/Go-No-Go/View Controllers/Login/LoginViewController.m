@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "UIView+AutoLayoutHelpers.h"
 #import "AppDelegate.h"
+#import "AppConstants.h"
 #import "OMHClient.h"
 #import "DSUURLViewController.h"
 
@@ -111,6 +112,16 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // Show onboarding page
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kDidGoThroughResearcherCode]) {
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"onboardingScreen"];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
