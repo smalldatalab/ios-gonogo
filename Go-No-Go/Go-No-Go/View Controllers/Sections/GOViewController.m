@@ -355,7 +355,7 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
     int ommissions            = [self numberOfOmmissions];
     int correctBlueResponses  = [self countResponsesForCue:NO_GO_CUE andCorrectness:YES];
     int correctGreenResponses = [self countResponsesForCue:GO_CUE andCorrectness:YES];
-    double meanAccuracy      = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / (double)NUMBER_OF_TRIALS;
+    double meanAccuracy       = [self occurrencesOfObject:@YES inArray:self.correctAnswerArray] / (double)NUMBER_OF_TRIALS;
     
     // Conform to OMH unit format
     // See: http://www.openmhealth.org/documentation/#/schema-docs/schema-library/schemas/omh_duration-unit-value
@@ -381,9 +381,56 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
                               @"mean_accuracy" : @(meanAccuracy),
                               @"response_time_mean" : meanResponseTime,
                               @"response_time_range" : rangeResponseTime,
-                              @"response_time_standard_deviation" : stdDevReponseTime};
+                              @"response_time_standard_deviation" : stdDevReponseTime,
+                          	  @"correctness_array" : self.correctAnswerArray,
+                          	  @"response_times_array" : self.responseTimeArray};
     
-    return results;
+    // Divide results into thirds
+    NSUInteger len = ceil(self.correctAnswerArray.count / 3);
+    NSArray *correctFirstThird  = [self.correctAnswerArray subarrayWithRange:NSMakeRange(0, len)];
+    NSArray *correctSecondThird = [self.correctAnswerArray subarrayWithRange:NSMakeRange(len, len)];
+    NSArray *correctLastThird   = [self.correctAnswerArray subarrayWithRange:NSMakeRange(2*len, len)];
+    len = ceil(self.responseTimeArray.count / 3);
+    NSArray *responseTimeFirstThird  = [self.responseTimeArray subarrayWithRange:NSMakeRange(0, len)];
+    NSArray *responseTimeSecondThird = [self.responseTimeArray subarrayWithRange:NSMakeRange(len, len)];
+    NSArray *responseTimeLastThird   = [self.responseTimeArray subarrayWithRange:NSMakeRange(2*len, len)];
+
+    // Stats in thirds
+    int correctResponses_first_third    = [self occurrencesOfObject:@YES inArray:correctFirstThird];
+    int correctResponses_second_third   = [self occurrencesOfObject:@YES inArray:correctSecondThird];
+    int correctResponses_last_third     = [self occurrencesOfObject:@YES inArray:correctLastThird];
+    int incorrectResponses_first_third  = [self occurrencesOfObject:@NO inArray:correctFirstThird];
+    int incorrectResponses_second_third = [self occurrencesOfObject:@NO inArray:correctSecondThird];
+    int incorrectResponses_last_third   = [self occurrencesOfObject:@NO inArray:correctLastThird];
+    double meanAccuracy_first_third     = [self occurrencesOfObject:@YES inArray:correctFirstThird] / (double)(NUMBER_OF_TRIALS / 3);
+    double meanAccuracy_second_third    = [self occurrencesOfObject:@YES inArray:correctSecondThird] / (double)(NUMBER_OF_TRIALS / 3);
+    double meanAccuracy_last_third      = [self occurrencesOfObject:@YES inArray:correctLastThird] / (double)(NUMBER_OF_TRIALS / 3);
+    NSDictionary *meanResponseTime_first_third = @{@"unit" : @"ms",
+                                    @"value" : @([self averageOfNonZeroValues:responseTimeFirstThird])};
+    NSDictionary *meanResponseTime_second_third = @{@"unit" : @"ms",
+                                    @"value" : @([self averageOfNonZeroValues:responseTimeSecondThird])};
+    NSDictionary *meanResponseTime_last_third = @{@"unit" : @"ms",
+                                    @"value" : @([self averageOfNonZeroValues:responseTimeLastThird])};
+
+    // Add them to results
+    NSDictionary *additionalStats = @{@"correct_responses_first_third" : @(correctResponses_first_third),
+                                      @"correct_responses_second_third" : @(correctResponses_second_third),
+                                      @"correct_responses_last_third" : @(correctResponses_last_third),
+                                      @"incorrect_responses_first_third" : @(incorrectResponses_first_third),
+                                      @"incorrect_responses_second_third" : @(incorrectResponses_second_third),
+                                      @"incorrect_responses_last_third" : @(incorrectResponses_last_third),
+                                      @"mean_accuracy_first_third" : @(meanAccuracy_first_third),
+                                      @"mean_accuracy_second_third" : @(meanAccuracy_second_third),
+                                      @"mean_accuracy_last_third" : @(meanAccuracy_last_third),
+                                      @"response_time_mean_first_third" : meanResponseTime_first_third,
+                                      @"response_time_mean_second_third" : meanResponseTime_second_third,
+                                      @"response_time_mean_last_third" : meanResponseTime_last_third};
+    
+    // Return combination
+    NSMutableDictionary *finalResults = [results mutableCopy];
+    [finalResults addEntriesFromDictionary:additionalStats];
+
+    return finalResults;
 }
 
 //------------------------------------------------------------------------------------------
@@ -391,7 +438,7 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
 //------------------------------------------------------------------------------------------
 
 // Count occurrences of object in an array
-- (int)occurrencesOfObject:(id)object inArray:(NSMutableArray*)array
+- (int)occurrencesOfObject:(id)object inArray:(NSArray*)array
 {
     NSCountedSet *set = [[NSCountedSet alloc] initWithArray:array];
     return (int)[set countForObject:object];
