@@ -290,12 +290,36 @@ static const float BUTTON_HEIGHT = 60.f;
 }
 
 - (NSDictionary *)JSONResultsForDataPoint {
+    // Divide results into thirds
+    NSUInteger len = ceil(self.pumpsPerBalloon.count / 3);
+    NSArray *firstThird = [self.pumpsPerBalloon subarrayWithRange:NSMakeRange(0, len)];
+    NSArray *secondThird = [self.pumpsPerBalloon subarrayWithRange:NSMakeRange(len, len)];
+    NSArray *lastThird = [self.pumpsPerBalloon subarrayWithRange:NSMakeRange(2*len, len)];
+    
+    // Global stats
     double meanPumps = [self averageOfNonZeroValues:self.pumpsPerBalloon];
     int rangePumps = [self rangeOfValues:self.pumpsPerBalloon];
     double stdDevPumps = [self standardDeviationOfValues:self.pumpsPerBalloon];
     
+    // Thirds stats
+
+    // 1/3
+    double meanPumps1 = [self averageOfNonZeroValues:firstThird];
+    int rangePumps1 = [self rangeOfValues:firstThird];
+    double stdDevPumps1 = [self standardDeviationOfValues:firstThird];
+    // 2/3
+    double meanPumps2 = [self averageOfNonZeroValues:secondThird];
+    int rangePumps2 = [self rangeOfValues:secondThird];
+    double stdDevPumps2 = [self standardDeviationOfValues:secondThird];
+    // 3/3
+    double meanPumps3 = [self averageOfNonZeroValues:lastThird];
+    int rangePumps3 = [self rangeOfValues:lastThird];
+    double stdDevPumps3 = [self standardDeviationOfValues:lastThird];
+    
+    // Current time
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
+    // Time to complete whole task
     NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:self.startGameDate];
     NSDictionary *completionTime  = @{@"unit" : @"sec",
                                         @"value" : @(interval)};
@@ -313,7 +337,17 @@ static const float BUTTON_HEIGHT = 60.f;
                               @"max_pumps_per_balloon" : @(kMaxPumps),
                               @"earning_increment_per_pump" : @(kGainPerPump),
                               @"mean_pumps_after_explode" : @((int)[self averageOfNonZeroValues:self.pumpsAfterExplode]),
-                              @"mean_pumps_after_no_explode" : @((int)[self averageOfNonZeroValues:self.pumpsAfterNoExplode])};
+                              @"mean_pumps_after_no_explode" : @((int)[self averageOfNonZeroValues:self.pumpsAfterNoExplode]),
+                              @"pumps_mean_first_third" : @(meanPumps1),
+                              @"pumps_mean_second_third" : @(meanPumps2),
+                              @"pumps_mean_last_third" : @(meanPumps3),
+                              @"pumps_range_first_third" : @(rangePumps1),
+                              @"pumps_range_second_third" : @(rangePumps2),
+                              @"pumps_range_last_third" : @(rangePumps3),
+                              @"pumps_standard_deviation_first_third" : @(stdDevPumps1),
+                              @"pumps_standard_deviation_second_third" : @(stdDevPumps2),
+                              @"pumps_standard_deviation_last_third" : @(stdDevPumps3),
+                              @"pumps_per_balloon" : self.pumpsPerBalloon};
 
     return results;
 }
