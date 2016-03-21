@@ -41,6 +41,7 @@ static const float BUTTON_HEIGHT = 60.f;
 @property (nonatomic, strong) NSMutableArray *pumpsAfterNoExplode;
 @property (nonatomic, assign) BOOL lastBalloonExploded;
 @property (nonatomic, assign) int numberOfExplosions;
+@property (nonatomic, strong) NSDate *startGameDate;
 
 @end
 
@@ -124,6 +125,9 @@ static const float BUTTON_HEIGHT = 60.f;
     } completion:^(BOOL finished) {
         [self.startButton removeFromSuperview];
         [self.explanationLabel removeFromSuperview];
+        
+        // Start stopwatch
+        self.startGameDate = [NSDate date];
     
         // Hide UI
         for (UIView *view in @[self.potentialGainLabel, self.totalEarningsLabel, self.pumpButton, self.collectButton, self.balloon]) {
@@ -292,9 +296,14 @@ static const float BUTTON_HEIGHT = 60.f;
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:self.startGameDate];
+    NSDictionary *completionTime  = @{@"unit" : @"sec",
+                                        @"value" : @(interval)};
+    
     NSDictionary *results = @{@"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
                               @"variable_label" : @"BART",
                               @"effective_time_frame" : time,
+                              @"completion_time" : completionTime,
                               @"pumps_mean" : @(meanPumps),
                               @"pumps_range" : @(rangePumps),
                               @"pumps_standard_deviation" : @(stdDevPumps),
