@@ -42,6 +42,7 @@ static const float BUTTON_HEIGHT = 60.f;
 @property (nonatomic, assign) BOOL lastBalloonExploded;
 @property (nonatomic, assign) int numberOfExplosions;
 @property (nonatomic, strong) NSDate *startGameDate;
+@property (nonatomic, strong) NSMutableArray *completionTimes;
 
 @end
 
@@ -69,6 +70,7 @@ static const float BUTTON_HEIGHT = 60.f;
     self.pumpsPerBalloon = [[NSMutableArray alloc] init];
     self.pumpsAfterExplode = [[NSMutableArray alloc] init];
     self.pumpsAfterNoExplode = [[NSMutableArray alloc] init];
+    self.completionTimes = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -180,9 +182,18 @@ static const float BUTTON_HEIGHT = 60.f;
 }
 
 - (IBAction)tappedCollect:(id)sender {
-    self.currentBalloon++;
+    [self.completionTimes addObject:@([[NSDate date] timeIntervalSinceDate:self.startGameDate] - [self sumOfAllElementsInArray:self.completionTimes])];
+    self.currentBalloon++; // Move to next balloon
     self.lastBalloonExploded = NO; // Set flag
     [self resetBalloon];
+}
+
+- (double)sumOfAllElementsInArray:(NSArray*)array {
+    double output = 0.0;
+    for (NSNumber *num in array) {
+        output += [num doubleValue];
+    }
+    return output;
 }
 
 //------------------------------------------------------------------------------------------
@@ -192,7 +203,8 @@ static const float BUTTON_HEIGHT = 60.f;
 - (void)implodeBalloon {
     // No gains if balloon implodes
     self.potentialGain = 0;
-    self.currentBalloon++;
+    [self.completionTimes addObject:@([[NSDate date] timeIntervalSinceDate:self.startGameDate] - [self sumOfAllElementsInArray:self.completionTimes])];
+    self.currentBalloon++; // Move to next balloon
     self.numberOfExplosions++;
     self.lastBalloonExploded = YES; // Set flag
     [self updateEarningLabels];
@@ -350,7 +362,8 @@ static const float BUTTON_HEIGHT = 60.f;
                               @"pumps_standard_deviation_first_third" : @(stdDevPumps1),
                               @"pumps_standard_deviation_second_third" : @(stdDevPumps2),
                               @"pumps_standard_deviation_last_third" : @(stdDevPumps3),
-                              @"pumps_per_balloon" : self.pumpsPerBalloon};
+                              @"pumps_per_balloon" : self.pumpsPerBalloon,
+                              @"time_per_balloon": self.completionTimes};
 
     return results;
 }
