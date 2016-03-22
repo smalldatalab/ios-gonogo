@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af7-vx-KPR">
-                                <rect key="frame" x="20" y="227" width="560" height="80"/>
+                                <rect key="frame" x="20" y="228" width="560" height="80"/>
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Odz-r3-Yef"/>
@@ -128,10 +128,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="kSliderCellReuseIdentifier" rowHeight="150" id="heX-8A-DgS" customClass="VASTableViewCell">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="heX-8A-DgS" id="lOI-qB-UZj">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="1" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SNo-Yx-fCN">
@@ -413,35 +413,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYq-i1-jg4">
-                                <rect key="frame" x="20" y="133" width="560" height="162"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">Pulsus Beta is an assessment to help people understand their attention levels throughout the day. There are no right answers or proper way to do the tests. 
-
-</string>
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="4" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="If you have been given a special code by a researcher, please enter it below.">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="18" name="HelveticaNeue-Light"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="4" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Code Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6f9-xL-QKb">
-                                <rect key="frame" x="150" y="303" width="300" height="30"/>
+                                <rect key="frame" x="150" y="263" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="1XL-my-aOy"/>
                                     <constraint firstAttribute="height" constant="30" id="7vs-VL-TlM"/>
@@ -450,7 +423,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8q-C3-Ymq">
-                                <rect key="frame" x="222" y="372" width="156" height="30"/>
+                                <rect key="frame" x="222" y="301" width="156" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="Ib4-w9-nyh"/>
                                     <constraint firstAttribute="height" constant="30" id="jhW-ih-7Re"/>
@@ -464,7 +437,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pulsus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GjZ-4R-6XY">
-                                <rect key="frame" x="20" y="64" width="560" height="61"/>
+                                <rect key="frame" x="20" y="24" width="560" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="61" id="gMw-Ss-C0M"/>
                                     <constraint firstAttribute="height" constant="61" id="udP-8B-IMB"/>
@@ -473,32 +446,47 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHf-xH-jgh">
-                                <rect key="frame" x="270" y="343" width="60" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="eg0-FE-f1Y"/>
-                                    <constraint firstAttribute="height" constant="21" id="zAe-zw-RVp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="ZYq-i1-jg4">
+                                <rect key="frame" x="20" y="93" width="560" height="162"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Pulsus Beta is an assessment to help people understand their attention levels throughout the day. There are no right answers or proper way to do the tests. 
+
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="leftToRight" lineSpacing="4" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="If you have been given a special code by a researcher, please enter it below.">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="18" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="leftToRight" lineSpacing="4" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ZYq-i1-jg4" firstAttribute="height" secondItem="Y8e-XD-XlI" secondAttribute="height" multiplier="0.5" constant="-138" id="1Bj-TY-upH"/>
-                            <constraint firstItem="R8q-C3-Ymq" firstAttribute="top" secondItem="ZHf-xH-jgh" secondAttribute="bottom" constant="8" id="8hw-hi-DgA"/>
-                            <constraint firstItem="ZHf-xH-jgh" firstAttribute="centerX" secondItem="Y8e-XD-XlI" secondAttribute="centerX" id="9W2-Mo-JNd"/>
+                            <constraint firstItem="ZYq-i1-jg4" firstAttribute="height" secondItem="Y8e-XD-XlI" secondAttribute="height" multiplier="0.5" priority="999" constant="-138" id="1Bj-TY-upH"/>
                             <constraint firstItem="ZYq-i1-jg4" firstAttribute="leading" secondItem="Y8e-XD-XlI" secondAttribute="leadingMargin" id="BSk-cI-E95"/>
                             <constraint firstItem="GjZ-4R-6XY" firstAttribute="leading" secondItem="Y8e-XD-XlI" secondAttribute="leadingMargin" id="RC6-Jb-rvb"/>
                             <constraint firstItem="GjZ-4R-6XY" firstAttribute="trailing" secondItem="Y8e-XD-XlI" secondAttribute="trailingMargin" id="URj-IR-8IZ"/>
                             <constraint firstItem="R8q-C3-Ymq" firstAttribute="centerX" secondItem="Y8e-XD-XlI" secondAttribute="centerX" id="X3K-4G-eOU"/>
                             <constraint firstItem="6f9-xL-QKb" firstAttribute="width" secondItem="Y8e-XD-XlI" secondAttribute="width" multiplier="0.5" priority="999" id="XIW-SS-Sdy"/>
-                            <constraint firstItem="ZHf-xH-jgh" firstAttribute="top" secondItem="6f9-xL-QKb" secondAttribute="bottom" constant="10" id="hxt-VT-oPU"/>
                             <constraint firstItem="ZYq-i1-jg4" firstAttribute="trailing" secondItem="Y8e-XD-XlI" secondAttribute="trailingMargin" id="iiM-5i-ZdA"/>
-                            <constraint firstItem="GjZ-4R-6XY" firstAttribute="top" secondItem="q5F-Va-8rc" secondAttribute="bottom" constant="44" id="jPI-A4-JJr"/>
+                            <constraint firstItem="GjZ-4R-6XY" firstAttribute="top" secondItem="q5F-Va-8rc" secondAttribute="bottom" constant="4" id="jPI-A4-JJr"/>
                             <constraint firstItem="6f9-xL-QKb" firstAttribute="top" secondItem="ZYq-i1-jg4" secondAttribute="bottom" constant="8" id="kdC-jF-TWR"/>
                             <constraint firstItem="ZYq-i1-jg4" firstAttribute="top" secondItem="GjZ-4R-6XY" secondAttribute="bottom" constant="8" id="l9C-Qo-0dV"/>
+                            <constraint firstItem="R8q-C3-Ymq" firstAttribute="top" secondItem="6f9-xL-QKb" secondAttribute="bottom" constant="8" id="ruJ-9X-e2Q"/>
                             <constraint firstItem="6f9-xL-QKb" firstAttribute="centerX" secondItem="Y8e-XD-XlI" secondAttribute="centerX" id="sIi-67-0NZ"/>
                         </constraints>
                     </view>

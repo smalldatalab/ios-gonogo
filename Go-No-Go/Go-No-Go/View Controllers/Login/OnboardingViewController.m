@@ -58,7 +58,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     // Leave page
     [self dismissKeyboard];
-    [self dismissView:nil];
     return NO;
 }
 
