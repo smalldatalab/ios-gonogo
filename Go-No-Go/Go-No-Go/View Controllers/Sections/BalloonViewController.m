@@ -339,7 +339,9 @@ static const float BUTTON_HEIGHT = 60.f;
     NSDictionary *completionTime  = @{@"unit" : @"sec",
                                         @"value" : @(interval)};
     
-    NSDictionary *results = @{@"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
+    NSString *researcherCode = [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode] ?: @"";
+    
+    NSDictionary *results = @{@"researcher_code": researcherCode,
                               @"variable_label" : @"BART",
                               @"effective_time_frame" : time,
                               @"completion_time" : completionTime,

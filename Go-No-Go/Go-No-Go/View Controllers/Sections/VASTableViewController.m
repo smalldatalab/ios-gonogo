@@ -211,8 +211,10 @@ NSString* const kSliderCellReuseIdentifier = @"kSliderCellReuseIdentifier";
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     NSString *test = self.testType == baselineTestType ? @"baseline" : @"daily";
     
+    NSString *researcherCode = [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode] ?: @"";
+    
     NSDictionary *results = @{@"effective_time_frame" : time,
-                              @"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
+                              @"researcher_code": researcherCode,
                               @"test_type" : test,
                               @"results" : answers};
     

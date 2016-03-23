@@ -368,7 +368,9 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
     
     NSDictionary *time = @{@"date_time" : [OMHDataPoint stringFromDate:[NSDate date]]};
     
-    NSDictionary *results = @{@"researcher_code": [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode],
+    NSString *researcherCode = [[NSUserDefaults standardUserDefaults] objectForKey:kResearcherCode] ?: @"";
+    
+    NSDictionary *results = @{@"researcher_code": researcherCode,
                               @"variable_label" : @"Go-no-go",
                               @"effective_time_frame" : time,
                               @"number_of_trials" : @(NUMBER_OF_TRIALS),
