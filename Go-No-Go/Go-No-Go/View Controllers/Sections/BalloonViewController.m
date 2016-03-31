@@ -403,10 +403,12 @@ static const float BUTTON_HEIGHT = 60.f;
     // Results
     self.resultsTextView.text = [NSString stringWithFormat:@"Average Pumps per Balloon: %.1f\n\n"
                                  "Total Earnings: $%.2f\n\n"
-                                 "Number of Balloon Explosions: %d\n\n",
+                                 "Number of Balloon Explosions: %d\n\n"
+                                 "Total Time to Complete: %@\n\n",
                                  [self averageOfNonZeroValues:self.pumpsPerBalloon],
                                  self.earnings,
-                                 self.numberOfExplosions];
+                                 self.numberOfExplosions,
+                                 [self getTimeStringFromSeconds:[[NSDate date] timeIntervalSinceDate:self.startGameDate]]];
     
     // Drop it below to animate it up
     CGRect newFrame   = self.resultsTextView.frame;
@@ -419,6 +421,15 @@ static const float BUTTON_HEIGHT = 60.f;
         center.y       = CGRectGetMidY(self.view.frame) + CGRectGetHeight(self.navigationController.navigationBar.frame);
         [self.resultsTextView setCenter:center];
     }];
+}
+
+-(NSString *)getTimeStringFromSeconds:(double)seconds
+{
+    NSDateComponentsFormatter *dcFormatter = [[NSDateComponentsFormatter alloc] init];
+    dcFormatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+    dcFormatter.allowedUnits = NSCalendarUnitMinute | NSCalendarUnitSecond;
+    dcFormatter.unitsStyle = NSDateComponentsFormatterUnitsStyleAbbreviated;
+    return [dcFormatter stringFromTimeInterval:seconds];
 }
 
 //------------------------------------------------------------------------------------------
