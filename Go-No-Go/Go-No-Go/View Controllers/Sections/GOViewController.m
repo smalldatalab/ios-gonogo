@@ -14,7 +14,7 @@ static const float BUTTON_HEIGHT = 60.f;
 static const int GO_CUE          = 0;
 static const int NO_GO_CUE       = 1;
 
-static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
+static const int NUMBER_OF_TRIALS = 75; // 30 trials per minute
 
 @interface GOViewController ()
 
@@ -175,8 +175,8 @@ static const int NUMBER_OF_TRIALS = 90; // 30 trials per minute
                     cueBox.layer.borderWidth = 4.f;
                     [self.view addSubview:cueBox];
                     
-                    // Show color after 100,200,300,400 or 500ms
-                    NSTimeInterval delay = 0.3;
+                    // Show color after 550ms
+                    NSTimeInterval delay = 0.55;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
                         // Different probabilities for go and no-go cues
