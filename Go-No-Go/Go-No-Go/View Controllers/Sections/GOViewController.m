@@ -308,7 +308,7 @@ static const int NUMBER_OF_TRIALS = 75; // 30 trials per minute
                                  "Incorrect Answers: %d\n\n"
                                  "Mean Response Time: %.0f msec\n\n"
                                  "Number of Commissions (hit when should not): %d\n\n"
-                                 "Number of Ommissions (not hit when should): %d",
+                                 "Number of Omissions (not hit when should): %d",
                                  [self occurrencesOfObject:@YES inArray:self.correctAnswerArray],
                                  [self occurrencesOfObject:@NO inArray:self.correctAnswerArray],
                                  [self averageOfNonZeroValues:self.responseTimeArray],
