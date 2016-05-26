@@ -379,7 +379,7 @@ static const int NUMBER_OF_TRIALS = 75; // 30 trials per minute
                               @"correct_blue_responses" : @(correctBlueResponses),
                               @"correct_green_responses" : @(correctGreenResponses),
                               @"commissions" : @(commissions),
-                              @"ommissions" : @(ommissions),
+                              @"omissions" : @(ommissions),
                               @"mean_accuracy" : @(meanAccuracy),
                               @"response_time_mean" : meanResponseTime,
                               @"response_time_range" : rangeResponseTime,
