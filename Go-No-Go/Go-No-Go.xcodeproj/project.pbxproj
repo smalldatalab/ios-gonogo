@@ -469,7 +469,7 @@
 				TargetAttributes = {
 					B86582971C3EF00700C15BB8 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 97CH99WN8D;
+						DevelopmentTeam = 62Q6KFJKEC;
 					};
 					B86582B01C3EF00700C15BB8 = {
 						CreatedOnToolsVersion = 7.2;
@@ -717,7 +717,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.smalldatalab.goNoGo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.smalldatalab.pulsus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -742,7 +742,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.smalldatalab.goNoGo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.smalldatalab.pulsus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
